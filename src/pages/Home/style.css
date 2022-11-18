@@ -1,0 +1,22 @@
+.home {
+    height: 100vh;
+    background: url("http://www.starlight.vn/Content/img/bgs6.jpg");
+}
+
+.banner {
+    padding: 15px 32px;
+    background-color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.banner .menubar-wrapper ul {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.banner ul {
+    margin: 0;
+}

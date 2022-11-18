@@ -1,0 +1,79 @@
+.header {
+    padding: 12px 5%;
+    border-bottom: 1px solid var(--text-light-holder);
+}
+
+.logo img {
+    width: 100px;
+    height: auto;
+}
+
+.link {
+    color: var(--text-light);
+}
+
+.link:hover {
+    color: var(--text-black);
+}
+
+
+.input-wrap {
+    border: 1px solid var(--text-light-holder);
+    border-radius: 50px;
+    padding: 10px 20px;
+}
+
+.input-wrap:focus {
+    display: none;
+}
+
+.input-wrap input {
+    border: none;
+    outline: none;
+}
+
+.input-wrap input::placeholder,
+.input-wrap input::-webkit-input-placeholder {
+    color: var(--text-light-holder);
+}
+
+.header .location i,
+.header .user-setting i
+{
+    color: var(--text-light);
+    font-size: 24px;
+}
+
+.main {
+    padding: 12px 5%;
+    background-color: var(--bg-light);
+    height: 500px;
+}
+
+.main .register-btn,
+.main .facebook-login-btn
+{
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+.main .right {
+
+}
+
+.main .right img {
+    /*width: 100px;*/
+}
+
+.main input {
+    width: 90%;
+    height: 42px;
+    border: 1px solid var(--text-light-holder);
+    outline: none;
+    border-radius: 5px;
+    padding: 16px;
+}
+
+.main input:focus {
+    border: 1px solid var(--active);
+}

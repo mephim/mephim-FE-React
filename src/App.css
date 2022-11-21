@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Dosis:wght@200;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@200;400;500;600&display=swap');
 
 :root {
   --text-light: #6E84A3;
@@ -6,6 +6,12 @@
   --text-light-holder: #B1C2D9;
   --active: #577bea;
   --bg-light: #F9FBFD;
+}
+
+html, * {
+  font-family: 'Saira Semi Condensed', sans-serif;
+  font-weight: 500;
+  font-size: 16px;
 }
 
 * {

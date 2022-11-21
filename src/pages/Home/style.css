@@ -4,19 +4,84 @@
 }
 
 .banner {
-    padding: 15px 32px;
-    background-color: #fff;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    padding: 0 30px;
+    background-color: #031327;
 }
 
-.banner .menubar-wrapper ul {
+.menubar-wrapper ul {
+    display: flex;
+}
+
+.menubar-wrapper ul li a {
+    padding: 10px;
+    color: #ffffff;
+    font-weight: 500;
+    text-decoration: none;
+}
+
+.menubar-wrapper ul li {
+    margin: 0 12px;
+    padding: 12px 0;
+    border-bottom: 2px solid #fff;
+}
+
+.menubar-wrapper ul li:hover {
+    border-bottom: 2px solid #F33B17;
+    transition: all .2s;
+}
+.menubar-wrapper ul li:hover a {
+    color: #F33B17;
+    transition: all .2s;
+}
+
+.banner .user-login a{
+    color: #417FAB;
+    display: inline-block;
+    margin: 0 2px;
+    text-decoration: none;
+}
+
+.slide-section {
+    height: 500px !important;
+}
+
+.slide-section img {
+    height: 500px !important;
+    width: 100%;
+}
+.movie-section {
+    height: auto;
+    background: url("https://metiz.vn/static/assets/websites/images/bg-session-movie.png");
+}
+
+.choose-btn {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.banner ul {
-    margin: 0;
+.choose-btn button {
+    padding: 12px;
+    border-radius: 25px;
+    margin: 0 12px;
+
+}
+
+.choose-btn button span {
+    font-weight: 600;
+    font-size: 24px;
+    color: #ffffff;
+}
+
+.choose-btn button.tab.active {
+    background-color: transparent;
+    border: 2px solid #ffffff;
+}
+
+.choose-btn button.tab {
+    background-color: #F45403;
+    border: 2px solid #F45403;
 }

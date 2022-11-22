@@ -1,0 +1,61 @@
+.movie-card {
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+}
+
+.movie-card img {
+    width: 90%;
+    height: 350px;
+}
+
+.movie-description {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.movie-card .room-name {
+    color: #6BE242;
+    font-weight: 600;
+}
+
+.movie-card .action-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.movie-card .action-btn button {
+    padding: 10px 8px;
+    border-radius: 20px;
+    border: 1px solid #ffffff;
+    color: #ffffff;
+    font-weight: 500;
+    background-color: transparent;
+    margin: 0 4px;
+}
+
+.movie-card .movie-name,
+.movie-card .movie-date,
+.movie-card .movie-room {
+    color: #ffffff;
+}
+
+.movie-card .movie-name {
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.movie-card .movie-date {
+    font-size: 18px;
+}
+
+.movie-card .action-btn button:hover {
+    background-color: #F45403 ;
+}
+
+.movie-card .slick-list {
+}

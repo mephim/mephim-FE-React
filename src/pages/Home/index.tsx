@@ -4,10 +4,50 @@ import slide1 from "../../assets/images/slide1.jpg";
 import slide2 from "../../assets/images/slide2.jpg";
 import slide3 from "../../assets/images/slide3.jpg";
 import CustomCarousel from "../../components/CustomCarousel";
-import { Button } from "react-bootstrap";
+import CustomSlider from "../../components/CustomSlickSlide";
+import { IMovieCard } from "../../model/IMovieCard";
 
 function Home() {
   const listImageSrc: string[] = [slide1, slide2, slide3];
+  const listMovieCard: IMovieCard[] = [
+    {
+      image: "https://metiz.vn/media/poster_film/470x700.jpg",
+      name: "GIAI ĐIỆU NÀO ANH CŨNG BIẾT TUỐT11111111111111111111111111111",
+      length: 120,
+      room: "C18",
+      date: "04-11-2022",
+    },
+    {
+      image:
+        "https://metiz.vn/media/poster_film/teaser_poster_1-other_child.jpg",
+      name: "THẾ NHÂN",
+      length: 115,
+      room: "C14",
+      date: "04-11-2022",
+    },
+    {
+      image: "https://metiz.vn/media/poster_film/black.jpg",
+      name: "CHIẾN BINH BÁO ĐEN",
+      length: 120,
+      room: "C18",
+      date: "04-11-2022",
+    },
+    {
+      image: "https://metiz.vn/media/poster_film/poster_1080x1350.jpg",
+      name: "YÊU KHÔNG SỢ HÃI",
+      length: 120,
+      room: "C18",
+      date: "04-11-2022",
+    },
+    {
+      image:
+        "https://metiz.vn/media/poster_film/kclttg_-_main_poster_web__1.jpg",
+      name: "KHỈ CON LON TON THẾ GIỚI",
+      length: 120,
+      room: "C18",
+      date: "04-11-2022",
+    },
+  ];
   return (
     <div className="home">
       <section className="banner">
@@ -19,26 +59,26 @@ function Home() {
         <div className="menubar-wrapper">
           <ul>
             <li>
-              <a href="">LỊCH CHIẾU</a>
+              <span>LỊCH CHIẾU</span>
             </li>
             <li>
-              <a href="">PHIM</a>
+              <span>PHIM</span>
             </li>
             <li>
-              <a href="">KHUYẾN MÃI</a>
+              <span>KHUYẾN MÃI</span>
             </li>
             <li>
-              <a href="">THÀNH VIÊN</a>
+              <span>THÀNH VIÊN</span>
             </li>
             <li>
-              <a href="">BLOG PHIM</a>
+              <span>BLOG PHIM</span>
             </li>
           </ul>
         </div>
         <div className="user-login">
-          <a href="#">ĐĂNG NHẬP</a>
+          <span>ĐĂNG NHẬP</span>
           <span>/</span>
-          <a href="#">ĐĂNG KÝ</a>
+          <span>ĐĂNG KÝ</span>
         </div>
       </section>
       <section className="slide-section">
@@ -52,6 +92,9 @@ function Home() {
           <button className="tab">
             <span>PHIM SẮP CHIẾU</span>
           </button>
+        </div>
+        <div className="movie-slider">
+          <CustomSlider children={listMovieCard} />
         </div>
       </section>
     </div>

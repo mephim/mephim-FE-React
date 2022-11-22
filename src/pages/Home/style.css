@@ -15,11 +15,11 @@
     display: flex;
 }
 
-.menubar-wrapper ul li a {
+.menubar-wrapper ul li span {
     padding: 10px;
     color: #ffffff;
     font-weight: 500;
-    text-decoration: none;
+    cursor: pointer;
 }
 
 .menubar-wrapper ul li {
@@ -32,7 +32,7 @@
     border-bottom: 2px solid #F33B17;
     transition: all .2s;
 }
-.menubar-wrapper ul li:hover a {
+.menubar-wrapper ul li:hover span {
     color: #F33B17;
     transition: all .2s;
 }
@@ -53,7 +53,8 @@
     width: 100%;
 }
 .movie-section {
-    height: auto;
+    padding-top: 10px;
+    height: 800px;
     background: url("https://metiz.vn/static/assets/websites/images/bg-session-movie.png");
 }
 
@@ -84,4 +85,9 @@
 .choose-btn button.tab {
     background-color: #F45403;
     border: 2px solid #F45403;
+}
+
+.home .movie-slider {
+    width: 65%;
+    margin: 20px auto 0;
 }

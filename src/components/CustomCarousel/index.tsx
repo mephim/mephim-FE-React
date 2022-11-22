@@ -9,7 +9,7 @@ function CustomCarousel({ imagesSrc, duration }: ICarouselProp) {
   return (
     <Carousel>
       {imagesSrc.map((src: string) => (
-        <Carousel.Item interval={duration}>
+        <Carousel.Item interval={duration} key={Math.random()}>
           <img className="d-block w-100" src={src} alt="First slide" />
         </Carousel.Item>
       ))}

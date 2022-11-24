@@ -6,6 +6,8 @@ import slide3 from "../../assets/images/slide3.jpg";
 import CustomCarousel from "../../components/CustomCarousel";
 import CustomSlider from "../../components/CustomSlickSlide";
 import { IMovieCard } from "../../model/IMovieCard";
+import {useEffect} from "react";
+import * as Api from '../../api/index'
 
 function Home() {
   const listImageSrc: string[] = [slide1, slide2, slide3];
@@ -48,6 +50,16 @@ function Home() {
       date: "04-11-2022",
     },
   ];
+
+  const fetchData = async () => {
+    const response = await Api.get('/api/movie/listMovie');
+    console.log(response);
+  };
+
+  useEffect(()=> {
+    fetchData();
+  }, []);
+
   return (
     <div className="home">
       <section className="banner">

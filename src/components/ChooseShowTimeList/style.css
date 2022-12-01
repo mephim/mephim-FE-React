@@ -1,0 +1,81 @@
+.choose-time-list .choose-show-date {
+    background-color: #F9F6EC;
+    padding: 15px 16px 24px;
+}
+
+.choose-time-list .day-list {
+    display: flex;
+    justify-content: center;
+}
+
+.choose-time-list .date-element {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 50px;
+    width: 50px;
+    border-radius: 50%;
+    color: #000000;
+    cursor: pointer;
+    border: 1px solid var(--primary-color);
+    margin: 0 8px;
+}
+
+.choose-time-list .date-element:hover,
+.choose-time-list .date-element.active {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    transition: all 0.5s;
+}
+
+.choose-time-list .show-time-list {
+    display: flex;
+}
+
+.choose-time-list .choose-show-time {
+    padding: 15px 16px 24px;
+}
+
+.choose-time-list .movie-image {
+    width: 132px;
+}
+
+.choose-time-list .movie-image img {
+    width: 100%;
+}
+
+.choose-time-list .show-time-detail {
+    display: flex;
+    align-items: center;
+}
+
+.choose-time-list .show-time-detail .show-time {
+    border: 1px solid #e5e5e5;
+}
+
+.choose-time-list .show-time-detail .show-time:not(:nth-child(1)) {
+    border-left: none;
+}
+
+.choose-time-list .show-time-detail .show-time .time {
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.choose-time-list .time,
+.choose-time-list .room {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 4px 18px;
+}
+
+.choose-time-list .room span {
+    display: inline-block;
+}
+
+.choose-time-list .show-time:hover *:not(span) {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    cursor: pointer;
+}

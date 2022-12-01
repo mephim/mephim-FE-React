@@ -1,27 +1,28 @@
 import './style.css';
+import {useState} from "react";
+import MyModal from "../CustomModal";
+import ChooseShowTimeList from "../ChooseShowTimeList";
+import {IMovie} from "../../model/IMovie";
 
 interface IPropsMovieCard {
-  image: string;
-  name: string;
-  length: number;
-  room: string;
-  date: string;
+  movie: IMovie;
 }
 
-function MovieCard({ image, name, length, room, date }: IPropsMovieCard) {
+function MovieCard({ movie }: IPropsMovieCard) {
+  const [showModal, setShowModal] = useState(false);
   return <div className="movie-card">
     <div>
-      <img src={image}  alt=''/>
+      <img src={movie.moviePoster}  alt=''/>
     </div>
     <div className="movie-description">
-      <h3 className="movie-name m-0 w-100 text-center text-truncate">{name}</h3>
-      <h2 className="movie-room mt-1"><span>{length} PHÚT</span>|<span className="room-name">{room}</span></h2>
-      <h2 className="movie-date text-center mt-1">KHỞI CHIẾU {date}</h2>
+      <h3 className="movie-name m-0 w-100 text-center text-truncate">{movie.movieName}</h3>
+      <h2 className="movie-room mt-1"><span>{movie.movieLength} PHÚT</span>|<span className="room-name">ĐANG KHỞI CHIẾU</span></h2>
       <div className="action-btn">
         <button className="watch-trailer-btn">TRAILER</button>
-        <button className="booking-btn">ĐẶT VÉ</button>
+        <button className="booking-btn" onClick={() => setShowModal(true)}>ĐẶT VÉ</button>
       </div>
     </div>
+    {showModal && <MyModal show={true} content={<ChooseShowTimeList movie={movie} />}  onHide={() => setShowModal(false)} heading={"Lịch chiếu"}/>}
   </div>;
 }
 

@@ -1,17 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@200;400;500;600&display=swap');
-
+@import "css/CustomMargin.css";
 :root {
   --text-light: #6E84A3;
   --text-black: #12263F;
   --text-light-holder: #B1C2D9;
   --active: #577bea;
   --bg-light: #F9FBFD;
+  --primary-color: #F45403;
 }
 
 html, * {
   font-family: 'Saira Semi Condensed', sans-serif;
   font-weight: 500;
   font-size: 16px;
+  transition: all 0.3s;
 }
 
 * {
@@ -35,4 +37,20 @@ ul ,li {
 
 a {
   text-decoration: none;
+}
+
+.myModal .modal-body {
+  padding: 0;
+}
+
+.myModal .text-orange {
+  color: var(--primary-color);
+}
+
+.myModal .modal-header {
+  border-bottom: 1px solid var(--primary-color) !important;
+}
+
+.myModal .btn-close {
+  background-color: #f1944e;
 }

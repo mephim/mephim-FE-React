@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MovieCard from "../MovieCard";
-import {IMovieCard} from "../../model/IMovieCard";
+import {IMovie} from "../../model/IMovie";
 import './style.css';
 
 var settings = {
@@ -45,15 +45,15 @@ var settings = {
 };
 
 interface IPropSlider {
-    children: IMovieCard[];
+    children: IMovie[];
 }
 
 function CustomSlider ({children} : IPropSlider){
     return (
         <Slider {...settings}>
-            {children.map((item: IMovieCard) => (
+            {children.map((item: IMovie) => (
                 <div key={Math.random()} className="px-1">
-                    <MovieCard image={item.image} name={item.name} length={item.length} room={item.room} date={item.date}/>
+                    <MovieCard movie={item}/>
                 </div>
             ))}
         </Slider>

@@ -17,6 +17,7 @@ function MyModal({show, onHide, heading, content}: IPropModal) {
             aria-labelledby="contained-modal-title-vcenter"
             centered
             className="myModal"
+            backdrop="static"
         >
             <Modal.Header closeButton>
                 <Modal.Title id="contained-modal-title-vcenter">

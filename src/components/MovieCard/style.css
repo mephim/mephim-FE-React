@@ -9,7 +9,7 @@
     height: 350px;
 }
 
-.movie-description {
+.movie-card .movie-description {
     margin-top: 20px;
     display: flex;
     align-items: center;

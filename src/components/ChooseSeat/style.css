@@ -1,0 +1,70 @@
+.seat-selection {
+    padding: 30px 0;
+}
+
+.seat-selection .screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 50px;
+    background-image: repeating-linear-gradient(50deg, #E3E3E3 0px, #E3E3E3 3px,
+    transparent 3px, transparent 4px, #E3E3E3 0px);
+}
+
+.seat-selection .choose-seat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.seat-selection .seat-item.isBooking {
+    background-color: #6E84A3;
+}
+
+.seat-selection .seat-item {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #c9c2b5;
+    cursor: pointer;
+    margin: 4px;
+}
+
+.seat-selection .seat-item.vip {
+    border: 2px solid var(--primary-color);
+}
+
+.seat-selection .seat-item.choosing {
+    background-color: var(--primary-color);
+    color: #ffffff;
+}
+
+.seat-selection .choose-seat {
+    border-right: 1px solid #c9c2b5;
+}
+
+.seat-selection .movie-image img {
+    width: 195px;
+}
+
+.seat-selection .movie-description > div {
+    margin-top: 8px;
+}
+
+.seat-selection .movie-description span {
+    color: #666;
+    font-weight: 400;
+}
+
+.seat-selection .list-seat-selected span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 16px;
+    border: 1px solid #d3d3d3;
+    margin: 2px;
+}

@@ -54,3 +54,7 @@ a {
 .myModal .btn-close {
   background-color: #f1944e;
 }
+
+.row {
+  margin: 0 !important;
+}

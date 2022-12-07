@@ -37,7 +37,7 @@ function Login () {
                             <div className="text-center my-3">
                                 <span className="">hoặc</span>
                             </div>
-                            <button className="facebook-login-btn btn btn-primary w-100" onClick={() =>navigate('/home')}>
+                            <button className="facebook-login-btn btn btn-primary w-100" onClick={() =>navigate('/main/home')}>
                                 Đăng nhập bằng Facebook
                             </button>
                         </div>

@@ -3,6 +3,8 @@ import './App.css';
 import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
 import Login from "./pages/Login";
 import Home from "./pages/Home";
+import BaseRouter from "./components/BaseRoute";
+import MainRoute from "./components/BaseRoute/main-route";
 
 function App() {
   return (
@@ -10,7 +12,7 @@ function App() {
         <div className="App">
           <Routes>
             <Route path="/" element={<Login />} />
-            <Route path="/home" element={<Home />} />
+            <Route path="/main/*" element={<BaseRouter element={<MainRoute/>}/>} />
           </Routes>
         </div>
       </Router>

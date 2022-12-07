@@ -3,4 +3,5 @@ export interface ISeatBookingResponse {
     roomSeatId?: number;
     seatName?: string;
     seatType?: string;
+    [key: string]: any;
 }

@@ -1,14 +1,17 @@
 import "./style.css";
 import { useLocation, useNavigate } from 'react-router-dom';
-import {IShowTimeResponse} from "../../model/response/IShowTimeResponse";
+import {IShowTimeResponse, ITicketWrapper} from "../../model/response/IShowTimeResponse";
 import React, {LegacyRef, ReactNode, useEffect, useRef, useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import * as Api from "../../api";
 import {ISeatBookingResponse} from "../../model/response/ISeatBookingResponse";
+import {ITicket} from "../../model/ITicket";
+import ChooseShowTimeList from "../ChooseShowTimeList";
+import MyModal from "../CustomModal";
 
 interface ChooseSeatState {
     state: {
-        response: IShowTimeResponse;
+        response: any;
     };
 }
 
@@ -24,22 +27,34 @@ function ChooseSeat() {
     const [rowArrayList, setRowArrayList] = useState<ISeatBookingResponse[][]>();
     const ref = useRef<any>([]);
     const [listSeatSelected, setListSeatSelected] = useState<ISeatBookingResponse[]>([]);
+    const [totalPrice, setTotalPrice] = useState<number>(0);
+    const [isShowChooseShowTimeList, setIsShowChooseShowTimeList] = useState<boolean>(false);
     const location = useLocation();
     const { state } = location as ChooseSeatState;
-    const showDate = state.response.showDate;
-    const showTime = state.response.showTime;
-    const ticketId = state.response.ticket?.ticketId;
-    const movie = state.response.ticket?.movie;
+    console.log("state: ", state);
+    const showDate = state.response.showTimeRes.showDate;
+    const showTime = state.response.showTimeRes.showTime;
+    const ticket: ITicketWrapper = state.response.showTimeRes.ticket || {};
+    const ticketId = state.response.showTimeRes.ticket?.ticketId;
+    const movie = state.response.movie;
 
     const fetchData = async () => {
         const response = await Api.get(`http://localhost:9090/api/seat/find?showDateId=${showDate?.showDateId}&showTimeId=${showTime?.showTimeId}&ticketId=${ticketId}`);
         const widthRoom = Math.floor(Math.sqrt(response.length));
+        const listSeatAndPrice = response.map((seat: any) => {
+            return {
+                ...seat,
+                price: seat.seatType === 'VIP' ? (ticket?.ticketPrice ? ticket.ticketPrice + 20000 : 0) : ticket.ticketPrice,
+            }
+        });
 
         let rows: ISeatBookingResponse[][] = [];
-        while (response.length > 0) {
-            const seatResponse: ISeatBookingResponse[] = response.splice(0, widthRoom);
+        while (listSeatAndPrice.length > 0) {
+            const seatResponse: ISeatBookingResponse[] = listSeatAndPrice.splice(0, widthRoom);
             rows?.push(seatResponse);
         }
+
+        console.log(rows);
 
         setRowArrayList(rows);
     };
@@ -50,7 +65,7 @@ function ChooseSeat() {
 
     const findIndexSeat = (seat: ISeatBookingResponse) => {
         for(let i=0; i<listSeatSelected.length; i++){
-            if(listSeatSelected[i].roomSeatId == seat.roomSeatId) {
+            if(listSeatSelected[i].roomSeatId === seat.roomSeatId) {
                 return i;
             }
         }
@@ -58,16 +73,29 @@ function ChooseSeat() {
         return -1;
     };
 
+    const getTotalPrice = (seatList: ISeatBookingResponse[]): number => {
+        // get seat + price of seat
+        const listSeatAndPrice = listSeatSelected.map((seat) => {
+            return {
+                ...seat,
+                price: seat.seatType === 'VIP' ? (ticket?.ticketPrice ? ticket.ticketPrice + 20000 : 0) :ticket.ticketPrice,
+            }
+        })
+
+        return listSeatAndPrice.reduce((initTotalPrice, item) => +initTotalPrice + +(item.price||0), 0);
+    }
+
     const handleClickSeat = (seat: ISeatBookingResponse, seatRowIndex: number, rowIndex: number) => {
         const indexSeat = findIndexSeat(seat);
 
-        if(indexSeat == -1) {
+        if(indexSeat === -1) {
             setListSeatSelected((prevState): ISeatBookingResponse[] => [...prevState, seat]);
         } else {
-            // setListSeatSelected((prevState): ISeatBookingResponse[] => [listSeatSelected.splice()]);
+            const listSeatUpdate = listSeatSelected.filter((item) => {
+                return item.roomSeatId !== seat.roomSeatId;
+            })
+            setListSeatSelected(listSeatUpdate);
         }
-
-        setListSeatSelected((prevState): ISeatBookingResponse[] => [...prevState, seat]);
 
         ref.current.forEach((element: any, index: number) => {
             if(index === rowIndex) {
@@ -80,6 +108,8 @@ function ChooseSeat() {
         })
 
     };
+
+    console.log("PRICE: ", totalPrice);
 
     return <div className="seat-selection">
         <Row className="d-flex justify-content-center">
@@ -103,7 +133,7 @@ function ChooseSeat() {
                                             <div
                                                 key={seatRowIndex}
                                                 className={`seat-item${seat.isBooking ? " isBooking": ""} ${seat.seatType==="VIP" ? "vip" : ""}`}
-                                                 onClick={() => handleClickSeat(seat, seatRowIndex, rowIndex)}>
+                                                onClick={() => handleClickSeat(seat, seatRowIndex, rowIndex)}>
                                                 <span>{seat.seatName}</span>
                                             </div>
                                         ))}
@@ -130,21 +160,26 @@ function ChooseSeat() {
                                 <span>Ghế: </span>
                                 <div className="list-seat-selected">
                                     {listSeatSelected.map((seat) => (
-                                        <span>{seat.seatName}</span>
+                                        <span key={seat.roomSeatId}>{seat.seatName}</span>
                                     ))}
                                 </div>
                             </div>
                             <div>
-                                <span>Số vé: 2</span>
+                                <span>Số vé: {listSeatSelected.length}</span>
                             </div>
                             <div>
-                                <span>Tổng tiền: 130.000 VND</span>
+                                <span>Tổng tiền: {listSeatSelected.reduce((a, b) => +a + +b.price, 0)} VND</span>
                             </div>
                         </div>
                     </Col>
                 </Row>
             </Col>
         </Row>
+        <Row>
+            <h3 onClick={() => setIsShowChooseShowTimeList(!isShowChooseShowTimeList)}>Đổi suất chiếu</h3>
+        </Row>
+
+        {isShowChooseShowTimeList && <MyModal show={true} content={<ChooseShowTimeList movie={movie} />}  onHide={() => setIsShowChooseShowTimeList(false)} heading={"Lịch chiếu"}/>}
     </div>;
 }
 

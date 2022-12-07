@@ -104,7 +104,7 @@ function ChooseShowTimeList({movie} : IProp) {
                   <div className="show-time" key={index} onClick={() => {
                     navigate('/main/seat-selection', {
                       state: {
-                        response: item,
+                        response: {showTimeRes: item, movie},
                       }
                     });
                   }}>

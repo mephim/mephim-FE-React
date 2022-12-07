@@ -3,7 +3,7 @@ import {IShowDate} from "../IShowDate";
 import {IRoom} from "../IRoom";
 import {IMovie} from "../IMovie";
 
-interface ITicketWrapper {
+export interface ITicketWrapper {
     movie?: IMovie;
     ticketId?: number;
     ticketPrice?: string;

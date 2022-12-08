@@ -4,6 +4,7 @@ import Header from "../Header";
 import Home from "../../pages/Home";
 import Footer from "../Footer";
 import ChooseSeat from "../ChooseSeat";
+import PaymentControl from "../PaymentControl";
 
 function MainRoute() {
     return (
@@ -12,6 +13,7 @@ function MainRoute() {
             <Routes>
                 <Route path="home" element={<Home />} />
                 <Route path="seat-selection" element={<ChooseSeat />} />
+                <Route path="payment" element={<PaymentControl />} />
             </Routes>
             <Footer/>
         </>

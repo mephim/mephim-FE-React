@@ -1,0 +1,9 @@
+.payment-control {
+    padding: 0 32px;
+}
+
+.payment-control .heading {
+    padding: 10px 0;
+    color: #ffffff;
+    background-color: #7e8eaa;
+}

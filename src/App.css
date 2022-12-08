@@ -58,3 +58,9 @@ a {
 .row {
   margin: 0 !important;
 }
+
+.center {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

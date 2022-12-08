@@ -41,6 +41,8 @@
 .seat-selection .seat-item.choosing {
     background-color: var(--primary-color);
     color: #ffffff;
+    box-shadow: 0 0 11px var(--primary-color);
+    border: 2px solid var(--primary-color);
 }
 
 .seat-selection .choose-seat {
@@ -67,4 +69,19 @@
     padding: 4px 16px;
     border: 1px solid #d3d3d3;
     margin: 2px;
+}
+
+.seat-selection .nextBtn {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    background-color: #fff;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.seat-selection .nextBtn:hover {
+    border: 2px solid var(--primary-color);
+    background-color: var(--primary-color);
+    color: #ffffff;
 }

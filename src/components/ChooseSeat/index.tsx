@@ -5,10 +5,6 @@ import React, {LegacyRef, ReactNode, useEffect, useRef, useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import * as Api from "../../api";
 import {ISeatBookingResponse} from "../../model/response/ISeatBookingResponse";
-import {ITicket} from "../../model/ITicket";
-import ChooseShowTimeList from "../ChooseShowTimeList";
-import MyModal from "../CustomModal";
-
 interface ChooseSeatState {
     state: {
         response: any;
@@ -29,6 +25,7 @@ function ChooseSeat() {
     const [listSeatSelected, setListSeatSelected] = useState<ISeatBookingResponse[]>([]);
     const [totalPrice, setTotalPrice] = useState<number>(0);
     const [isShowChooseShowTimeList, setIsShowChooseShowTimeList] = useState<boolean>(false);
+    const navigate = useNavigate();
     const location = useLocation();
     const { state } = location as ChooseSeatState;
     console.log("state: ", state);
@@ -80,10 +77,10 @@ function ChooseSeat() {
                 ...seat,
                 price: seat.seatType === 'VIP' ? (ticket?.ticketPrice ? ticket.ticketPrice + 20000 : 0) :ticket.ticketPrice,
             }
-        })
+        });
 
         return listSeatAndPrice.reduce((initTotalPrice, item) => +initTotalPrice + +(item.price||0), 0);
-    }
+    };
 
     const handleClickSeat = (seat: ISeatBookingResponse, seatRowIndex: number, rowIndex: number) => {
         const indexSeat = findIndexSeat(seat);
@@ -93,7 +90,7 @@ function ChooseSeat() {
         } else {
             const listSeatUpdate = listSeatSelected.filter((item) => {
                 return item.roomSeatId !== seat.roomSeatId;
-            })
+            });
             setListSeatSelected(listSeatUpdate);
         }
 
@@ -117,30 +114,39 @@ function ChooseSeat() {
                 <h4 className="fw-bold">Chọn ghế</h4>
                 <Row>
                     <Col xs={10}>
-                        <div className="choose-seat">
-                            <div className="screen">
-                                <span>Màn hình</span>
+                        <Row>
+                            <div className="choose-seat">
+                                <div className="screen">
+                                    <span>Màn hình</span>
+                                </div>
+                                <div className="list-seat mt-24">
+                                    {rowArrayList?.map((rowArray, rowIndex) => (
+                                        <div className="seat-row"
+                                             key={rowIndex}
+                                             ref={(element) => {
+                                                 ref.current[rowIndex] = element;
+                                             }}
+                                        >
+                                            {rowArray.map((seat, seatRowIndex) => (
+                                                <div
+                                                    key={seatRowIndex}
+                                                    className={`seat-item${seat.isBooking ? " isBooking": ""} ${seat.seatType==="VIP" ? "vip" : ""}`}
+                                                    onClick={() => handleClickSeat(seat, seatRowIndex, rowIndex)}>
+                                                    <span>{seat.seatName}</span>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    ))}
+                                </div>
                             </div>
-                            <div className="list-seat mt-24">
-                                {rowArrayList?.map((rowArray, rowIndex) => (
-                                    <div className="seat-row"
-                                         key={rowIndex}
-                                         ref={(element) => {
-                                             ref.current[rowIndex] = element;
-                                         }}
-                                    >
-                                        {rowArray.map((seat, seatRowIndex) => (
-                                            <div
-                                                key={seatRowIndex}
-                                                className={`seat-item${seat.isBooking ? " isBooking": ""} ${seat.seatType==="VIP" ? "vip" : ""}`}
-                                                onClick={() => handleClickSeat(seat, seatRowIndex, rowIndex)}>
-                                                <span>{seat.seatName}</span>
-                                            </div>
-                                        ))}
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
+                        </Row>
+                        <Row>
+                            <Col xs={12}>
+                                <div className="center mt-32">
+                                    <button className="nextBtn" onClick={() => navigate('/main/payment')}>Tiếp tục</button>
+                                </div>
+                            </Col>
+                        </Row>
                     </Col>
                     <Col xs={2}>
                         <div className="movie-image">
@@ -175,11 +181,6 @@ function ChooseSeat() {
                 </Row>
             </Col>
         </Row>
-        <Row>
-            <h3 onClick={() => setIsShowChooseShowTimeList(!isShowChooseShowTimeList)}>Đổi suất chiếu</h3>
-        </Row>
-
-        {isShowChooseShowTimeList && <MyModal show={true} content={<ChooseShowTimeList movie={movie} />}  onHide={() => setIsShowChooseShowTimeList(false)} heading={"Lịch chiếu"}/>}
     </div>;
 }
 

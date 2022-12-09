@@ -1,11 +1,11 @@
 import "./style.css";
-import {IMovie} from "../../model/IMovie";
+import {IMovie} from "../../shared/model/IMovie";
 import {useEffect, useState} from "react";
 import { useNavigate } from 'react-router-dom';
 import * as Api from "../../api";
 import { formatDate } from "../../common";
-import {IShowDate} from "../../model/IShowDate";
-import {IShowTimeResponse} from "../../model/response/IShowTimeResponse";
+import {IShowDate} from "../../shared/model/IShowDate";
+import {IShowTimeResponse} from "../../shared/model/response/IShowTimeResponse";
 
 interface DayWrap {
   day: number;

@@ -1,11 +1,29 @@
 import "./style.css";
-import React, { useState } from "react";
+import React from "react";
 import { Col, Row } from "react-bootstrap";
-import { Select } from "antd";
-import ReactDOM from "react-dom";
+import {
+  Form,
+  Input,
+  Select,
+} from "antd";
 import Countdown from "react-countdown";
+import {useLocation, useNavigate} from "react-router-dom";
+
+interface PaymentState {
+  state: {
+    response: any;
+  };
+}
 
 function PaymentControl() {
+  const navigate = useNavigate();
+  const location = useLocation();
+
+  const { state } = location as PaymentState;
+  console.log("state: ", state);
+  const ticketPrice = state.response.price;
+
+
   const handleChange = (value: { value: string; label: React.ReactNode }) => {
     console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
   };
@@ -20,7 +38,7 @@ function PaymentControl() {
     } else {
       // Render a countdown
       return (
-        <span>
+        <span className="fs-2">
           {minutes}:{seconds}
         </span>
       );
@@ -29,28 +47,101 @@ function PaymentControl() {
 
   return (
     <div className="payment-control">
-      <Row>
-        <Col xs={12}>
+      <Row className="center">
+        <Col xs={6}>
           <h4 className="text-center center mt-32 heading">
             PHƯƠNG THỨC THANH TOÁN
           </h4>
 
+          <div className="center">
+            <Countdown
+              // count down 5 minute
+              date={Date.now() + 5 * 60 * 1000}
+              renderer={renderer}
+            />
+          </div>
+
+          <div>
+            <div className="choose-payment-method">
+              <h5>Chọn phương thức thanh toán</h5>
+            </div>
+          </div>
+
           <Select
             labelInValue
-            defaultValue={{ value: "lucy", label: "Lucy (101)" }}
+            defaultValue={{
+              value: "VNPay",
+              label: "VNPay",
+            }}
             style={{ width: 120 }}
             onChange={handleChange}
             options={[
               {
-                value: "jack",
-                label: "Jack (100)",
-              },
-              {
-                value: "lucy",
-                label: "Lucy (101)",
+                value: "VNPay",
+                label: "VNPay",
               },
             ]}
           />
+
+
+          <div className="mt-12">
+            <h5>Thông tin người mua</h5>
+
+            <div className="mt-12">
+              <Form
+                  labelCol={{ span: 4 }}
+                  wrapperCol={{ span: 14 }}
+                  layout="horizontal"
+                  disabled={true}
+              >
+                <Form.Item label="Người nhận">
+                  <Input />
+                </Form.Item>
+
+                <Form.Item label="Email">
+                  <Input />
+                </Form.Item>
+
+                <Form.Item label="Số điện thoại">
+                  <Input />
+                </Form.Item>
+              </Form>
+            </div>
+          </div>
+
+          <div className="mt-12">
+            <h5>Thông tin vé</h5>
+
+            <div className="mt-12">
+              <Form
+                  labelCol={{ span: 4 }}
+                  wrapperCol={{ span: 14 }}
+                  layout="horizontal"
+                  disabled={true}
+              >
+                <Form.Item label="Rạp">
+                  <Input value="" />
+                </Form.Item>
+
+                <Form.Item label="Phim">
+                  <Input value="" />
+                </Form.Item>
+
+                <Form.Item label="Suất chiếu">
+                  <Input />
+                </Form.Item>
+
+                <Form.Item label="Vé">
+                  <Input />
+                </Form.Item>
+
+                <Form.Item label="Tổng tiền">
+                  <Input value={ticketPrice}/>
+                </Form.Item>
+              </Form>
+            </div>
+          </div>
+
         </Col>
       </Row>
     </div>

@@ -64,3 +64,7 @@ a {
   align-items: center;
   justify-content: center;
 }
+
+form .ant-input {
+  color: #000000 !important;
+}

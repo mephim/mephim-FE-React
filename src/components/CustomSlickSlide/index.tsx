@@ -5,7 +5,7 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import MovieCard from "../MovieCard";
-import {IMovie} from "../../model/IMovie";
+import {IMovie} from "../../shared/model/IMovie";
 import './style.css';
 
 var settings = {

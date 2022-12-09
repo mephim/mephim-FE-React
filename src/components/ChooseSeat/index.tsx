@@ -1,30 +1,20 @@
 import "./style.css";
 import { useLocation, useNavigate } from 'react-router-dom';
-import {IShowTimeResponse, ITicketWrapper} from "../../model/response/IShowTimeResponse";
-import React, {LegacyRef, ReactNode, useEffect, useRef, useState} from "react";
+import {ITicketWrapper} from "../../shared/model/response/IShowTimeResponse";
+import React, { useEffect, useRef, useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import * as Api from "../../api";
-import {ISeatBookingResponse} from "../../model/response/ISeatBookingResponse";
+import {ISeatBookingResponse} from "../../shared/model/response/ISeatBookingResponse";
 interface ChooseSeatState {
     state: {
         response: any;
     };
 }
 
-interface IRow {
-    row?: ISeatBookingResponse[];
-}
-
-interface IRowList {
-    rowList?: IRow[];
-}
-
 function ChooseSeat() {
     const [rowArrayList, setRowArrayList] = useState<ISeatBookingResponse[][]>();
     const ref = useRef<any>([]);
     const [listSeatSelected, setListSeatSelected] = useState<ISeatBookingResponse[]>([]);
-    const [totalPrice, setTotalPrice] = useState<number>(0);
-    const [isShowChooseShowTimeList, setIsShowChooseShowTimeList] = useState<boolean>(false);
     const navigate = useNavigate();
     const location = useLocation();
     const { state } = location as ChooseSeatState;
@@ -70,18 +60,6 @@ function ChooseSeat() {
         return -1;
     };
 
-    const getTotalPrice = (seatList: ISeatBookingResponse[]): number => {
-        // get seat + price of seat
-        const listSeatAndPrice = listSeatSelected.map((seat) => {
-            return {
-                ...seat,
-                price: seat.seatType === 'VIP' ? (ticket?.ticketPrice ? ticket.ticketPrice + 20000 : 0) :ticket.ticketPrice,
-            }
-        });
-
-        return listSeatAndPrice.reduce((initTotalPrice, item) => +initTotalPrice + +(item.price||0), 0);
-    };
-
     const handleClickSeat = (seat: ISeatBookingResponse, seatRowIndex: number, rowIndex: number) => {
         const indexSeat = findIndexSeat(seat);
 
@@ -105,8 +83,6 @@ function ChooseSeat() {
         })
 
     };
-
-    console.log("PRICE: ", totalPrice);
 
     return <div className="seat-selection">
         <Row className="d-flex justify-content-center">
@@ -143,7 +119,16 @@ function ChooseSeat() {
                         <Row>
                             <Col xs={12}>
                                 <div className="center mt-32">
-                                    <button className="nextBtn" onClick={() => navigate('/main/payment')}>Tiếp tục</button>
+                                    <button className="nextBtn" onClick={() => navigate('/main/payment', {
+                                        state: {
+                                            response: {
+                                                price: listSeatSelected.reduce((a, b) => +a + +b.price, 0),
+                                                email: "leconghau095@gmail.com",
+                                                phone: "099333333",
+                                                ticket: listSeatSelected,
+                                            }
+                                        }
+                                    })}>Tiếp tục</button>
                                 </div>
                             </Col>
                         </Row>

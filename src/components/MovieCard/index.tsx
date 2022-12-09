@@ -2,7 +2,7 @@ import './style.css';
 import {useState} from "react";
 import MyModal from "../CustomModal";
 import ChooseShowTimeList from "../ChooseShowTimeList";
-import {IMovie} from "../../model/IMovie";
+import {IMovie} from "../../shared/model/IMovie";
 
 interface IPropsMovieCard {
   movie: IMovie;

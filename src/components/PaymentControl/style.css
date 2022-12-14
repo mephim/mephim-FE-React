@@ -7,3 +7,12 @@
     color: #ffffff;
     background-color: #7e8eaa;
 }
+
+.payment-control .nextBtn {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    background-color: #fff;
+    color: var(--primary-color);
+    font-weight: 600;
+}

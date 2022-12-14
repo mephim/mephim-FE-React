@@ -1,13 +1,10 @@
 import "./style.css";
 import React from "react";
 import { Col, Row } from "react-bootstrap";
-import {
-  Form,
-  Input,
-  Select,
-} from "antd";
+import { Form, Input, Select } from "antd";
 import Countdown from "react-countdown";
-import {useLocation, useNavigate} from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
+import * as Api from "../../api";
 
 interface PaymentState {
   state: {
@@ -22,6 +19,15 @@ function PaymentControl() {
   const { state } = location as PaymentState;
   console.log("state: ", state);
   const ticketPrice = state.response.price;
+  const email = state.response.email;
+  const phone = state.response.phone;
+  const name = state.response.name;
+  const movie = state.response.movie;
+  const showDate = state.response.showDate;
+  const showTime = state.response.showTime;
+  const seatString = state.response.seat.map((seat: any) =>
+    seat.seatName
+  ).join(', ');
 
 
   const handleChange = (value: { value: string; label: React.ReactNode }) => {
@@ -45,6 +51,13 @@ function PaymentControl() {
     }
   };
 
+  const getPaymentLink = async (amount: number, movie: any) => {
+    window.location = await Api.post(`http://localhost:9090/create-payment`, {
+      amount,
+      vnp_OrderInfo: movie.movieName,
+    });
+  }
+
   return (
     <div className="payment-control">
       <Row className="center">
@@ -63,7 +76,7 @@ function PaymentControl() {
 
           <div>
             <div className="choose-payment-method">
-              <h5>Chọn phương thức thanh toán</h5>
+              <h5>Phương thức thanh toán</h5>
             </div>
           </div>
 
@@ -95,15 +108,15 @@ function PaymentControl() {
                   disabled={true}
               >
                 <Form.Item label="Người nhận">
-                  <Input />
+                  <Input value={name}/>
                 </Form.Item>
 
                 <Form.Item label="Email">
-                  <Input />
+                  <Input value={email}/>
                 </Form.Item>
 
                 <Form.Item label="Số điện thoại">
-                  <Input />
+                  <Input value={phone}/>
                 </Form.Item>
               </Form>
             </div>
@@ -120,19 +133,19 @@ function PaymentControl() {
                   disabled={true}
               >
                 <Form.Item label="Rạp">
-                  <Input value="" />
+                  <Input value="Metiz" />
                 </Form.Item>
 
                 <Form.Item label="Phim">
-                  <Input value="" />
+                  <Input value={movie.movieName} />
                 </Form.Item>
 
                 <Form.Item label="Suất chiếu">
-                  <Input />
+                  <Input value={showDate.date + ' ' + showTime.time} />
                 </Form.Item>
 
                 <Form.Item label="Vé">
-                  <Input />
+                  <Input value={seatString}/>
                 </Form.Item>
 
                 <Form.Item label="Tổng tiền">
@@ -141,7 +154,13 @@ function PaymentControl() {
               </Form>
             </div>
           </div>
-
+        </Col>
+      </Row>
+      <Row>
+        <Col xs={12}>
+          <div className="center mt-32">
+            <button className="nextBtn" onClick={() => getPaymentLink(ticketPrice, movie)}>Thanh toán</button>
+          </div>
         </Col>
       </Row>
     </div>

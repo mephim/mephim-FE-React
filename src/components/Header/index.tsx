@@ -1,11 +1,13 @@
 import logo from "../../assets/images/logo.png";
+import {useNavigate} from "react-router-dom";
 
 function Header() {
+    const navigate = useNavigate();
  return <section className="banner">
      <div className="logo-wrapper">
-         <a href="#" className="logo-wrapper">
+         <span onClick={() => navigate('/main/home')} className="logo-wrapper">
              <img src={logo} alt="" />
-         </a>
+         </span>
      </div>
      <div className="menubar-wrapper">
          <ul>

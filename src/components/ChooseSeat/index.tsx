@@ -125,7 +125,11 @@ function ChooseSeat() {
                                                 price: listSeatSelected.reduce((a, b) => +a + +b.price, 0),
                                                 email: "leconghau095@gmail.com",
                                                 phone: "099333333",
-                                                ticket: listSeatSelected,
+                                                name: "Lê Công Hậu",
+                                                movie: movie,
+                                                seat: listSeatSelected,
+                                                showDate: showDate,
+                                                showTime: showTime,
                                             }
                                         }
                                     })}>Tiếp tục</button>

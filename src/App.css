@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@200;400;500;600&display=swap');
 @import "css/CustomMargin.css";
+@import "react-big-calendar/lib/css/react-big-calendar.css";
 :root {
   --text-light: #6E84A3;
   --text-black: #12263F;

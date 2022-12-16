@@ -1,0 +1,8 @@
+.list-show .rbc-calendar {
+    width: 800px;
+    height: 800px;
+}
+
+.rbc-event {
+    border: none !important;
+}

@@ -43,6 +43,13 @@ function List() {
         setListShow(listShow);
     }
 
+    const handleSelectedEvent = (event) => {
+        const start = new Date(`${event.date} ${event.time}`);
+        const end = addMinutes(start, event.movieLength);
+
+        setMovieShowSelected({...event, start, end})
+    }
+
     useEffect(() => {
         fetchData();
     },[])
@@ -66,17 +73,17 @@ function List() {
                 events={listShow || []}
                 step={60}
                 views={allViews}
-                defaultView='week'
+                defaultView='month'
                 defaultDate={new Date(2022, 11, 15)}
                 popup={true}
                 onSelectEvent={(events, date) => {
                     console.log("set state")
-                    setMovieShowSelected(events)
+                    handleSelectedEvent(events)
                 }}
                 eventPropGetter={(event) => addColorEvent(event)}
             />
 
-            <MovieShowInfo movieShowSelected={movieShowSelected}/>
+            {movieShowSelected && <MovieShowInfo movieShowSelected={movieShowSelected}/>}
         </div>
     </div>;
 }

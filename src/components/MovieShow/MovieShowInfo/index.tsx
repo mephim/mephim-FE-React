@@ -1,19 +1,23 @@
 import {formatDate, formatDateOnlyGetDate, formatDateOnlyGetTime} from "../../../shared/common";
-import Badge from 'react-bootstrap/Badge';
+import { Tag } from 'antd';
+import { CheckCircleOutlined  } from '@ant-design/icons';
 
 function MovieShowInfo({movieShowSelected}: any) {
     console.log("receiver: ", movieShowSelected)
     return <div>
         <h5>Thông tin phim</h5>
         <p>Phim: {movieShowSelected?.movieName}</p>
-        <p>Thời lượng: <Badge bg="secondary">{movieShowSelected?.movieLength}</Badge>Phút</p>
-        <p>Phòng: {movieShowSelected?.roomName}</p>
-        <p>Ngày chiếu: <Badge bg="warning" text="dark" className="date-hl">{formatDateOnlyGetDate(movieShowSelected?.start)}</Badge></p>
+        <p>Thời lượng: <Tag color="magenta">{movieShowSelected?.movieLength}</Tag>Phút</p>
+        <p>Phòng: <Tag color="magenta">{movieShowSelected?.roomName}</Tag></p>
+        <p>Ngày chiếu: <Tag color="red" className="date-hl">{formatDateOnlyGetDate(movieShowSelected?.timeStart)}</Tag></p>
         <p>Giờ chiếu:
-            <Badge bg="success">{formatDateOnlyGetTime(movieShowSelected?.start)}</Badge>
+            <Tag color="geekblue">{formatDateOnlyGetTime(movieShowSelected?.timeStart)}</Tag>
             <span>-</span>
-            <Badge bg="success">{formatDateOnlyGetTime(movieShowSelected?.end)}</Badge>
+            <Tag color="geekblue">{formatDateOnlyGetTime(movieShowSelected?.timeEnd)}</Tag>
         </p>
+        <Tag icon={<CheckCircleOutlined />} color="success">
+            Submit
+        </Tag>
     </div>
 }
 

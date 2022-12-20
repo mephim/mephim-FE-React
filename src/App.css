@@ -13,7 +13,7 @@
 html, * {
   font-family: 'Saira Semi Condensed', sans-serif;
   font-weight: 500;
-  font-size: 16px;
+  font-size: 14px;
   transition: all 0.3s;
 }
 
@@ -73,4 +73,9 @@ p {
 
 form .ant-input {
   color: #000000 !important;
+}
+
+.ant-tag img,
+.ant-tag svg {
+  vertical-align: unset;
 }

@@ -8,6 +8,8 @@ import "react-big-calendar/lib/css/react-big-calendar.css";
 import "./style.css"
 import Constant from "../../../../shared/constants";
 import MovieShowInfo from "../../../../components/MovieShow/MovieShowInfo";
+import MyModal from "../../../../components/CustomModal";
+import AddNewTicket from "../../../../components/MovieShow/AddNew";
 
 moment.locale("en-GB");
 BigCalendar.momentLocalizer(moment);
@@ -23,15 +25,11 @@ function List() {
     console.log(movieShowSelected);
     console.log(listShow)
 
-    const addMinutes = (date, minutes) => {
-        return new Date(date.getTime() + minutes*60000);
-    }
-
     const fetchData = async () => {
         const response = await Api.get(API_URL);
         const listShow = response.data.map((show) => {
-            const timeStart = new Date(`${show.date} ${show.time}`);
-            const timeEnd = addMinutes(timeStart, show.movieLength);
+            const timeStart = new Date(show.timeStart);
+            const timeEnd =  new Date(show.timeEnd);
 
             return {
               ...show,
@@ -44,8 +42,8 @@ function List() {
     }
 
     const handleSelectedEvent = (event) => {
-        const start = new Date(`${event.date} ${event.time}`);
-        const end = addMinutes(start, event.movieLength);
+        const start = new Date(event.timeStart);
+        const end = new Date(event.timeEnd);
 
         setMovieShowSelected({...event, start, end})
     }
@@ -73,8 +71,8 @@ function List() {
                 events={listShow || []}
                 step={60}
                 views={allViews}
-                defaultView='month'
-                defaultDate={new Date(2022, 11, 15)}
+                defaultView='week'
+                defaultDate={new Date()}
                 popup={true}
                 onSelectEvent={(events, date) => {
                     console.log("set state")
@@ -83,7 +81,9 @@ function List() {
                 eventPropGetter={(event) => addColorEvent(event)}
             />
 
-            {movieShowSelected && <MovieShowInfo movieShowSelected={movieShowSelected}/>}
+            {movieShowSelected && <MyModal show={true} content={<MovieShowInfo movieShowSelected={movieShowSelected}/>}  onHide={() => setMovieShowSelected(null)} heading={"Thông tin lịch chiếu"}/>}
+
+            <AddNewTicket />
         </div>
     </div>;
 }

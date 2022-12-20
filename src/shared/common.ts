@@ -1,4 +1,5 @@
-export const formatDateOnlyGetDate = (date: any) => {
+export const formatDateOnlyGetDate = (dateInput: any) => {
+    const date = new Date(dateInput);
     return [
         date?.getDate(),
         date?.getMonth() + 1,
@@ -6,13 +7,15 @@ export const formatDateOnlyGetDate = (date: any) => {
     ].join('-')
 };
 
-export const formatDateOnlyGetTime = (date: any) => {
+export const formatDateOnlyGetTime = (dateInput: any) => {
+    const date = new Date(dateInput);
     return [date?.getHours(),
         date?.getMinutes(),
         date?.getSeconds()].join(':');
 };
 
-export const formatDate = (date: any) => {
+export const formatDate = (dateInput: any) => {
+    const date = new Date(dateInput);
     return [date?.getFullYear(),
             date?.getMonth() + 1,
             date?.getDate(),

@@ -6,6 +6,8 @@ import BaseRouter from "./components/BaseRoute";
 import MainRoute from "./components/BaseRoute/main-route";
 import Demo from "./components/DemoScheduler";
 import AdminRoute from "./components/BaseRoute/admin-route";
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function App() {
   return (
@@ -25,6 +27,7 @@ function App() {
           <Route path="/demo" element={<Demo />} />
         </Routes>
       </div>
+      <ToastContainer />
     </Router>
   );
 }

@@ -5,6 +5,7 @@ import React, { useEffect, useRef, useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import * as Api from "../../api";
 import {ISeatBookingResponse} from "../../shared/model/response/ISeatBookingResponse";
+import { ToastContainer, toast } from 'react-toastify';
 interface ChooseSeatState {
     state: {
         response: any;
@@ -65,6 +66,19 @@ function ChooseSeat() {
     };
 
     const handleClickSeat = (seat: ISeatBookingResponse, seatRowIndex: number, rowIndex: number) => {
+        if(seat.isBooking) {
+            toast.info('🦄 Ghế này đã được đặt!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+            return;
+        }
         const indexSeat = findIndexSeat(seat);
 
         if(indexSeat === -1) {
@@ -87,6 +101,36 @@ function ChooseSeat() {
         })
 
     };
+
+    const handleNextClick = () => {
+        if(listSeatSelected.length > 0) {
+            navigate('/main/payment', {
+                state: {
+                    response: {
+                        price: listSeatSelected.reduce((a, b) => +a + +b.price, 0),
+                        email: "leconghau095@gmail.com",
+                        phone: "099333333",
+                        name: "Lê Công Hậu",
+                        movie: movie,
+                        seat: listSeatSelected,
+                        showDate: showDate,
+                        showTime: showTime,
+                    }
+                }
+            })
+        } else {
+            toast.info('🦄 Hãy chọn 1 ghế!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "light",
+            });
+        }
+    }
 
     return <div className="seat-selection">
         <Row className="d-flex justify-content-center">
@@ -124,20 +168,7 @@ function ChooseSeat() {
                         <Row>
                             <Col xs={12}>
                                 <div className="center mt-32">
-                                    <button className="nextBtn" onClick={() => navigate('/main/payment', {
-                                        state: {
-                                            response: {
-                                                price: listSeatSelected.reduce((a, b) => +a + +b.price, 0),
-                                                email: "leconghau095@gmail.com",
-                                                phone: "099333333",
-                                                name: "Lê Công Hậu",
-                                                movie: movie,
-                                                seat: listSeatSelected,
-                                                showDate: showDate,
-                                                showTime: showTime,
-                                            }
-                                        }
-                                    })}>Tiếp tục</button>
+                                    <button className="nextBtn" onClick={() => handleNextClick()}>Tiếp tục</button>
                                 </div>
                             </Col>
                         </Row>

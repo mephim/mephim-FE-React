@@ -24,11 +24,15 @@ function ChooseSeat() {
     const ticket: ITicketWrapper = state.response.showTimeRes.ticket || {};
     const ticketId = state.response.showTimeRes.ticket?.ticketId;
     const movie = state.response.movie;
+    const roomName = useRef();
 
     const fetchData = async () => {
-        const response = await Api.get(`http://localhost:9090/api/seat/find?showDateId=${showDate?.showDateId}&showTimeId=${showTime?.showTimeId}&ticketId=${ticketId}`);
-        const widthRoom = Math.floor(Math.sqrt(response.length));
-        const listSeatAndPrice = response.map((seat: any) => {
+        console.log(showDate?.showDateId, showTime?.showTimeId, ticketId);
+        const response = await Api.get(`http://localhost:9090/api/room/find?showDateId=${showDate?.showDateId}&showTimeId=${showTime?.showTimeId}&ticketId=${ticketId}`);
+        roomName.current = response.data.room.roomName;
+        const widthRoom = response.data.room.totalColumn;
+        const heightRoom = response.data.room.totalRow;
+        const listSeatAndPrice = response.data.roomSeat.map((seat: any) => {
             return {
                 ...seat,
                 price: seat.seatType === 'VIP' ? (ticket?.ticketPrice ? ticket.ticketPrice + 20000 : 0) : ticket.ticketPrice,
@@ -88,6 +92,7 @@ function ChooseSeat() {
         <Row className="d-flex justify-content-center">
             <Col xs={10}>
                 <h4 className="fw-bold">Chọn ghế</h4>
+                <h5>Phòng: {roomName.current}</h5>
                 <Row>
                     <Col xs={10}>
                         <Row>

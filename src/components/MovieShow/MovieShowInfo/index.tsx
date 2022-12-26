@@ -3,7 +3,7 @@ import { Tag } from 'antd';
 import { CheckCircleOutlined  } from '@ant-design/icons';
 
 function MovieShowInfo({movieShowSelected}: any) {
-    console.log("receiver: ", movieShowSelected)
+    console.log("receiver: ", movieShowSelected);
     return <div>
         <h5>Thông tin phim</h5>
         <p>Phim: {movieShowSelected?.movieName}</p>

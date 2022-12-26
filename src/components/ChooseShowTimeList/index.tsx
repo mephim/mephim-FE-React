@@ -64,6 +64,7 @@ function ChooseShowTimeList({movie} : IProp) {
     }
     else {
       const response = await Api.get(`http://localhost:9090/api/movie/find-show-time-by-show-date?movieId=${movie.movieId}&showDateId=${showDate[0].showDateId}`);
+      console.log(response);
       if(response.data === null) {
         setListShowTimeExist([]);
       } else {

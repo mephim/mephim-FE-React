@@ -1,4 +1,5 @@
 import axios from 'axios';
+import Constant from "../shared/constants";
 const cors = require('cors');
 
 // const config = {
@@ -10,12 +11,10 @@ const cors = require('cors');
 // };
 
 export const request = axios.create({
-    baseURL: 'http://localhost:9090/',
+    baseURL: Constant.BASE_URL
 });
 
 request.interceptors.request.use(async (config) => {
-    // const header = new Headers();
-    // header.append("Authorization ", "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsY2hhdTEiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9hcGkvbG9naW4iLCJleHAiOjE2Njk3NzUxMDd9.n8XuNwc57_dBctJNZfre_km35r7D8-6CqSdrr4nj728");
     config.headers = {...config.headers, "Authorization": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJsY2hhdTEiLCJyb2xlcyI6WyJST0xFX0FETUlOIl0sImlzcyI6Imh0dHA6Ly9sb2NhbGhvc3Q6OTA5MC9hcGkvbG9naW4iLCJleHAiOjE2Njk4MDA3MjJ9.VC-hkiGcubU-RWPT0-0P-by5FasJ_ZUKKncfRQ6qM8E"};
     return config;
 });

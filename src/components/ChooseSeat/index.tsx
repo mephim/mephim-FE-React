@@ -5,7 +5,7 @@ import React, { useEffect, useRef, useState} from "react";
 import {Col, Row} from "react-bootstrap";
 import * as Api from "../../api";
 import {ISeatBookingResponse} from "../../shared/model/response/ISeatBookingResponse";
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 interface ChooseSeatState {
     state: {
         response: any;

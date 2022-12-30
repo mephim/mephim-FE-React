@@ -5,13 +5,14 @@ import Home from "../../pages/Home";
 import Footer from "../Footer";
 import ChooseSeat from "../ChooseSeat";
 import PaymentControl from "../PaymentControl";
+import Register from "../../pages/Register";
+import Login from "../../pages/Login";
 
 function MainRoute() {
     return (
         <>
             <Header />
             <Routes>
-                <Route path="home" element={<Home />} />
                 <Route path="seat-selection" element={<ChooseSeat />} />
                 <Route path="payment" element={<PaymentControl />} />
             </Routes>

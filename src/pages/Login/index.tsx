@@ -1,76 +1,75 @@
-import mascot from '../../assets/images/mascot.png'
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 import './style.css';
-import * as Api from "../../api";
-import {signIn} from "../../apis/auth.api";
-import {useState} from "react";
-import {useCookies} from "react-cookie";
+import { signIn } from '../../apis/auth.api';
+import { useState } from 'react';
+import { toast } from 'react-toastify';
 
-function Login () {
-    const [cookies, setCookie, removeCookie] = useCookies(['access_token', 'refresh_token']);
+function Login() {
     const navigate = useNavigate();
     const [username, setUsername] = useState<string>('');
     const [password, setPassword] = useState<string>('');
 
-    const handleClickLogin = async () => {
-        signIn(username, password).then(res => {
-            setCookie('access_token',res.data.data.token);
-            setCookie('refresh_token',res.data.data.refreshToken);
-
-            console.log('r3232r23r');
-            console.log(res.data.data);
-            console.log('cookie: ', cookies['access_token']);
-        })
+    const handleClickLogin = async (e: any) => {
+        e.preventDefault();
+        signIn(username, password)
+            .then((res) => {
+                window.localStorage.setItem('access_token', res.data.data.token);
+                window.localStorage.setItem('refresh_token', res.data.data.refreshToken);
+                navigate('/main/home');
+            })
+            .catch((e) => {
+                toast.error('🦄 Tài khoản không đúng!', {
+                    position: 'top-right',
+                    hideProgressBar: false,
+                    closeOnClick: true,
+                    pauseOnHover: true,
+                    draggable: true,
+                    progress: undefined,
+                    theme: 'light',
+                });
+            });
     };
 
-    return <div className="main">
-        <div className="row h-100">
-            <div className="col col-5 left">
-                <form action="#">
-                    <h3 className="form-header text-center">Đăng ký</h3>
-                    <div className="row">
-                        <div className="col col-6 mb-3">
-                            <label htmlFor="input1" className="d-block mb-2">
-                                Email
-                            </label>
-                            <input type="text" id="input1" />
-                        </div>
-                        <div className="col col-6 mb-3">
-                            <label htmlFor="input2" className="d-block mb-2">
-                                Tên đăng nhập
-                            </label>
-                            <input type="text" id="input2" onChange={(e) => setUsername(e.target.value)}/>
-                        </div>
-                        <div className="col col-6 mb-3">
-                            <label htmlFor="input3" className="d-block mb-2">
-                                Mật khẩu
-                            </label>
-                            <input type="text" id="input3" onChange={(e) => setPassword(e.target.value)}/>
-                        </div>
-                    </div>
-                    <div className="row mt-4">
-                        <div className="col col-12">
-                            <button className="register-btn btn btn-dark w-100" type="submit">
-                                Tạo tài khoản
-                            </button>
-                            <div className="text-center my-3">
-                                <span className="">hoặc</span>
-                            </div>
-                            <button className="facebook-login-btn btn btn-primary w-100" onClick={(e) => {
+    return (
+        <div className="register-form">
+            <h2>Mephim</h2>
+            <form action="#">
+                <div className="input-box">
+                    <input
+                        type="text"
+                        placeholder="Nhập email"
+                        onChange={(e) => setUsername(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="input-box">
+                    <input
+                        type="password"
+                        placeholder="Nhập mật khẩu"
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                    />
+                </div>
+                <div className="input-box button" onClick={(e) => handleClickLogin(e)}>
+                    <input type="Submit" defaultValue="Đăng nhập" />
+                </div>
+                <div className="text">
+                    <h3>
+                        Nếu bạn chưa có tài khoản?{' '}
+                        <a
+                            href="#"
+                            onClick={(e) => {
                                 e.preventDefault();
-                                handleClickLogin();
-                            }}>
-                                Đăng nhập bằng Facebook
-                            </button>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div className="col col-7 right d-flex align-items-center justify-content-center">
-                <img className="d-block" src={mascot} alt="" />
-            </div>
+                                navigate('/register');
+                            }}
+                        >
+                            Đăng ký
+                        </a>
+                    </h3>
+                </div>
+            </form>
         </div>
-    </div>
+    );
 }
 
 export default Login;

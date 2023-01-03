@@ -7,7 +7,7 @@ import ChooseSeat from '../ChooseSeat';
 import PaymentControl from '../PaymentControl';
 import Register from '../../pages/Register';
 import Login from '../../pages/Login';
-import RequestVerifyCode from '../../pages/RequestVerifyCode';
+import RequestVerifyCode from '../../pages/RequestCode';
 import ResetPassword from '../../pages/ResetPassword';
 
 function MainRoute() {

@@ -1,7 +1,7 @@
 import './style.css';
 import { useNavigate } from 'react-router-dom';
 import { signIn, signUp } from '../../apis/auth.api';
-import { toast, ToastOptions } from 'react-toastify';
+import { toast } from 'react-toastify';
 import React, { useState } from 'react';
 import Constants from '../../shared/constants';
 import * as Yup from 'yup';

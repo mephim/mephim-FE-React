@@ -9,7 +9,7 @@ import AdminRoute from './components/BaseRoute/admin-route';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Register from './pages/Register';
-import RequestVerifyCode from './pages/RequestVerifyCode';
+import RequestVerifyCode from './pages/RequestCode';
 import ResetPassword from './pages/ResetPassword';
 import Verify from './pages/Verify';
 import NotFound404 from './pages/NotFound404';

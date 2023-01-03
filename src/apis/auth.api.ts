@@ -12,3 +12,7 @@ export const signUp = (username: string, password: string, email: string): Promi
 export const verify = (verifyCode: string): Promise<any> => {
     return http.post(Constant.API_URL.VERIFY, { verifyCode });
 };
+
+export const requestCode = (email: string): Promise<any> => {
+    return http.post(Constant.API_URL.REQUEST_CODE, { email });
+};

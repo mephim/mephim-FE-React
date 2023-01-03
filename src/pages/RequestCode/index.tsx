@@ -1,7 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { signIn } from '../../apis/auth.api';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
+import Constants from '../../shared/constants';
+import { requestCode } from '../../apis/auth.api';
 
 function RequestVerifyCode() {
     const navigate = useNavigate();
@@ -9,28 +10,34 @@ function RequestVerifyCode() {
 
     const requestVerifyCode = async (e: any) => {
         e.preventDefault();
+        requestCode(email).then(() => {
+            toast.success('🦄 Gữi mã thành công vui lòng kiểm tra email!', Constants.TOAST_OPTION_DEFAULT);
+            navigate('/login');
+        }).catch(() => {
+            toast.error('🦄 Tài khoản không tồn tại!', Constants.TOAST_OPTION_DEFAULT);
+        });
     };
 
     return (
-        <div className='form-wrapper'>
-            <div className='register-form'>
+        <div className="form-wrapper">
+            <div className="register-form">
                 <h2>Mephim</h2>
-                <form action='#'>
-                    <div className='input-box'>
+                <form action="#">
+                    <div className="input-box">
                         <input
-                            type='text'
-                            placeholder='Nhập email'
+                            type="text"
+                            placeholder="Nhập email"
                             onChange={(e) => setEmail(e.target.value)}
                             required
                         />
                     </div>
-                    <div className='input-box button' onClick={(e) => requestVerifyCode(e)}>
-                        <input type='Submit' defaultValue='Gữi mã xác nhận' />
+                    <div className="input-box button" onClick={(e) => requestVerifyCode(e)}>
+                        <input type="Submit" defaultValue="Gữi mã xác nhận" />
                     </div>
-                    <div className='text'>
+                    <div className="text">
                         <h3>
                             <a
-                                href='#'
+                                href="#"
                                 onClick={(e) => {
                                     e.preventDefault();
                                     navigate('/login');

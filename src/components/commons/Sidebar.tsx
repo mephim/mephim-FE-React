@@ -2,7 +2,7 @@ import React from 'react';
 import { AppstoreOutlined, MailOutlined, SettingOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
-import {useNavigate} from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -41,7 +41,7 @@ const items: MenuProps['items'] = [
 function Sidebar() {
     const navigate = useNavigate();
     const onClick: MenuProps['onClick'] = (e: any) => {
-        console.log(e.key)
+        console.log(e.key);
         navigate(`/admin/${e.key}`);
     };
 
@@ -51,7 +51,7 @@ function Sidebar() {
             style={{ width: 256 }}
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
-            mode="inline"
+            mode='inline'
             items={items}
         />
     );

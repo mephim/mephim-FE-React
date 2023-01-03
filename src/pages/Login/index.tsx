@@ -15,7 +15,7 @@ function Login() {
             .then((res) => {
                 window.localStorage.setItem('access_token', res.data.data.token);
                 window.localStorage.setItem('refresh_token', res.data.data.refreshToken);
-                navigate('/main/home');
+                navigate('/');
             })
             .catch((e) => {
                 toast.error('🦄 Tài khoản không đúng!', {
@@ -31,43 +31,56 @@ function Login() {
     };
 
     return (
-        <div className="register-form">
-            <h2>Mephim</h2>
-            <form action="#">
-                <div className="input-box">
-                    <input
-                        type="text"
-                        placeholder="Nhập email"
-                        onChange={(e) => setUsername(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="input-box">
-                    <input
-                        type="password"
-                        placeholder="Nhập mật khẩu"
-                        onChange={(e) => setPassword(e.target.value)}
-                        required
-                    />
-                </div>
-                <div className="input-box button" onClick={(e) => handleClickLogin(e)}>
-                    <input type="Submit" defaultValue="Đăng nhập" />
-                </div>
-                <div className="text">
-                    <h3>
-                        Nếu bạn chưa có tài khoản?{' '}
-                        <a
-                            href="#"
-                            onClick={(e) => {
-                                e.preventDefault();
-                                navigate('/register');
-                            }}
-                        >
-                            Đăng ký
-                        </a>
-                    </h3>
-                </div>
-            </form>
+        <div className='form-wrapper'>
+            <div className='register-form'>
+                <h2>Mephim</h2>
+                <form action='#'>
+                    <div className='input-box'>
+                        <input
+                            type='text'
+                            placeholder='Nhập email'
+                            onChange={(e) => setUsername(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='input-box'>
+                        <input
+                            type='password'
+                            placeholder='Nhập mật khẩu'
+                            onChange={(e) => setPassword(e.target.value)}
+                            required
+                        />
+                    </div>
+                    <div className='input-box button' onClick={(e) => handleClickLogin(e)}>
+                        <input type='Submit' defaultValue='Đăng nhập' />
+                    </div>
+                    <div className='text'>
+                        <h3>
+                            Nếu bạn chưa có tài khoản?{' '}
+                            <a
+                                href='#'
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    navigate('/register');
+                                }}
+                            >
+                                Đăng ký
+                            </a>
+                        </h3>
+                        <h3>
+                            <a
+                                href='#'
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    navigate('/requestCode');
+                                }}
+                            >
+                                Quên mật khẩu?
+                            </a>
+                        </h3>
+                    </div>
+                </form>
+            </div>
         </div>
     );
 }

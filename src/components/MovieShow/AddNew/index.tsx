@@ -22,34 +22,35 @@ function AddNewTicket() {
         <Form
             labelCol={{ span: 10 }}
             wrapperCol={{ span: 20 }}
-            layout="horizontal"
-            onValuesChange={() => {}}
+            layout='horizontal'
+            onValuesChange={() => {
+            }}
         >
-            <Form.Item label="Phim">
+            <Form.Item label='Phim'>
                 <Select>
-                    <Select.Option value="demo">Demo</Select.Option>
+                    <Select.Option value='demo'>Demo</Select.Option>
                 </Select>
             </Form.Item>
-            <Form.Item label="Ngày chiếu">
+            <Form.Item label='Ngày chiếu'>
                 <Select>
-                    <Select.Option value="demo">Demo</Select.Option>
+                    <Select.Option value='demo'>Demo</Select.Option>
                 </Select>
             </Form.Item>
-            <Form.Item label="Giờ chiếu">
+            <Form.Item label='Giờ chiếu'>
                 <Select>
-                    <Select.Option value="demo">Demo</Select.Option>
+                    <Select.Option value='demo'>Demo</Select.Option>
                 </Select>
             </Form.Item>
-            <Form.Item label="Phòng chiếu">
+            <Form.Item label='Phòng chiếu'>
                 <Select>
-                    <Select.Option value="demo">Demo</Select.Option>
+                    <Select.Option value='demo'>Demo</Select.Option>
                 </Select>
             </Form.Item>
-            <Form.Item label="Giá vé">
-                <Input type="number" placeholder="Giá vé (VND)"/>
+            <Form.Item label='Giá vé'>
+                <Input type='number' placeholder='Giá vé (VND)' />
             </Form.Item>
-            <Form.Item >
-                <Button type="primary" htmlType="submit">
+            <Form.Item>
+                <Button type='primary' htmlType='submit'>
                     Thêm
                 </Button>
             </Form.Item>

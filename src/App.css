@@ -1,81 +1,97 @@
 @import url('https://fonts.googleapis.com/css2?family=Saira+Semi+Condensed:wght@200;400;500;600&display=swap');
 @import "css/CustomMargin.css";
 @import "react-big-calendar/lib/css/react-big-calendar.css";
+
 :root {
-  --text-light: #6E84A3;
-  --text-black: #12263F;
-  --text-light-holder: #B1C2D9;
-  --active: #577bea;
-  --bg-light: #F9FBFD;
-  --primary-color: #F45403;
+    --text-light: #6E84A3;
+    --text-black: #12263F;
+    --text-light-holder: #B1C2D9;
+    --active: #577bea;
+    --bg-light: #F9FBFD;
+    --primary-color: #F45403;
 }
 
 html, * {
-  font-family: 'Saira Semi Condensed', sans-serif;
-  font-weight: 500;
-  font-size: 14px;
-  transition: all 0.3s;
+    font-family: 'Saira Semi Condensed', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.3s;
 }
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
 html {
-  font-family: 'Dosis', sans-serif;
-  font-size: 16px;
+    font-family: 'Dosis', sans-serif;
+    font-size: 16px;
 }
 
 input, button {
-  box-shadow: none !important;
+    box-shadow: none !important;
 }
 
-ul ,li {
-  list-style: none;
+ul, li {
+    list-style: none;
 }
 
 a {
-  text-decoration: none;
+    text-decoration: none;
 }
 
 p {
-  padding: 0;
-  margin: 0;
+    padding: 0;
+    margin: 0;
 }
 
 .myModal .modal-body {
-  padding: 0;
+    padding: 0;
 }
 
 .myModal .text-orange {
-  color: var(--primary-color);
+    color: var(--primary-color);
 }
 
 .myModal .modal-header {
-  border-bottom: 1px solid var(--primary-color) !important;
+    border-bottom: 1px solid var(--primary-color) !important;
 }
 
 .myModal .btn-close {
-  background-color: #f1944e;
+    background-color: #f1944e;
 }
 
 .row {
-  margin: 0 !important;
+    margin: 0 !important;
 }
 
 .center {
-  display: flex;
-  align-items: center;
-  justify-content: center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 form .ant-input {
-  color: #000000 !important;
+    color: #000000 !important;
 }
 
 .ant-tag img,
 .ant-tag svg {
-  vertical-align: unset;
+    vertical-align: unset;
 }
+
+
+/*remove margin yup validate input*/
+form .invalid-feedback {
+    margin: 0;
+}
+
+.form-wrapper {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: url("https://metiz.vn/static/assets/websites/images/bg-session-movie.png");
+}
+

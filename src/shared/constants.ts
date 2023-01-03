@@ -1,11 +1,12 @@
 import { ToastOptions } from 'react-toastify';
 
 const Constant = {
-    BASE_URL: 'http://172.25.240.1:9090/api',
+    BASE_URL: 'http://192.168.1.61:9090/api',
     API_URL: {
         SIGN_UP: '/auth/signup',
         SIGN_IN: '/auth/signin',
         REFRESH_TOKEN: '/auth/refreshtoken',
+        VERIFY: '/auth/verify',
         FIND_ALL_SHOW: '/movie/admin/find-all-show',
         ROOM_FIND: '/room/find',
         MOVIE_FIND: '/movie/find-movie-has-ticket',

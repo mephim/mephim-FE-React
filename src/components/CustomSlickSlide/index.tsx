@@ -1,11 +1,11 @@
-import React from "react";
-import Slider from "react-slick";
+import React from 'react';
+import Slider from 'react-slick';
 
 // Import css files
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
-import MovieCard from "../MovieCard";
-import {IMovie} from "../../shared/model/IMovie";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
+import MovieCard from '../MovieCard';
+import { IMovie } from '../../shared/model/IMovie';
 import './style.css';
 
 var settings = {
@@ -48,12 +48,12 @@ interface IPropSlider {
     children: IMovie[];
 }
 
-function CustomSlider ({children} : IPropSlider){
+function CustomSlider({ children }: IPropSlider) {
     return (
         <Slider {...settings}>
             {children.map((item: IMovie) => (
-                <div key={Math.random()} className="px-1">
-                    <MovieCard movie={item}/>
+                <div key={Math.random()} className='px-1'>
+                    <MovieCard movie={item} />
                 </div>
             ))}
         </Slider>

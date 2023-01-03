@@ -1,14 +1,14 @@
-import React from "react";
-import events from "./appointments";
-import BigCalendar from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
+import React from 'react';
+import events from './appointments';
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
 
-moment.locale("en-GB");
+moment.locale('en-GB');
 BigCalendar.momentLocalizer(moment);
 
 const allViews = Object.keys(BigCalendar.Views).map(
-    (k) => BigCalendar.Views[k]
+    (k) => BigCalendar.Views[k],
 );
 
 function DemoScheduler() {
@@ -20,11 +20,11 @@ function DemoScheduler() {
             defaultDate={new Date(2022, 11, 15)}
             popup={true}
             onShowMore={(events, date) => {
-                console.log(events)
-                this.setState({ showModal: true, events })
+                console.log(events);
+                this.setState({ showModal: true, events });
             }}
         />
-    </div>
+    </div>;
 }
 
 export default DemoScheduler;

@@ -3,7 +3,7 @@ interface IProp {
 }
 
 function BaseRouter({ element }: IProp) {
-    return <>{element}</>
+    return <>{element}</>;
 }
 
 export default BaseRouter;

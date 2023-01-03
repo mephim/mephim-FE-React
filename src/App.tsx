@@ -1,39 +1,46 @@
-import React from "react";
-import "./App.css";
-import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
-import Login from "./pages/Login";
-import BaseRouter from "./components/BaseRoute";
-import MainRoute from "./components/BaseRoute/main-route";
-import Demo from "./components/DemoScheduler";
-import AdminRoute from "./components/BaseRoute/admin-route";
-import { ToastContainer } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
-import Home from "./pages/Home";
-import Register from "./pages/Register";
+import React from 'react';
+import './App.css';
+import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import Login from './pages/Login';
+import BaseRouter from './components/BaseRoute';
+import MainRoute from './components/BaseRoute/main-route';
+import Demo from './components/DemoScheduler';
+import AdminRoute from './components/BaseRoute/admin-route';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import Register from './pages/Register';
+import RequestVerifyCode from './pages/RequestVerifyCode';
+import ResetPassword from './pages/ResetPassword';
+import Verify from './pages/Verify';
+import NotFound404 from './pages/NotFound404';
 
 function App() {
-  return (
-    <Router>
-      <div className="App">
-        <Routes>
-          <Route path="home" element={<Home />} />
-          <Route path="register" element={<Register />} />
-          <Route path="login" element={<Login />} />
-          <Route
-            path="/main/*"
-            element={<BaseRouter element={<MainRoute />} />}
-          />
-          <Route path="/transaction" element={<Login />} />
-          <Route
-            path="/admin/*"
-            element={<BaseRouter element={<AdminRoute />} />}
-          />
-          <Route path="/demo" element={<Demo />} />
-        </Routes>
-      </div>
-      <ToastContainer />
-    </Router>
-  );
+    return (
+        <Router>
+            <div className='App'>
+                <Routes>
+                    <Route
+                        path='/*'
+                        element={<BaseRouter element={<MainRoute />} />}
+                    />
+                    <Route path='register' element={<Register />} />
+                    <Route path='login' element={<Login />} />
+                    <Route path='requestCode' element={<RequestVerifyCode />} />
+                    <Route path='resetPassword' element={<ResetPassword />} />
+                    <Route path='verify' element={<Verify />} />
+                    <Route path='/transaction' element={<Login />} />
+                    <Route
+                        path='/admin/*'
+                        element={<BaseRouter element={<AdminRoute />} />}
+                    />
+                    <Route path='/demo' element={<Demo />} />
+                    <Route path='/404' element={<NotFound404 />} />
+                    <Route path='*' element={<Navigate replace to='/404' />} />
+                </Routes>
+            </div>
+            <ToastContainer />
+        </Router>
+    );
 }
 
 export default App;

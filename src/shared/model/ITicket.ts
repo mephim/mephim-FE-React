@@ -1,7 +1,7 @@
-import {IMovie} from "./IMovie";
-import {IRoom} from "./IRoom";
-import {IShowDate} from "./IShowDate";
-import {IShowTime} from "./IShowTime";
+import { IMovie } from './IMovie';
+import { IRoom } from './IRoom';
+import { IShowDate } from './IShowDate';
+import { IShowTime } from './IShowTime';
 
 export interface ITicket {
     room?: IRoom;

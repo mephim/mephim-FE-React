@@ -12,7 +12,10 @@ const Constant = {
         FIND_ALL_SHOW: '/movie/admin/find-all-show',
         ROOM_FIND: '/room/find',
         MOVIE_FIND: '/movie/find-movie-has-ticket',
-        SHOW_DATE_FIND: '/api/movie/find-show-date-by-movie',
+        SHOW_DATE_FIND: '/movie/find-show-date-by-movie',
+        SHOW_TIME_FIND: '/movie/find-show-time-by-show-date',
+        FIND_LIST_SEAT_BY_DATE_TIME_TICKET: '/room/find',
+        CREATE_PAYMENT: '/create-payment',
     },
     SHOW: {
         ROOM_COLOR: {
@@ -36,7 +39,8 @@ const Constant = {
     ERROR_CODE: {
         DUPLICATE_USERNAME: 4,
         DUPLICATE_EMAIL: 5,
-    }
+    },
+    PAYMENT_INFO: 'thanh toan tien ve'
 };
 
 export default Constant;

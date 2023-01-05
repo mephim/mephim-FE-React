@@ -4,7 +4,7 @@ import Header from '../Header';
 import Home from '../../pages/Home';
 import Footer from '../Footer';
 import ChooseSeat from '../ChooseSeat';
-import PaymentControl from '../PaymentControl';
+import PaymentControl from '../../pages/PaymentControl';
 import Register from '../../pages/Register';
 import Login from '../../pages/Login';
 import RequestVerifyCode from '../../pages/RequestCode';

@@ -19,6 +19,7 @@ const Constant = {
         ROOM_FIND_ALL: '/room/find-all',
         FIND_LIST_SEAT_BY_DATE_TIME_TICKET: '/room/find',
         CREATE_PAYMENT: '/create-payment',
+        CREATE_TICKET: '/ticket/create-new',
     },
     SHOW: {
         ROOM_COLOR: {

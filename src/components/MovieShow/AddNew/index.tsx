@@ -12,6 +12,13 @@ import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
 import { findALlRoomRequest } from '../../../apis/room.api';
 import { IRoom } from '../../../shared/model/IRoom';
+import { createTicketRequest } from '../../../apis/ticket.api';
+import { toast } from 'react-toastify';
+import Constants from '../../../shared/constants';
+
+interface IProp {
+    onSuccess: () => void;
+}
 
 interface IFormInputs {
     movieId: number;
@@ -21,13 +28,11 @@ interface IFormInputs {
     price: number;
 }
 
-function AddNewTicket() {
+function AddNewTicket({ onSuccess }: IProp) {
     const [movieList, setMovieList] = useState([]);
     const [showDateList, setShowDateList] = useState([]);
     const [showTimeList, setShowTimeList] = useState([]);
     const [roomList, setRoomList] = useState([]);
-
-    console.log('Áll Data: ', { movieList, showDateList, showTimeList, roomList });
 
     const getAllMovie = () => {
         getAllMoviesRequest().then((res) => setMovieList(res.data.data.movieList));
@@ -53,12 +58,21 @@ function AddNewTicket() {
     }, []);
 
     const validationSchema = Yup.object().shape({
-        movieId: Yup.string().required('Trường này là bắt buộc'),
-        showDateId: Yup.string().required('Trường này là bắt buộc'),
-        showTimeId: Yup.string().required('Trường này là bắt buộc'),
-        roomId: Yup.string().required('Trường này là bắt buộc'),
-        price: Yup.string().required('Trường này là bắt buộc'),
+        movieId: Yup.number().required('Trường này là bắt buộc'),
+        showDateId: Yup.number().required('Trường này là bắt buộc'),
+        showTimeId: Yup.number().required('Trường này là bắt buộc'),
+        roomId: Yup.number().required('Trường này là bắt buộc'),
+        price: Yup.number().min(0, 'Giá tiền phải lớn hơn 0 VND').required('Trường này là bắt buộc'),
     });
+
+    const onSubmit = async (data: any) => {
+        createTicketRequest({ ...data }).then(res => {
+            toast.success('🦄 Đã thêm 1 lịch chiếu!', Constants.TOAST_OPTION_DEFAULT);
+            onSuccess();
+        }).catch(e => {
+            toast.error('🦄 Đã có 1 lịch chiếu vào khung giờ này!', Constants.TOAST_OPTION_DEFAULT);
+        });
+    };
 
     const {
         handleSubmit,
@@ -68,23 +82,18 @@ function AddNewTicket() {
         resolver: yupResolver(validationSchema),
     });
 
-    // const onSubmit = (data: any) => {
-    //     console.log('Obsubmit form');
-    //     const { movieId, showDateId, showTimeId, roomId, price } = data;
-    //     console.log({ movieId, showDateId, showTimeId, roomId, price });
-    // };
-
     return (
-        <div className="add-ticket">
+        <div className='add-ticket'>
             <h5>Thêm lịch chiếu - thêm vé</h5>
             <Form
                 labelCol={{ span: 5 }}
                 wrapperCol={{ span: 60 }}
-                layout="horizontal"
-                onValuesChange={() => {}}
-                // onSubmit={handleSubmit(data => console.log(data))}
+                layout='horizontal'
+                onValuesChange={() => {
+                }}
+                onFinish={handleSubmit(onSubmit)}
             >
-                <Form.Item label="Phim">
+                <Form.Item label='Phim'>
                     <Controller
                         control={control}
                         name='movieId'
@@ -98,9 +107,12 @@ function AddNewTicket() {
                             </Select>
                         )}
                     />
+                    <span className='text-danger'>
+                        {errors.movieId?.message}
+                    </span>
                 </Form.Item>
 
-                <Form.Item label="Ngày chiếu">
+                <Form.Item label='Ngày chiếu'>
                     <Controller
                         control={control}
                         name='showDateId'
@@ -114,9 +126,12 @@ function AddNewTicket() {
                             </Select>
                         )}
                     />
+                    <span className='text-danger'>
+                        {errors.showDateId?.message}
+                    </span>
                 </Form.Item>
 
-                <Form.Item label="Giờ chiếu">
+                <Form.Item label='Giờ chiếu'>
                     <Controller
                         control={control}
                         name='showTimeId'
@@ -130,9 +145,12 @@ function AddNewTicket() {
                             </Select>
                         )}
                     />
+                    <span className='text-danger'>
+                        {errors.showTimeId?.message}
+                    </span>
                 </Form.Item>
 
-                <Form.Item label="Phòng chiếu">
+                <Form.Item label='Phòng chiếu'>
                     <Controller
                         control={control}
                         name='roomId'
@@ -146,26 +164,28 @@ function AddNewTicket() {
                             </Select>
                         )}
                     />
+                    <span className='text-danger'>
+                        {errors.roomId?.message}
+                    </span>
                 </Form.Item>
 
-                <Form.Item label="Giá vé">
+                <Form.Item label='Giá vé'>
                     <Controller
                         control={control}
                         name='price'
                         render={({ field }) => (
-                            <Input {...field} type="number" placeholder="Giá vé (VND)" />
+                            <Input {...field} type='number' placeholder='Giá vé (VND)' />
                         )}
                     />
+                    <span className='text-danger'>
+                        {errors.price?.message}
+                    </span>
                 </Form.Item>
 
                 <Form.Item>
                     <Button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            handleSubmit(data => console.log(data))
-                        }}
-                        type="primary"
-                        htmlType="submit"
+                        type='primary'
+                        htmlType='submit'
                     >
                         Thêm
                     </Button>

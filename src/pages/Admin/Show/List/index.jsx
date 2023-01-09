@@ -22,6 +22,7 @@ function List() {
     const API_URL = 'http://localhost:9090/api/movie/admin/find-all-show';
     const [listShow, setListShow] = useState();
     const [movieShowSelected, setMovieShowSelected] = useState();
+    const [toggleState, setToggleState] = useState(false);
     console.log(movieShowSelected);
     console.log(listShow)
 
@@ -50,7 +51,7 @@ function List() {
 
     useEffect(() => {
         fetchData();
-    },[])
+    },[toggleState])
 
     // get room color from constants
     const getRoomColor = (roomName) => {
@@ -62,6 +63,11 @@ function List() {
         const backgroundColor = getRoomColor(roomName);
         // const color = event.movieLength > 110 ? 'black' : 'white';
         return { style: { backgroundColor } }
+    }
+
+    const handleCreateSuccess = () => {
+        console.log('SUCCESS');
+        setToggleState(!toggleState);
     }
 
     return <div className="list-show">
@@ -83,7 +89,7 @@ function List() {
 
             {movieShowSelected && <MyModal show={true} content={<MovieShowInfo movieShowSelected={movieShowSelected}/>}  onHide={() => setMovieShowSelected(null)} heading={"Thông tin lịch chiếu"}/>}
 
-            <AddNewTicket />
+            <AddNewTicket onSuccess={handleCreateSuccess} />
         </div>
     </div>;
 }

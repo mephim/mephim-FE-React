@@ -1,6 +1,6 @@
 import React, { ReactNode, useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
-import { verify } from '../../apis/auth.api';
+import { verifyRequest } from '../../apis/auth.api';
 
 function Verify() {
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ function Verify() {
     const [resultMsg, setResultMsg] = useState<ReactNode>(<>Loading...</>);
 
     useEffect(() => {
-        verify(verifyCode).then(() => {
+        verifyRequest(verifyCode).then(() => {
             setResultMsg(<i>Xác thực tài khoản thành công đăng nhập <u><a onClick={() => navigate('/login')}>Tại đây</a></u></i>);
         }).catch(
             () => navigate('/404'),

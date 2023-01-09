@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 import './style.css';
-import { signIn } from '../../apis/auth.api';
+import { signInRequest } from '../../apis/auth.api';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 
@@ -11,7 +11,7 @@ function Login() {
 
     const handleClickLogin = async (e: any) => {
         e.preventDefault();
-        signIn(username, password)
+        signInRequest(username, password)
             .then((res) => {
                 window.localStorage.setItem('access_token', res.data.data.token);
                 window.localStorage.setItem('refresh_token', res.data.data.refreshToken);

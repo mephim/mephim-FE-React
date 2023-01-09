@@ -6,7 +6,7 @@ import { Col, Row } from 'react-bootstrap';
 import * as Api from '../../api';
 import { ISeatBookingResponse } from '../../shared/model/response/ISeatBookingResponse';
 import { toast } from 'react-toastify';
-import { findListSeatByDateTimeTicket } from '../../apis/seat.api';
+import { findListSeatByDateTimeTicketRequest } from '../../apis/seat.api';
 
 interface ChooseSeatState {
     state: {
@@ -30,7 +30,7 @@ function ChooseSeat() {
     const roomName = useRef();
 
     useEffect(() => {
-        findListSeatByDateTimeTicket(Number(showDate?.showDateId), Number(showTime?.showTimeId), Number(ticketId)).then(
+        findListSeatByDateTimeTicketRequest(Number(showDate?.showDateId), Number(showTime?.showTimeId), Number(ticketId)).then(
             (res) => {
                 roomName.current = res.data.data.room.roomName;
                 const widthRoom = res.data.data.room.totalColumn;

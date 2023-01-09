@@ -5,7 +5,7 @@ import { Form, Input, Select } from 'antd';
 import Countdown from 'react-countdown';
 import { useLocation, useNavigate } from 'react-router-dom';
 import * as Api from '../../api';
-import { createPayment } from '../../apis/payment.api';
+import { createPaymentRequest } from '../../apis/payment.api';
 
 interface PaymentState {
     state: {
@@ -50,7 +50,7 @@ function PaymentControl() {
     };
 
     const redirectToPaymentPage = async (amount: number, movie: any) => {
-        createPayment(amount,movie.movieName).then(res => window.location = res.data)
+        createPaymentRequest(amount,movie.movieName).then(res => window.location = res.data)
     };
 
     return (

@@ -6,14 +6,14 @@ import CustomCarousel from "../../components/CustomCarousel";
 import CustomSlider from "../../components/CustomSlickSlide";
 import { IMovie } from "../../shared/model/IMovie";
 import React, {useEffect, useState} from "react";
-import {getAllMovies} from "../../apis/movie.api";
+import {getAllMoviesRequest} from "../../apis/movie.api";
 
 function Home() {
   const listImageSrc: string[] = [slide1, slide2, slide3];
   const [listMovieCard, setListMovieCard] = useState<IMovie[]>([]);
 
   const fetchData = async () => {
-    getAllMovies().then((res) => {
+    getAllMoviesRequest().then((res) => {
       setListMovieCard(res.data.data.movieList);
     });
   };

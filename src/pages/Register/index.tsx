@@ -1,6 +1,6 @@
 import './style.css';
 import { useNavigate } from 'react-router-dom';
-import { signIn, signUp } from '../../apis/auth.api';
+import { signInRequest, signUpRequest } from '../../apis/auth.api';
 import { toast } from 'react-toastify';
 import React, { useState } from 'react';
 import Constants from '../../shared/constants';
@@ -45,7 +45,7 @@ function Register() {
             toast.error('🦄 Mật khẩu không khớp!', Constants.TOAST_OPTION_DEFAULT);
             return;
         }
-        signUp(username, password, email)
+        signUpRequest(username, password, email)
             .then((res) => {
                 if (res.data.code === Constants.ERROR_CODE.DUPLICATE_EMAIL) {
                     toast.error('🦄 Email đã tồn tại!', Constants.TOAST_OPTION_DEFAULT);

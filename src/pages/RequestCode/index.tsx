@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { toast } from 'react-toastify';
 import Constants from '../../shared/constants';
-import { requestCode } from '../../apis/auth.api';
+import { requestCodeRequest } from '../../apis/auth.api';
 
 function RequestVerifyCode() {
     const navigate = useNavigate();
@@ -10,7 +10,7 @@ function RequestVerifyCode() {
 
     const requestVerifyCode = async (e: any) => {
         e.preventDefault();
-        requestCode(email).then(() => {
+        requestCodeRequest(email).then(() => {
             toast.success('🦄 Gữi mã thành công vui lòng kiểm tra email!', Constants.TOAST_OPTION_DEFAULT);
             navigate('/login');
         }).catch(() => {

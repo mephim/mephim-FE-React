@@ -1,7 +1,7 @@
 import http from '../utils/http';
 import Constant from '../shared/constants';
 
-export const findListSeatByDateTimeTicket = (
+export const findListSeatByDateTimeTicketRequest = (
     showDateId: number,
     showTimeId: number,
     ticketId: number,

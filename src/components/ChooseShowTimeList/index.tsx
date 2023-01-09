@@ -5,7 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { formatDate } from '../../common';
 import { IShowDate } from '../../shared/model/IShowDate';
 import { IShowTimeResponse } from '../../shared/model/response/IShowTimeResponse';
-import { findShowDateByMovie, findShowTimeByMovieAndShowDate } from '../../apis/show.api';
+import { findShowDateByMovieRequest, findShowTimeByMovieAndShowDateRequest } from '../../apis/show.api';
 
 interface DayWrap {
     day: number;
@@ -28,7 +28,7 @@ function ChooseShowTimeList({ movie }: IProp) {
     const [listShowTimeExist, setListShowTimeExist] = useState<IShowTimeResponse[]>([]);
     const [dateActive, setDateActive] = useState<number>();
     const findShowDateExist = async () => {
-        findShowDateByMovie(Number(movie.movieId))
+        findShowDateByMovieRequest(Number(movie.movieId))
             .then((res) => {
                 setListShowDateExist(res.data.data.showDateList);
             })
@@ -92,7 +92,7 @@ function ChooseShowTimeList({ movie }: IProp) {
         if (showDate?.length === 0) {
             setListShowTimeExist([]);
         } else {
-            findShowTimeByMovieAndShowDate(Number(movie.movieId), Number(showDate[0].showDateId)).then((res) => {
+            findShowTimeByMovieAndShowDateRequest(Number(movie.movieId), Number(showDate[0].showDateId)).then((res) => {
                 if (res.data === null) {
                     setListShowTimeExist([]);
                 } else {

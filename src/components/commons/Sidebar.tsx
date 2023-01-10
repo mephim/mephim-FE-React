@@ -29,8 +29,8 @@ const items: MenuProps['items'] = [
         getItem('Submenu', 'sub3', null, [getItem('Option 7', '7ggrg'), getItem('Option 8', '8ghre')]),
     ]),
 
-    getItem('Navigation Two', 'sub2', <AppstoreOutlined />, [
-        getItem('Option 7', '7key'),
+    getItem('Quản lý phim', 'sub2', <AppstoreOutlined />, [
+        getItem('Thêm mới phim', 'add-movie'),
         getItem('Option 8', '8key'),
         getItem('Submenu', 'sub321', null, [getItem('Option 7', 'sub2sub1'), getItem('Option 8', 'sub2sub2')]),
     ]),

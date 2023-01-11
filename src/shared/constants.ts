@@ -22,6 +22,8 @@ const Constant = {
         FIND_LIST_SEAT_BY_DATE_TIME_TICKET: '/room/find',
         CREATE_PAYMENT: '/create-payment',
         CREATE_TICKET: '/ticket/create-new',
+        CATEGORY_FIND_ALL: '/category/list-category',
+        ACTOR_FIND_ALL: '/actor/list-actor',
     },
     SHOW: {
         ROOM_COLOR: {

@@ -1,11 +1,17 @@
-import { Button, Form, Input, Spin } from 'antd';
+import React, { useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
-import React, { useRef, useState } from 'react';
+import { Button, Form, Input, Select, Spin } from 'antd';
+import { addMovieRequest } from '../../../../apis/movie.api';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { uploadFile } from '../../../../common';
-import { addMovieRequest } from '../../../../apis/movie.api';
 import { IMovieCreateDto } from '../../../../shared/model/dto/IMovieCreateDto';
+import { ICategory } from '../../../../shared/model/ICategory';
+import { IActor } from '../../../../shared/model/IActor';
+import { findAllCategoryRequest } from '../../../../apis/category.api';
+import { findAllActorRequest } from '../../../../apis/actor.api';
+
+const { Option } = Select;
 
 interface IFormInputs {
     movieName: string;
@@ -14,12 +20,16 @@ interface IFormInputs {
     movieDirector: number;
     moviePoster: number;
     movieTrailerUrl: number;
+    movieCategoryNames: number;
+    movieActorNames: number;
 }
 
 function AddNewMovie() {
 
     const posterRef = useRef<HTMLInputElement>(null);
     const trailerRef = useRef<HTMLInputElement>(null);
+    const [categoryList, setCategoryList] = useState<ICategory[]>([]);
+    const [actorList, setActorList] = useState<IActor[]>([]);
     const [loading, setLoading] = useState(false);
 
     const validationSchema = Yup.object().shape({
@@ -29,7 +39,14 @@ function AddNewMovie() {
         movieDirector: Yup.string().required('Trường này là bắt buộc'),
         moviePoster: Yup.string().required('Trường này là bắt buộc'),
         movieTrailerUrl: Yup.string().required('Trường này là bắt buộc'),
+        movieCategoryNames: Yup.lazy(val => (Array.isArray(val) ? Yup.array().of(Yup.string()) : Yup.string().required('Trường này là bắt buộc'))),
+        movieActorNames: Yup.lazy(val => (Array.isArray(val) ? Yup.array().of(Yup.string()) : Yup.string().required('Trường này là bắt buộc'))),
     });
+
+    useEffect(() => {
+        findAllCategoryRequest().then(res => setCategoryList(res.data.data)).catch(err => console.log(err))
+        findAllActorRequest().then(res => setActorList(res.data.data)).catch(err => console.log(err))
+    }, []);
 
     const onSubmit = async (data: any) => {
         setLoading(true);
@@ -45,14 +62,33 @@ function AddNewMovie() {
 
         console.log('---TrailerUrl: ', movieTrailerUrl);
         console.log('---PosterUrl: ', moviePoster);
+        console.log('---Data: ', data);
+
+        const movieCategoryIds: number[] = categoryList.map((category: ICategory) => {
+            if(data.movieCategoryNames.includes(category.categoryName)) {
+                return category.categoryId;
+            }
+            return -1;
+        });
+        const movieActorIds: number[] = actorList.map((actor: IActor) => {
+            if(data.movieActorNames.includes(actor.actorName)) {
+                return actor.actorId;
+            }
+            return -1;
+        });
+
+        console.log('movieCategoryIds: ', movieCategoryIds);
+        console.log('movieActorIds: ', movieActorIds);
+
 
         const dataRequest: IMovieCreateDto = {
             ...data,
             moviePoster,
             movieTrailerUrl,
-            movieActorIds: [1, 2],
-            movieCategoryIds: [1, 2],
+            movieCategoryIds,
+            movieActorIds,
         };
+
 
         console.log('--Data create: ', dataRequest);
 
@@ -70,6 +106,10 @@ function AddNewMovie() {
     } = useForm<IFormInputs>({
         resolver: yupResolver(validationSchema),
     });
+
+    const handleChange = (value: string[]) => {
+        console.log(`selected ${value}`);
+    };
 
     return (
         <Spin spinning={loading} tip='Loading' size='large' delay={500}>
@@ -117,6 +157,55 @@ function AddNewMovie() {
                             render={({ field }) => <Input {...field} type='text' placeholder='Đạo diễn' />}
                         />
                         <span className='text-danger'>{errors.movieDirector?.message}</span>
+                    </Form.Item>
+
+                    <Form.Item label='Thể loại'>
+                        <Controller
+                            control={control}
+                            name='movieCategoryNames'
+                            render={({ field }) =>
+                                <Select
+                                    mode='multiple'
+                                    style={{ width: '100%' }}
+                                    placeholder='Chọn thể loại'
+                                    optionLabelProp='label'
+                                    {...field}
+                                >
+                                    {categoryList.map((category: ICategory) => (
+                                        <Option key={category.categoryId} value={category.categoryName} label={category.categoryName}>
+                                            <div className='demo-option-label-item'>
+                                                {category.categoryName}
+                                            </div>
+                                        </Option>
+                                    ))}
+                                </Select>}
+                        />
+                        <span className='text-danger'>{errors.movieCategoryNames?.message}</span>
+                    </Form.Item>
+
+                    <Form.Item label='Diễn viên'>
+                        <Controller
+                            control={control}
+                            name='movieActorNames'
+                            render={({ field }) =>
+                                <Select
+                                    mode='multiple'
+                                    style={{ width: '100%' }}
+                                    placeholder='Tên diễn viên'
+                                    optionLabelProp='label'
+                                    {...field}
+                                >
+                                    {actorList.map((actor: IActor) => (
+                                        <Option key={actor.actorId} value={actor.actorName} label={actor.actorName}>
+                                            <div className='demo-option-label-item'>
+                                                {actor.actorName}
+                                            </div>
+                                        </Option>
+                                    ))}
+
+                                </Select>}
+                        />
+                        <span className='text-danger'>{errors.movieActorNames?.message}</span>
                     </Form.Item>
 
                     <Form.Item label='Poster'>

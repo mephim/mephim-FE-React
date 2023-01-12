@@ -64,18 +64,13 @@ function AddNewMovie() {
         console.log('---PosterUrl: ', moviePoster);
         console.log('---Data: ', data);
 
-        const movieCategoryIds: number[] = categoryList.map((category: ICategory) => {
-            if(data.movieCategoryNames.includes(category.categoryName)) {
-                return category.categoryId;
-            }
-            return -1;
-        });
-        const movieActorIds: number[] = actorList.map((actor: IActor) => {
-            if(data.movieActorNames.includes(actor.actorName)) {
-                return actor.actorId;
-            }
-            return -1;
-        });
+        const movieCategoryIds: number[] = categoryList.filter((category: ICategory) => {
+            return data.movieCategoryNames.includes(category.categoryName);
+        }).map((category: ICategory) => category.categoryId);
+
+        const movieActorIds: number[] = actorList.filter((actor: IActor) => {
+            return data.movieActorNames.includes(actor.actorName)
+        }).map((actor: IActor) => actor.actorId);
 
         console.log('movieCategoryIds: ', movieCategoryIds);
         console.log('movieActorIds: ', movieActorIds);

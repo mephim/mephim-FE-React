@@ -24,7 +24,8 @@ function getItem(
 
 const items: MenuProps['items'] = [
     getItem('Quản lý suất chiếu', 'sub1', <AppstoreOutlined />, [
-        getItem('Xem lịch chiếu', 'list-show'),
+        getItem('Lịch chiếu - Kiểu calendar', 'list-show'),
+        getItem('Lịch chiếu - Kiểu danh sách', 'list-show-2'),
         getItem('Thêm mới ', 'add-show'),
         getItem('Submenu', 'sub3', null, [getItem('Option 7', '7ggrg'), getItem('Option 8', '8ghre')]),
     ]),

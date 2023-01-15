@@ -18,6 +18,7 @@ const Constant = {
         SHOW_TIME_FIND_ALL: '/movie/find-all-show-time',
         SHOW_DATE_FIND: '/movie/find-show-date-by-movie',
         SHOW_TIME_FIND: '/movie/find-show-time-by-show-date',
+        ADMIN_FIND_ALL_SHOW: '/movie/admin/find-all-show',
         ROOM_FIND_ALL: '/room/find-all',
         FIND_LIST_SEAT_BY_DATE_TIME_TICKET: '/room/find',
         CREATE_PAYMENT: '/create-payment',
@@ -32,6 +33,13 @@ const Constant = {
             R03: '#41B3A3',
             R04: '#98a0ea',
             R05: '#c7c763',
+        },
+        ROOM_TAG_COLOR: {
+            R01: 'magenta',
+            R02: 'volcano',
+            R03: 'geekblue',
+            R04: 'gold',
+            R05: 'red',
         },
     },
     TOAST_OPTION_DEFAULT: {

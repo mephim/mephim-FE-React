@@ -1,7 +1,5 @@
 import * as Api from "../../../../api";
 import React, {useEffect, useState} from "react";
-import {IShowResponse} from "../../../../shared/model/response/IShowResponse";
-import events from "./../../../../components/DemoScheduler/appointments";
 import BigCalendar from "react-big-calendar";
 import moment from "moment";
 import "react-big-calendar/lib/css/react-big-calendar.css";
@@ -10,6 +8,7 @@ import Constant from "../../../../shared/constants";
 import MovieShowInfo from "../../../../components/MovieShow/MovieShowInfo";
 import MyModal from "../../../../components/CustomModal";
 import AddNewTicket from "../../../../components/MovieShow/AddNew";
+import { Button, Modal } from 'antd';
 
 moment.locale("en-GB");
 BigCalendar.momentLocalizer(moment);
@@ -19,12 +18,25 @@ const allViews = Object.keys(BigCalendar.Views).map(
 );
 
 function List() {
+    const [open, setOpen] = useState(false);
     const API_URL = 'http://localhost:9090/api/movie/admin/find-all-show';
     const [listShow, setListShow] = useState();
     const [movieShowSelected, setMovieShowSelected] = useState();
     const [toggleState, setToggleState] = useState(false);
     console.log(movieShowSelected);
-    console.log(listShow)
+    console.log(listShow);
+
+    const showModal = () => {
+        setOpen(true);
+    };
+
+    const handleOk = () => {
+
+    };
+
+    const handleCancel = () => {
+        setOpen(false);
+    };
 
     const fetchData = async () => {
         const response = await Api.get(API_URL);
@@ -45,7 +57,7 @@ function List() {
     const handleSelectedEvent = (event) => {
         const start = new Date(event.timeStart);
         const end = new Date(event.timeEnd);
-
+        setOpen(true);
         setMovieShowSelected({...event, start, end})
     }
 
@@ -87,10 +99,18 @@ function List() {
                 eventPropGetter={(event) => addColorEvent(event)}
             />
 
-            {movieShowSelected && <MyModal show={true} content={<MovieShowInfo movieShowSelected={movieShowSelected}/>}  onHide={() => setMovieShowSelected(null)} heading={"Thông tin lịch chiếu"}/>}
-
             <AddNewTicket onSuccess={handleCreateSuccess} />
         </div>
+
+        <Modal
+            open={open}
+            onOk={handleOk}
+            onCancel={handleCancel}
+            cancelText='Đóng'
+            okText='Đồng ý'
+        >
+            <MovieShowInfo movieShowSelected={movieShowSelected}/>
+        </Modal>
     </div>;
 }
 

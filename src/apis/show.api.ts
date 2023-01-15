@@ -16,3 +16,7 @@ export const findShowDateByMovieRequest = (movieId: number): Promise<any> => {
 export const findShowTimeByMovieAndShowDateRequest = (movieId: number, showDateId: number): Promise<any> => {
     return http.get(Constant.API_URL.SHOW_TIME_FIND + '?movieId=' + movieId + '&showDateId=' + showDateId);
 };
+
+export const adminFindAllShowRequest = (): Promise<any> => {
+    return http.get(Constant.API_URL.ADMIN_FIND_ALL_SHOW);
+};

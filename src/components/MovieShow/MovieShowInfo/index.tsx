@@ -1,11 +1,12 @@
-import { formatDate, formatDateOnlyGetDate, formatDateOnlyGetTime } from '../../../shared/common';
+import { formatDate, formatDateOnlyGetDate, formatDateOnlyGetTime, numberWithCommas } from '../../../shared/common';
 import { Tag } from 'antd';
 import { CheckCircleOutlined } from '@ant-design/icons';
 
 function MovieShowInfo({ movieShowSelected }: any) {
     console.log('receiver: ', movieShowSelected);
     return <div>
-        <h5>Thông tin phim</h5>
+        <h5>Thông tin phim lịch chiếu</h5>
+        <p><Tag color='volcano'>ID vé: {movieShowSelected.ticketId}</Tag></p>
         <p>Phim: {movieShowSelected?.movieName}</p>
         <p>Thời lượng: <Tag color='magenta'>{movieShowSelected?.movieLength}</Tag>Phút</p>
         <p>Phòng: <Tag color='magenta'>{movieShowSelected?.roomName}</Tag></p>
@@ -16,9 +17,7 @@ function MovieShowInfo({ movieShowSelected }: any) {
             <span>-</span>
             <Tag color='geekblue'>{formatDateOnlyGetTime(movieShowSelected?.timeEnd)}</Tag>
         </p>
-        <Tag icon={<CheckCircleOutlined />} color='success'>
-            Submit
-        </Tag>
+        <p>Giá vé: <Tag color='magenta'>{numberWithCommas(Number(movieShowSelected.ticketPrice))} đ</Tag></p>
     </div>;
 }
 

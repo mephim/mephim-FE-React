@@ -3,8 +3,8 @@ export const formatDateOnlyGetDate = (dateInput: any) => {
     return [
         date?.getDate(),
         date?.getMonth() + 1,
-        date?.getFullYear()
-    ].join('-')
+        date?.getFullYear(),
+    ].join('-');
 };
 
 export const formatDateOnlyGetTime = (dateInput: any) => {
@@ -23,4 +23,8 @@ export const formatDate = (dateInput: any) => {
         [date?.getHours(),
             date?.getMinutes(),
             date?.getSeconds()].join(':');
+};
+
+export const numberWithCommas = (x: number) => {
+    return x.toString().replace(/\B(?<!\.\d*)(?=(\d{3})+(?!\d))/g, '.');
 };

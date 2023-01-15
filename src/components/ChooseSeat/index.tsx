@@ -7,6 +7,7 @@ import * as Api from '../../api';
 import { ISeatBookingResponse } from '../../shared/model/response/ISeatBookingResponse';
 import { toast } from 'react-toastify';
 import { findListSeatByDateTimeTicketRequest } from '../../apis/seat.api';
+import { numberWithCommas } from '../../shared/common';
 
 interface ChooseSeatState {
     state: {
@@ -212,7 +213,7 @@ function ChooseSeat() {
                                     <span>Số vé: {listSeatSelected.length}</span>
                                 </div>
                                 <div>
-                                    <span>Tổng tiền: {listSeatSelected.reduce((a, b) => +a + +b.price, 0)} VND</span>
+                                    <span>Tổng tiền: {numberWithCommas(listSeatSelected.reduce((a, b) => +a + +b.price, 0))} VND</span>
                                 </div>
                             </div>
                         </Col>

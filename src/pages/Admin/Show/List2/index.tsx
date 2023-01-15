@@ -3,6 +3,7 @@ import { adminFindAllShowRequest } from '../../../../apis/show.api';
 import { IShowResponse } from '../../../../shared/model/IShowResponse';
 import { Space, Table, Tag } from 'antd';
 import Constant from '../../../../shared/constants';
+import { numberWithCommas } from '../../../../shared/common';
 
 const { Column, ColumnGroup } = Table;
 
@@ -48,6 +49,15 @@ function List2() {
                 />
                 <Column title='Thời gian bắt đầu' dataIndex='timeStart' key='timeStart' />
                 <Column title='Thời gian kết thúc' dataIndex='timeEnd' key='timeEnd' />
+                <Column title='Giá vé' dataIndex='ticketPrice' key='ticketPrice'
+                        render={(ticketPrice: string) => (
+                            <>
+                                <Tag color='#f50' key={ticketPrice}>
+                                    {numberWithCommas(Number(ticketPrice))} đ
+                                </Tag>
+                            </>
+                        )}
+                />
                 {/*<Column title="Address" dataIndex="address" key="address" />*/}
                 {/*<Column*/}
                 {/*    title="Tags"*/}

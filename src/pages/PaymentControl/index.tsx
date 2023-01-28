@@ -1,11 +1,12 @@
 import './style.css';
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Form, Input, Select } from 'antd';
 import Countdown from 'react-countdown';
 import { useLocation, useNavigate } from 'react-router-dom';
-import * as Api from '../../api';
 import { createPaymentRequest } from '../../apis/payment.api';
+import { parseJwt } from '../../shared/common';
+import { toast } from 'react-toastify';
 
 interface PaymentState {
     state: {
@@ -19,14 +20,31 @@ function PaymentControl() {
 
     const { state } = location as PaymentState;
     console.log('state: ', state);
-    const ticketPrice = state.response.price;
-    const email = state.response.email;
-    const phone = state.response.phone;
-    const name = state.response.name;
+    const ticket = state.response.ticket;
+    const totalPrice = state.response.totalPrice;
+    const listSeatString = state.response.seat.map((seat: any) => seat.seatId).join('_');
+    console.log('listSeatString: ',listSeatString);
     const movie = state.response.movie;
     const showDate = state.response.showDate;
     const showTime = state.response.showTime;
     const seatString = state.response.seat.map((seat: any) => seat.seatName).join(', ');
+    const currentUser = parseJwt(window.localStorage.getItem('access_token') + '')?.sub || null;
+
+    useEffect(() => {
+        if (currentUser === null) {
+            navigate('/login');
+            toast.info('🦄 Đăng nhập để đặt vé!', {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+            });
+        }
+    });
 
     const handleChange = (value: { value: string; label: React.ReactNode }) => {
         console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
@@ -50,7 +68,7 @@ function PaymentControl() {
     };
 
     const redirectToPaymentPage = async (amount: number, movie: any) => {
-        createPaymentRequest(amount,movie.movieName).then(res => window.location = res.data)
+        createPaymentRequest(amount,movie.movieId + '__' + currentUser + '__' + listSeatString + '__' + ticket.ticketId).then(res => window.location = res.data)
     };
 
     return (
@@ -94,16 +112,9 @@ function PaymentControl() {
 
                         <div className="mt-12">
                             <Form labelCol={{ span: 4 }} wrapperCol={{ span: 14 }} layout="horizontal" disabled={true}>
-                                <Form.Item label="Người nhận">
-                                    <Input value={name} />
-                                </Form.Item>
 
                                 <Form.Item label="Email">
-                                    <Input value={email} />
-                                </Form.Item>
-
-                                <Form.Item label="Số điện thoại">
-                                    <Input value={phone} />
+                                    <Input value={currentUser} />
                                 </Form.Item>
                             </Form>
                         </div>
@@ -131,7 +142,7 @@ function PaymentControl() {
                                 </Form.Item>
 
                                 <Form.Item label="Tổng tiền">
-                                    <Input value={ticketPrice} />
+                                    <Input value={totalPrice} />
                                 </Form.Item>
                             </Form>
                         </div>
@@ -141,7 +152,7 @@ function PaymentControl() {
             <Row>
                 <Col xs={12}>
                     <div className="center mt-32">
-                        <button className="nextBtn" onClick={() => redirectToPaymentPage(ticketPrice, movie)}>
+                        <button className="nextBtn" onClick={() => redirectToPaymentPage(totalPrice, movie)}>
                             Thanh toán
                         </button>
                     </div>

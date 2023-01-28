@@ -4,6 +4,7 @@ import { IShowResponse } from '../../../../shared/model/IShowResponse';
 import { Space, Table, Tag } from 'antd';
 import Constant from '../../../../shared/constants';
 import { numberWithCommas } from '../../../../shared/common';
+import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 
 const { Column, ColumnGroup } = Table;
 
@@ -78,8 +79,8 @@ function List2() {
                     key='action'
                     render={(_: any, record: IShowResponse) => (
                         <Space size='middle'>
-                            <a>Invite {record.ticketId}</a>
-                            <a>Delete</a>
+                            <a><EditOutlined /></a>
+                            <a><DeleteOutlined /></a>
                         </Space>
                     )}
                 />

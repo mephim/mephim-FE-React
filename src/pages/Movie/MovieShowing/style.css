@@ -1,0 +1,15 @@
+.showing .movie-card .movie-description {
+    margin-top: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.showing .movie-card {
+    display: inline-block;
+}
+
+.showing .movie-card .movie-description * {
+    color: #000000;
+}

@@ -17,7 +17,7 @@ function Login() {
                 window.localStorage.setItem('refresh_token', res.data.data.refreshToken);
                 navigate('/');
             })
-            .catch((e) => {
+            .catch((e: any) => {
                 toast.error('🦄 Tài khoản không đúng!', {
                     position: 'top-right',
                     hideProgressBar: false,

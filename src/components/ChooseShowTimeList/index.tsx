@@ -19,7 +19,7 @@ interface DateWrap {
 }
 
 interface IProp {
-    movie: IMovie;
+    movie?: IMovie;
 }
 
 function ChooseShowTimeList({ movie }: IProp) {
@@ -28,7 +28,7 @@ function ChooseShowTimeList({ movie }: IProp) {
     const [listShowTimeExist, setListShowTimeExist] = useState<IShowTimeResponse[]>([]);
     const [dateActive, setDateActive] = useState<number>();
     const findShowDateExist = async () => {
-        findShowDateByMovieRequest(Number(movie.movieId))
+        findShowDateByMovieRequest(Number(movie?.movieId))
             .then((res) => {
                 setListShowDateExist(res.data.data.showDateList);
             })
@@ -92,7 +92,7 @@ function ChooseShowTimeList({ movie }: IProp) {
         if (showDate?.length === 0) {
             setListShowTimeExist([]);
         } else {
-            findShowTimeByMovieAndShowDateRequest(Number(movie.movieId), Number(showDate[0].showDateId)).then((res) => {
+            findShowTimeByMovieAndShowDateRequest(Number(movie?.movieId), Number(showDate[0].showDateId)).then((res) => {
                 if (res.data === null) {
                     setListShowTimeExist([]);
                 } else {
@@ -129,10 +129,10 @@ function ChooseShowTimeList({ movie }: IProp) {
             <div className="choose-show-time">
                 <h4 className="text-start">Chọn lịch chiếu</h4>
                 <div className="show-time-wrap">
-                    <h5 className="movie-name fw-bold mt-12">{movie.movieName}</h5>
+                    <h5 className="movie-name fw-bold mt-12">{movie?.movieName}</h5>
                     <div className="show-time-detail">
                         <div className="movie-image mr-12">
-                            <img src={movie.moviePoster} alt="" />
+                            <img src={movie?.moviePoster} alt="" />
                         </div>
                         {listShowTimeExist?.length === 0 && <h3 className="text-center">Không có lịch chiếu</h3>}
                         {listShowTimeExist?.length > 0 && (

@@ -17,11 +17,11 @@ interface IFormInputs {
     movieName: string;
     movieDescription: number;
     movieLength: number;
+    movieActor: string;
     movieDirector: number;
     moviePoster: number;
     movieTrailerUrl: number;
     movieCategoryNames: number;
-    movieActorNames: number;
 }
 
 function AddNewMovie() {
@@ -36,11 +36,11 @@ function AddNewMovie() {
         movieName: Yup.string().required('Trường này là bắt buộc'),
         movieDescription: Yup.string().required('Trường này là bắt buộc'),
         movieLength: Yup.number().required('Trường này là bắt buộc'),
+        movieActor: Yup.string().required('Trường này là bắt buộc'),
         movieDirector: Yup.string().required('Trường này là bắt buộc'),
         moviePoster: Yup.string().required('Trường này là bắt buộc'),
         movieTrailerUrl: Yup.string().required('Trường này là bắt buộc'),
         movieCategoryNames: Yup.lazy(val => (Array.isArray(val) ? Yup.array().of(Yup.string()) : Yup.string().required('Trường này là bắt buộc'))),
-        movieActorNames: Yup.lazy(val => (Array.isArray(val) ? Yup.array().of(Yup.string()) : Yup.string().required('Trường này là bắt buộc'))),
     });
 
     useEffect(() => {
@@ -57,23 +57,9 @@ function AddNewMovie() {
             movieTrailerUrl = await uploadFile(trailerRef?.current?.files[0], false);
         }
 
-        console.log('---TrailerUrl Files: ', posterRef?.current?.files);
-        console.log('---PosterUrl Files: ', trailerRef?.current?.files);
-
-        console.log('---TrailerUrl: ', movieTrailerUrl);
-        console.log('---PosterUrl: ', moviePoster);
-        console.log('---Data: ', data);
-
         const movieCategoryIds: number[] = categoryList.filter((category: ICategory) => {
             return data.movieCategoryNames.includes(category.categoryName);
         }).map((category: ICategory) => category.categoryId);
-
-        const movieActorIds: number[] = actorList.filter((actor: IActor) => {
-            return data.movieActorNames.includes(actor.actorName)
-        }).map((actor: IActor) => actor.actorId);
-
-        console.log('movieCategoryIds: ', movieCategoryIds);
-        console.log('movieActorIds: ', movieActorIds);
 
 
         const dataRequest: IMovieCreateDto = {
@@ -81,7 +67,6 @@ function AddNewMovie() {
             moviePoster,
             movieTrailerUrl,
             movieCategoryIds,
-            movieActorIds,
         };
 
 
@@ -101,10 +86,6 @@ function AddNewMovie() {
     } = useForm<IFormInputs>({
         resolver: yupResolver(validationSchema),
     });
-
-    const handleChange = (value: string[]) => {
-        console.log(`selected ${value}`);
-    };
 
     return (
         <Spin spinning={loading} tip='Loading' size='large' delay={500}>
@@ -154,6 +135,15 @@ function AddNewMovie() {
                         <span className='text-danger'>{errors.movieDirector?.message}</span>
                     </Form.Item>
 
+                    <Form.Item label='Diễn viên'>
+                        <Controller
+                            control={control}
+                            name='movieActor'
+                            render={({ field }) => <Input {...field} type='text' placeholder='Diễn viên' />}
+                        />
+                        <span className='text-danger'>{errors.movieActor?.message}</span>
+                    </Form.Item>
+
                     <Form.Item label='Thể loại'>
                         <Controller
                             control={control}
@@ -176,31 +166,6 @@ function AddNewMovie() {
                                 </Select>}
                         />
                         <span className='text-danger'>{errors.movieCategoryNames?.message}</span>
-                    </Form.Item>
-
-                    <Form.Item label='Diễn viên'>
-                        <Controller
-                            control={control}
-                            name='movieActorNames'
-                            render={({ field }) =>
-                                <Select
-                                    mode='multiple'
-                                    style={{ width: '100%' }}
-                                    placeholder='Tên diễn viên'
-                                    optionLabelProp='label'
-                                    {...field}
-                                >
-                                    {actorList.map((actor: IActor) => (
-                                        <Option key={actor.actorId} value={actor.actorName} label={actor.actorName}>
-                                            <div className='demo-option-label-item'>
-                                                {actor.actorName}
-                                            </div>
-                                        </Option>
-                                    ))}
-
-                                </Select>}
-                        />
-                        <span className='text-danger'>{errors.movieActorNames?.message}</span>
                     </Form.Item>
 
                     <Form.Item label='Poster'>

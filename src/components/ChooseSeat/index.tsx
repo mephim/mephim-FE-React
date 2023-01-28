@@ -3,11 +3,10 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ITicketWrapper } from '../../shared/model/response/IShowTimeResponse';
 import React, { useEffect, useRef, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
-import * as Api from '../../api';
 import { ISeatBookingResponse } from '../../shared/model/response/ISeatBookingResponse';
 import { toast } from 'react-toastify';
 import { findListSeatByDateTimeTicketRequest } from '../../apis/seat.api';
-import { numberWithCommas } from '../../shared/common';
+import { numberWithCommas, parseJwt } from '../../shared/common';
 
 interface ChooseSeatState {
     state: {
@@ -22,7 +21,6 @@ function ChooseSeat() {
     const navigate = useNavigate();
     const location = useLocation();
     const { state } = location as ChooseSeatState;
-    console.log('state: ', state);
     const showDate = state.response.showTimeRes.showDate;
     const showTime = state.response.showTimeRes.showTime;
     const ticket: ITicketWrapper = state.response.showTimeRes.ticket || {};
@@ -31,6 +29,22 @@ function ChooseSeat() {
     const roomName = useRef();
 
     useEffect(() => {
+
+        const currentUser = parseJwt(window.localStorage.getItem('access_token') + '')?.sub || null;
+        if (currentUser === null) {
+            navigate('/login');
+            toast.info('🦄 Đăng nhập để đặt vé!', {
+                position: 'top-right',
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: true,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: 'light',
+            });
+        }
+
         findListSeatByDateTimeTicketRequest(Number(showDate?.showDateId), Number(showTime?.showTimeId), Number(ticketId)).then(
             (res) => {
                 roomName.current = res.data.data.room.roomName;
@@ -41,8 +55,8 @@ function ChooseSeat() {
                         price:
                             seat.seatType === 'VIP'
                                 ? ticket?.ticketPrice
-                                    ? ticket.ticketPrice + 20000
-                                    : 0
+                                ? ticket.ticketPrice + 20000
+                                : 0
                                 : ticket.ticketPrice,
                     };
                 });
@@ -62,7 +76,7 @@ function ChooseSeat() {
 
     const findIndexSeat = (seat: ISeatBookingResponse) => {
         for (let i = 0; i < listSeatSelected.length; i++) {
-            if (listSeatSelected[i].roomSeatId === seat.roomSeatId) {
+            if (listSeatSelected[i].seatId === seat.seatId) {
                 return i;
             }
         }
@@ -71,6 +85,7 @@ function ChooseSeat() {
     };
 
     const handleClickSeat = (seat: ISeatBookingResponse, seatRowIndex: number, rowIndex: number) => {
+        console.log('Seat: ', seat);
         if (seat.isBooking) {
             toast.info('🦄 Ghế này đã được đặt!', {
                 position: 'top-right',
@@ -90,7 +105,7 @@ function ChooseSeat() {
             setListSeatSelected((prevState): ISeatBookingResponse[] => [...prevState, seat]);
         } else {
             const listSeatUpdate = listSeatSelected.filter((item) => {
-                return item.roomSeatId !== seat.roomSeatId;
+                return item.seatId !== seat.seatId;
             });
             setListSeatSelected(listSeatUpdate);
         }
@@ -111,7 +126,8 @@ function ChooseSeat() {
             navigate('/payment', {
                 state: {
                     response: {
-                        price: listSeatSelected.reduce((a, b) => +a + +b.price, 0),
+                        ticket: ticket,
+                        totalPrice: listSeatSelected.reduce((a, b) => +a + +b.price, 0),
                         email: 'leconghau095@gmail.com',
                         phone: '099333333',
                         name: 'Lê Công Hậu',
@@ -137,22 +153,22 @@ function ChooseSeat() {
     };
 
     return (
-        <div className="seat-selection">
-            <Row className="d-flex justify-content-center">
+        <div className='seat-selection'>
+            <Row className='d-flex justify-content-center'>
                 <Col xs={10}>
-                    <h4 className="fw-bold">Chọn ghế</h4>
+                    <h4 className='fw-bold'>Chọn ghế</h4>
                     <h5>Phòng: {roomName.current}</h5>
                     <Row>
                         <Col xs={10}>
                             <Row>
-                                <div className="choose-seat">
-                                    <div className="screen">
+                                <div className='choose-seat'>
+                                    <div className='screen'>
                                         <span>Màn hình</span>
                                     </div>
-                                    <div className="list-seat mt-24">
+                                    <div className='list-seat mt-24'>
                                         {rowArrayList?.map((rowArray, rowIndex) => (
                                             <div
-                                                className="seat-row"
+                                                className='seat-row'
                                                 key={rowIndex}
                                                 ref={(element) => {
                                                     ref.current[rowIndex] = element;
@@ -176,8 +192,8 @@ function ChooseSeat() {
                             </Row>
                             <Row>
                                 <Col xs={12}>
-                                    <div className="center mt-32">
-                                        <button className="nextBtn" onClick={() => handleNextClick()}>
+                                    <div className='center mt-32'>
+                                        <button className='nextBtn' onClick={() => handleNextClick()}>
                                             Tiếp tục
                                         </button>
                                     </div>
@@ -185,13 +201,13 @@ function ChooseSeat() {
                             </Row>
                         </Col>
                         <Col xs={2}>
-                            <div className="movie-image">
+                            <div className='movie-image'>
                                 <img
-                                    src="https://metiz.vn/media/poster_film/keyvisual_for_promotion-01_1_.jpg"
-                                    alt=""
+                                    src={movie.moviePoster}
+                                    alt='movie poster'
                                 />
                             </div>
-                            <div className="movie-description">
+                            <div className='movie-description'>
                                 <div>
                                     <span>Phim: {movie?.movieName}</span>
                                 </div>
@@ -203,9 +219,9 @@ function ChooseSeat() {
                                 </div>
                                 <div>
                                     <span>Ghế: </span>
-                                    <div className="list-seat-selected">
+                                    <div className='list-seat-selected'>
                                         {listSeatSelected.map((seat) => (
-                                            <span key={seat.roomSeatId}>{seat.seatName}</span>
+                                            <span key={seat.seatId}>{seat.seatName}</span>
                                         ))}
                                     </div>
                                 </div>

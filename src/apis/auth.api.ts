@@ -5,8 +5,8 @@ export const signInRequest = (username: string, password: string): Promise<any> 
     return http.post(Constant.API_URL.SIGN_IN, { username, password });
 };
 
-export const signUpRequest = (username: string, password: string, email: string): Promise<any> => {
-    return http.post(Constant.API_URL.SIGN_UP, { username, password, email });
+export const signUpRequest = (email: string, password: string,): Promise<any> => {
+    return http.post(Constant.API_URL.SIGN_UP, { email, password });
 };
 
 export const verifyRequest = (verifyCode: string): Promise<any> => {

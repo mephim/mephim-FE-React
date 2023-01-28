@@ -1,0 +1,41 @@
+.detail .movie-info {
+    display: flex;
+}
+
+.detail .movie-info .info * {
+    font-size: 16px;
+}
+
+.detail .movie-info .info p {
+    font-weight: 600;
+}
+
+.detail .movie-info .info span,
+.detail .description p {
+    font-weight: 400;
+    font-size: 16px;
+}
+
+.detail .movie-info img {
+    width: 200px;
+}
+
+.detail .action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.detail .action button {
+    outline: none;
+    border: 2px solid var(--primary-color);
+    margin: 0 4px;
+    width: 150px;
+    height: 50px;
+    border-radius: 20px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 18px;
+    font-weight: 600;
+    text-transform: capitalize;
+}

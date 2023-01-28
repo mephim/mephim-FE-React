@@ -6,4 +6,5 @@ export interface IMovie {
     movieTrailerUrl?: string;
     movieDescription?: string;
     movieDirector?: string;
+    movieActor?: string;
 }

@@ -13,6 +13,8 @@ import RequestVerifyCode from './pages/RequestCode';
 import ResetPassword from './pages/ResetPassword';
 import Verify from './pages/Verify';
 import NotFound404 from './pages/NotFound404';
+import MovieShowing from './pages/Movie/MovieShowing';
+import MovieComingSoon from './pages/Movie/MovieComingSoon';
 
 function App() {
     return (
@@ -28,7 +30,6 @@ function App() {
                     <Route path='requestCode' element={<RequestVerifyCode />} />
                     <Route path='resetPassword' element={<ResetPassword />} />
                     <Route path='verify' element={<Verify />} />
-                    <Route path='/transaction' element={<Login />} />
                     <Route
                         path='/admin/*'
                         element={<BaseRouter element={<AdminRoute />} />}

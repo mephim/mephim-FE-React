@@ -21,8 +21,6 @@ function Register() {
     const navigate = useNavigate();
 
     const validationSchema = Yup.object().shape({
-        username: Yup.string()
-            .required('Trường này là bắt buộc'),
         email: Yup.string()
             .required('Trường này là bắt buộc'),
         password: Yup.string()
@@ -39,13 +37,12 @@ function Register() {
     });
 
     const onSubmit = async (data: any) => {
-        const { username, email, password, rePassword } = data;
-        console.log('--username; ', username);
+        const {email, password, rePassword } = data;
         if (password !== rePassword) {
             toast.error('🦄 Mật khẩu không khớp!', Constants.TOAST_OPTION_DEFAULT);
             return;
         }
-        signUpRequest(username, password, email)
+        signUpRequest(email, password)
             .then((res) => {
                 if (res.data.code === Constants.ERROR_CODE.DUPLICATE_EMAIL) {
                     toast.error('🦄 Email đã tồn tại!', Constants.TOAST_OPTION_DEFAULT);
@@ -68,26 +65,6 @@ function Register() {
                 <h2>Mephim</h2>
                 <Form noValidate
                       onSubmit={handleSubmit(onSubmit)}>
-                    <div className='input-box'>
-                        <Controller
-                            control={control}
-                            name='username'
-                            defaultValue=''
-                            render={({ field: { onChange, value, ref } }) => (
-                                <Form.Control
-                                    className='username'
-                                    onChange={onChange}
-                                    value={value}
-                                    ref={ref}
-                                    isInvalid={!!errors.username}
-                                    placeholder='Nhập tên đăng nhậ1p'
-                                />
-                            )}
-                        />
-                        <Form.Control.Feedback type='invalid'>
-                            {errors.username?.message}
-                        </Form.Control.Feedback>
-                    </div>
                     <div className='input-box'>
                         <Controller
                             control={control}

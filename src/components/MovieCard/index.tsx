@@ -3,15 +3,19 @@ import { useState } from 'react';
 import MyModal from '../CustomModal';
 import ChooseShowTimeList from '../ChooseShowTimeList';
 import { IMovie } from '../../shared/model/IMovie';
+import Trailer from '../Trailler';
+import {useNavigate} from 'react-router-dom';
 
 interface IPropsMovieCard {
     movie: IMovie;
 }
 
 function MovieCard({ movie }: IPropsMovieCard) {
-    const [showModal, setShowModal] = useState(false);
+    const navigate = useNavigate();
+    const [showBookingModal, setShowBookingModal] = useState(false);
+    const [showTrailerModal, setShowTrailerModal] = useState(false);
     return <div className='movie-card'>
-        <div>
+        <div onClick={() => navigate('/movie/detail/' + movie.movieId)}>
             <img src={movie.moviePoster} alt='' />
         </div>
         <div className='movie-description'>
@@ -19,13 +23,16 @@ function MovieCard({ movie }: IPropsMovieCard) {
             <h2 className='movie-room mt-1'><span>{movie.movieLength} PHÚT</span>|<span className='room-name'>ĐANG KHỞI CHIẾU</span>
             </h2>
             <div className='action-btn'>
-                <button className='watch-trailer-btn'>TRAILER</button>
-                <button className='booking-btn' onClick={() => setShowModal(true)}>ĐẶT VÉ</button>
+                <button className='watch-trailer-btn' onClick={() => setShowTrailerModal(true)}>TRAILER</button>
+                <button className='booking-btn' onClick={() => setShowBookingModal(true)}>ĐẶT VÉ</button>
             </div>
         </div>
-        {showModal &&
-        <MyModal show={true} content={<ChooseShowTimeList movie={movie} />} onHide={() => setShowModal(false)}
+        {showBookingModal &&
+        <MyModal show={true} content={<ChooseShowTimeList movie={movie} />} onHide={() => setShowBookingModal(false)}
                  heading={'Lịch chiếu'} />}
+        {showTrailerModal &&
+        <MyModal show={true} content={<Trailer videoSrc={movie.movieTrailerUrl} />} onHide={() => setShowTrailerModal(false)}
+                 heading={'Trailer'} />}
     </div>;
 }
 

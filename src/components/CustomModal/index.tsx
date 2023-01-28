@@ -4,7 +4,7 @@ import { ReactNode } from 'react';
 interface IPropModal {
     show: boolean;
     onHide: () => void;
-    heading: String;
+    heading?: String;
     content: ReactNode;
 }
 

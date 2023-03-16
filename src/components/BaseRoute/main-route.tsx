@@ -13,6 +13,7 @@ import MovieShowing from '../../pages/Movie/MovieShowing';
 import MovieComingSoon from '../../pages/Movie/MovieComingSoon';
 import MovieDetail from '../../pages/Movie/MovieDetail';
 import PaymentResult from '../../pages/PaymentResult';
+import UserInformation from '../../pages/UserInfo';
 
 function MainRoute() {
     return (
@@ -27,6 +28,7 @@ function MainRoute() {
                 <Route path='showing' element={<MovieShowing />} />
                 <Route path='comingsoon' element={<MovieComingSoon />} />
                 <Route path='movie/detail/:id' element={<MovieDetail/>} />
+                <Route path='my-info' element={<UserInformation />} />
             </Routes>
             <Footer />
         </>

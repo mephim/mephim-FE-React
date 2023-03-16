@@ -1,0 +1,8 @@
+.user-info .form-input {
+    border: none;
+    border: 1px solid #ccc;
+    padding: 10px;
+}
+.user-info .form-input:focus {
+    outline: 1px solid #395bb9;
+}

@@ -32,7 +32,7 @@ const items: MenuProps['items'] = [
 
     getItem('Quản lý phim', 'sub2', <AppstoreOutlined />, [
         getItem('Thêm mới phim', 'add-movie'),
-        getItem('Option 8', '8key'),
+        getItem('Danh sách phim', 'list-movie'),
         getItem('Submenu', 'sub321', null, [getItem('Option 7', 'sub2sub1'), getItem('Option 8', 'sub2sub2')]),
     ]),
 

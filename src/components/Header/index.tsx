@@ -34,7 +34,7 @@ function Header() {
         </div>
 
         {currentUser && <div className='user-login'>
-            <span className='text-light'>{currentUser}</span>
+            <span className='text-light' onClick={() => navigate('/my-info')}>{currentUser}</span>
             <span className='text-light'>   /   </span>
             <span className='text-light' onClick={() => logout()}>ĐĂNG XUẤT</span>
         </div>

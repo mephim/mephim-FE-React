@@ -14,6 +14,7 @@ const Constant = {
         CREATE_MOVIE: '/movie/create-movie',
         MOVIE_DETAIL: '/movie/detail',
         MOVIE_FIND_ALL: '/movie/list-movie',
+        MOVIE_FIND_ALL_ADMIN: '/movie/list-movie-admin',
         MOVIE_HAS_TICKET: '/movie/find-movie-has-ticket',
         SHOW_DATE_FIND_ALL: '/movie/find-all-show-date',
         SHOW_TIME_FIND_ALL: '/movie/find-all-show-time',

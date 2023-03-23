@@ -3,6 +3,10 @@ import Constant from '../shared/constants';
 import { IMovieCreateDto } from '../shared/model/dto/IMovieCreateDto';
 
 
+export const getAllMovieForAdmin = (): Promise<any> => {
+    return http.get(Constant.API_URL.MOVIE_FIND_ALL_ADMIN);
+};
+
 export const getAllMovieRequest = (): Promise<any> => {
     return http.get(Constant.API_URL.MOVIE_FIND_ALL);
 };

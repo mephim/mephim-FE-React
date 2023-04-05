@@ -16,3 +16,9 @@
     color: var(--primary-color);
     font-weight: 600;
 }
+
+.payment-control .nextBtn:disabled {
+    background-color: #a39999;
+    border: 2px solid #030000;
+    color: #0c0c0c;
+}

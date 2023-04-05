@@ -1,5 +1,5 @@
 import './style.css';
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Col, Row } from 'react-bootstrap';
 import { Form, Input, Select } from 'antd';
 import Countdown from 'react-countdown';
@@ -7,6 +7,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { createPaymentRequest } from '../../apis/payment.api';
 import { parseJwt } from '../../shared/common';
 import { toast } from 'react-toastify';
+import { addBookingRequest } from '../../apis/booking.api';
 
 interface PaymentState {
     state: {
@@ -23,12 +24,14 @@ function PaymentControl() {
     const ticket = state.response.ticket;
     const totalPrice = state.response.totalPrice;
     const listSeatString = state.response.seat.map((seat: any) => seat.seatId).join('_');
-    console.log('listSeatString: ',listSeatString);
+    console.log('listSeatString: ', listSeatString);
     const movie = state.response.movie;
     const showDate = state.response.showDate;
     const showTime = state.response.showTime;
     const seatString = state.response.seat.map((seat: any) => seat.seatName).join(', ');
     const currentUser = parseJwt(window.localStorage.getItem('access_token') + '')?.sub || null;
+    const [paymentMethod, setPaymentMethod] = useState<string>("VNPAY");
+    const availablePoint = window.localStorage.getItem('available_point') || 0;
 
     useEffect(() => {
         if (currentUser === null) {
@@ -48,6 +51,7 @@ function PaymentControl() {
 
     const handleChange = (value: { value: string; label: React.ReactNode }) => {
         console.log(value); // { value: "lucy", key: "lucy", label: "Lucy (101)" }
+        setPaymentMethod(value.value);
     };
     // Random component
     const Completionist = () => <span>You are good to go!</span>;
@@ -68,7 +72,14 @@ function PaymentControl() {
     };
 
     const redirectToPaymentPage = async (amount: number, movie: any) => {
-        createPaymentRequest(amount,movie.movieId + '__' + currentUser + '__' + listSeatString + '__' + ticket.ticketId).then(res => window.location = res.data)
+        if(paymentMethod === 'rewardPoint') {
+            addBookingRequest(currentUser, listSeatString.split('_').map(Number), Number(ticket.ticketId), Number(ticket.ticketPrice)).then(res => {
+                console.log('Add booking successful: ', res);
+            }).catch(err => console.log(err));
+
+            return;
+        }
+        createPaymentRequest(amount, movie.movieId + '__' + currentUser + '__' + listSeatString + '__' + ticket.ticketId).then(res => window.location = res.data)
     };
 
     return (
@@ -103,6 +114,10 @@ function PaymentControl() {
                             {
                                 value: 'VNPay',
                                 label: 'VNPay',
+                            },
+                            {
+                                value: 'rewardPoint',
+                                label: 'Điểm tích lũy',
                             },
                         ]}
                     />
@@ -146,13 +161,16 @@ function PaymentControl() {
                                 </Form.Item>
                             </Form>
                         </div>
+                        <div className='center'>
+                        {paymentMethod==='rewardPoint' && availablePoint < totalPrice && <span className='text-danger'>Số dư không đủ</span>}
+                        </div>
                     </div>
                 </Col>
             </Row>
             <Row>
                 <Col xs={12}>
                     <div className="center mt-32">
-                        <button className="nextBtn" onClick={() => redirectToPaymentPage(totalPrice, movie)}>
+                        <button className="nextBtn" disabled={paymentMethod==='rewardPoint' && availablePoint < totalPrice} onClick={() => redirectToPaymentPage(totalPrice, movie)}>
                             Thanh toán
                         </button>
                     </div>

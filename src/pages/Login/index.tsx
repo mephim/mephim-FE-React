@@ -15,6 +15,7 @@ function Login() {
             .then((res) => {
                 window.localStorage.setItem('access_token', res.data.data.token);
                 window.localStorage.setItem('refresh_token', res.data.data.refreshToken);
+                window.localStorage.setItem('available_point', res.data.data.availablePoint);
                 navigate('/');
             })
             .catch((e: any) => {

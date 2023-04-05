@@ -3,4 +3,6 @@ export interface ITransaction {
     seat?: string;
     time?: string,
     price?: string
+    pointOfUse?: number;
+    rewardPoint?: number;
 }

@@ -86,6 +86,8 @@ function UserInformation() {
                                         <th>Tên phim</th>
                                         <th>Ghế</th>
                                         <th>Giá</th>
+                                        <th>Điểm sữ dụng</th>
+                                        <th>Điểm tích lỹ</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -96,6 +98,8 @@ function UserInformation() {
                                             <td>{item.movieName}</td>
                                             <td>{item.seat}</td>
                                             <td>{item.price}</td>
+                                            <td>{item.pointOfUse || 0}</td>
+                                            <td>{Math.floor(Number(item.price) * 10/100)}</td>
                                         </tr>
                                     ))}
                                 </tbody>

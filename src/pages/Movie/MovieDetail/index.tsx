@@ -11,6 +11,8 @@ import { IMovie } from '../../../shared/model/IMovie';
 import MyModal from '../../../components/CustomModal';
 import ChooseShowTimeList from '../../../components/ChooseShowTimeList';
 import Trailer from '../../../components/Trailler';
+import Rate from '../../../components/Rate';
+import StarsRating from 'react-star-rate';
 
 function MovieDetail() {
     const params = useParams();
@@ -21,11 +23,15 @@ function MovieDetail() {
     const [actorList, setActorList] = useState<IActor[]>([]);
     const [showBookingModal, setShowBookingModal] = useState(false);
     const [showTrailerModal, setShowTrailerModal] = useState(false);
+    const [value, setValue] = useState<number>(0);
 
     console.log('movie: ', movie, ' categoryList: ', categoryList, ' actorList: ', actorList);
 
     useEffect(() => {
         findMovieByIdRequest(Number(params.id)).then(res => {
+
+            console.log('Response movie: ', res);
+
             setMovie(res.data.data.movie);
             setCategoryList(res.data.data.categoryList);
             setActorList(res.data.data.actorList);
@@ -37,10 +43,10 @@ function MovieDetail() {
                 <Col>
                     <div className="movie-info">
                         <div className="poster">
-                            <img src='https://metiz.vn/media/poster_film/321986917_1318882765574216_8856448085308688207_n.jpg' alt='' />
+                            <img src={movie?.moviePoster} alt='' />
                         </div>
                         <div className="info ml-20">
-                            <h2 className="fw-bold text-uppercase">Nhà bà nữ</h2>
+                            <h2 className="fw-bold text-uppercase">{movie?.movieName}</h2>
                             <p>Đạo diễn: <span>{movie?.movieDirector}</span></p>
                             <p>Diễn viên: <span>{movie?.movieActor}</span></p>
                             <p>Thể loại: {categoryList.map((category: ICategory) => (
@@ -55,6 +61,23 @@ function MovieDetail() {
                     </div>
                     <div className="description">
                         <p>{movie?.movieDescription}</p>
+                    </div>
+                    <div>
+                        <h5>Đánh giá</h5>
+                        <div className="rate-star mb-12">
+                            <StarsRating
+                                value={value}
+                                onChange={(value) => {
+                                    if (value) setValue(value);
+                                }}
+                            />
+                            <input className="form-control mt-12" type='input-rate' placeholder="Viết suy nghĩ của bạn"/>
+                            <div className="d-flex justify-content-center mt-12">
+                                <button className="btn btn-primary">Đăng</button>
+                            </div>
+                        </div>
+                        <Rate username={"lchau"} numRate={5} content={"phim hay"} isLiked/>
+                        <Rate username={"lchau"} numRate={5} content={"phim hay"} isLiked/>
                     </div>
                 </Col>
             </Row>

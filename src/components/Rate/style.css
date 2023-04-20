@@ -1,0 +1,7 @@
+.rate-star .react-star-rate__star > div{
+    transform: scale(2);
+}
+.rate-star ul {
+    display: flex;
+    align-items: center;
+}

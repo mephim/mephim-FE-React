@@ -10,9 +10,12 @@ export const getAllMovieForAdmin = (): Promise<any> => {
 export const getAllMovieRequest = (): Promise<any> => {
     return http.get(Constant.API_URL.MOVIE_FIND_ALL);
 };
+export const getMovieByNameRequest = (keySearch: string): Promise<any> => {
+    return http.get(Constant.API_URL.MOVIE_HAS_TICKET + "?search=" + keySearch);
+};
 
-export const getMovieHasTicketRequest = (): Promise<any> => {
-    return http.get(Constant.API_URL.MOVIE_HAS_TICKET);
+export const getMovieHasTicketRequestByCategory = (categoryId: number): Promise<any> => {
+    return http.get(Constant.API_URL.MOVIE_HAS_TICKET + '?categoryId=' + categoryId);
 };
 
 export const findMovieByIdRequest = (movieId: number): Promise<any> => {

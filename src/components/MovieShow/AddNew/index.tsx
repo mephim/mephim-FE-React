@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Select } from 'antd';
 
 import './style.css';
-import { getAllMovieRequest, getMovieHasTicketRequest } from '../../../apis/movie.api';
+import { getAllMovieRequest, getMovieHasTicketRequestByCategory } from '../../../apis/movie.api';
 import { findAllShowDateRequest, findAllShowTimeRequest } from '../../../apis/show.api';
 import { IMovie } from '../../../shared/model/IMovie';
 import { IShowDate } from '../../../shared/model/IShowDate';

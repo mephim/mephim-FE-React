@@ -10,7 +10,7 @@ interface IRateProps {
 }
 
 function Rate({ username, numRate, content, isLiked }: IRateProps) {
-    const [value, setValue] = useState<number>(0);
+    const [value, setValue] = useState<number>(numRate);
 
     return <div>
         <div className='rate-star d-flex align-items-center mt-12'>

@@ -28,7 +28,9 @@ const Constant = {
         CREATE_TICKET: '/ticket/create-new',
         CATEGORY_FIND_ALL: '/category/list-category',
         ACTOR_FIND_ALL: '/actor/list-actor',
-        FIND_TRANS_BY_MAIL: '/transaction/get-trans-by-email'
+        FIND_TRANS_BY_MAIL: '/transaction/get-trans-by-email',
+        RATE_ADD: '/rate/add',
+        RATE_FIND_BY_MOVIE: '/rate/find'
     },
     SHOW: {
         ROOM_COLOR: {

@@ -36,7 +36,10 @@ const items: MenuProps['items'] = [
         getItem('Submenu', 'sub321', null, [getItem('Option 7', 'sub2sub1'), getItem('Option 8', 'sub2sub2')]),
     ]),
 
-    getItem('Group', 'grp', null, [getItem('Option 13', '13'), getItem('Option 14', '14')], 'group'),
+    getItem('Quản lý phòng chiếu', 'sub3', <AppstoreOutlined />, [
+        getItem('Thêm mới phòng chiếu', 'add-room'),
+        getItem('Danh sách phòng chiếu', 'list-room'),
+    ]),
 ];
 
 function Sidebar() {
@@ -52,10 +55,10 @@ function Sidebar() {
             style={{ width: 256 }}
             defaultSelectedKeys={['1']}
             defaultOpenKeys={['sub1']}
-            mode='inline'
+            mode="inline"
             items={items}
         />
     );
-};
+}
 
 export default Sidebar;

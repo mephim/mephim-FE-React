@@ -1,21 +1,19 @@
-import * as Api from "../../../../api";
-import React, {useEffect, useState} from "react";
-import BigCalendar from "react-big-calendar";
-import moment from "moment";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import "./style.css"
-import Constant from "../../../../shared/constants";
-import MovieShowInfo from "../../../../components/MovieShow/MovieShowInfo";
-import MyModal from "../../../../components/CustomModal";
-import AddNewTicket from "../../../../components/MovieShow/AddNew";
+import * as Api from '../../../../api';
+import React, { useEffect, useState } from 'react';
+import BigCalendar from 'react-big-calendar';
+import moment from 'moment';
+import 'react-big-calendar/lib/css/react-big-calendar.css';
+import './style.css';
+import Constant from '../../../../shared/constants';
+import MovieShowInfo from '../../../../components/MovieShow/MovieShowInfo';
+import MyModal from '../../../../components/CustomModal';
+import AddNewTicket from '../../../../components/MovieShow/AddNew';
 import { Button, Modal } from 'antd';
 
-moment.locale("en-GB");
+moment.locale('en-GB');
 BigCalendar.momentLocalizer(moment);
 
-const allViews = Object.keys(BigCalendar.Views).map(
-    (k) => BigCalendar?.Views[k]
-);
+const allViews = Object.keys(BigCalendar.Views).map((k) => BigCalendar?.Views[k]);
 
 function List() {
     const [open, setOpen] = useState(false);
@@ -30,9 +28,7 @@ function List() {
         setOpen(true);
     };
 
-    const handleOk = () => {
-
-    };
+    const handleOk = () => {};
 
     const handleCancel = () => {
         setOpen(false);
@@ -42,76 +38,79 @@ function List() {
         const response = await Api.get(API_URL);
         const listShow = response.data.map((show) => {
             const timeStart = new Date(show.timeStart);
-            const timeEnd =  new Date(show.timeEnd);
+            const timeEnd = new Date(show.timeEnd);
 
             return {
-              ...show,
-              title: show.movieName,
-              start: timeStart,
-              end: timeEnd,
+                ...show,
+                title: show.movieName,
+                start: timeStart,
+                end: timeEnd,
             };
-        })
+        });
         setListShow(listShow);
-    }
+    };
 
     const handleSelectedEvent = (event) => {
         const start = new Date(event.timeStart);
         const end = new Date(event.timeEnd);
         setOpen(true);
-        setMovieShowSelected({...event, start, end})
-    }
+        setMovieShowSelected({ ...event, start, end });
+    };
 
     useEffect(() => {
         fetchData();
-    },[toggleState])
+    }, [toggleState]);
 
     // get room color from constants
     const getRoomColor = (roomName) => {
-        return Constant.SHOW.ROOM_COLOR[roomName]
-    }
+        return Constant.SHOW.ROOM_COLOR[roomName];
+    };
 
     const addColorEvent = (event) => {
         const roomName = event.roomName;
         const backgroundColor = getRoomColor(roomName);
         // const color = event.movieLength > 110 ? 'black' : 'white';
-        return { style: { backgroundColor } }
-    }
+        return { style: { backgroundColor } };
+    };
 
     const handleCreateSuccess = () => {
         console.log('SUCCESS');
         setToggleState(!toggleState);
-    }
+    };
 
-    return <div className="list-show">
-        <h4>Lịch chiếu phim tại rạp</h4>
-        <div className="d-flex">
-            <BigCalendar
-                events={listShow || []}
-                step={60}
-                views={allViews}
-                defaultView='week'
-                defaultDate={new Date()}
-                popup={true}
-                onSelectEvent={(events, date) => {
-                    console.log("set state")
-                    handleSelectedEvent(events)
-                }}
-                eventPropGetter={(event) => addColorEvent(event)}
-            />
+    return (
+        <div className="list-show">
+            <h4 className="text-center">Lịch chiếu phim tại rạp</h4>
+            <div className="d-flex">
+                <BigCalendar
+                    events={listShow || []}
+                    step={60}
+                    views={allViews}
+                    defaultView="week"
+                    defaultDate={new Date()}
+                    popup={true}
+                    onSelectEvent={(events, date) => {
+                        console.log('set state');
+                        handleSelectedEvent(events);
+                    }}
+                    eventPropGetter={(event) => addColorEvent(event)}
+                />
 
-            <AddNewTicket onSuccess={handleCreateSuccess} />
+                <AddNewTicket onSuccess={handleCreateSuccess} />
+            </div>
+
+            <Modal
+                centered={true}
+                open={open}
+                onOk={handleOk}
+                onCancel={handleCancel}
+                cancelText="Đóng"
+                okText="Đồng ý"
+            >
+                <MovieShowInfo movieShowSelected={movieShowSelected} />
+            </Modal>
         </div>
-
-        <Modal
-            open={open}
-            onOk={handleOk}
-            onCancel={handleCancel}
-            cancelText='Đóng'
-            okText='Đồng ý'
-        >
-            <MovieShowInfo movieShowSelected={movieShowSelected}/>
-        </Modal>
-    </div>;
+    );
 }
 
 export default List;

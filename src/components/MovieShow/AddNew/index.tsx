@@ -84,27 +84,29 @@ function AddNewTicket({ onSuccess }: IProp) {
     });
 
     return (
-        <div className='add-ticket'>
-            <h5>Thêm lịch chiếu - thêm vé</h5>
+        <div className="add-ticket">
+            <h5 className="text-center">Thêm lịch chiếu - thêm vé</h5>
             <Form
                 labelCol={{ span: 5 }}
                 wrapperCol={{ span: 60 }}
-                layout='horizontal'
-                onValuesChange={() => {
-                }}
+                layout="horizontal"
+                onValuesChange={() => {}}
                 onFinish={handleSubmit(onSubmit)}
             >
-                <Form.Item label='Phim'>
+                <Form.Item label="Phim">
                     <Controller
                         control={control}
-                        name='movieId'
+                        name="movieId"
                         render={({ field }) => (
                             <Select
                                 showSearch
-                                optionFilterProp='children'
+                                optionFilterProp="children"
                                 filterOption={(input, option) =>
                                     (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
-                                } placeholder='Chọn phim' {...field}>
+                                }
+                                placeholder="Chọn phim"
+                                {...field}
+                            >
                                 {movieList.map((movie: IMovie) => (
                                     <Select.Option key={movie.movieId} value={movie.movieId}>
                                         {movie.movieName}
@@ -113,15 +115,15 @@ function AddNewTicket({ onSuccess }: IProp) {
                             </Select>
                         )}
                     />
-                    <span className='text-danger'>{errors.movieId?.message}</span>
+                    <span className="text-danger">{errors.movieId?.message}</span>
                 </Form.Item>
 
-                <Form.Item label='Ngày chiếu'>
+                <Form.Item label="Ngày chiếu">
                     <Controller
                         control={control}
-                        name='showDateId'
+                        name="showDateId"
                         render={({ field }) => (
-                            <Select placeholder='Chọn ngày chiếu' {...field}>
+                            <Select placeholder="Chọn ngày chiếu" {...field}>
                                 {showDateList.map((showDate: IShowDate) => (
                                     <Select.Option key={showDate.showDateId} value={showDate.showDateId}>
                                         {showDate.date}
@@ -130,15 +132,15 @@ function AddNewTicket({ onSuccess }: IProp) {
                             </Select>
                         )}
                     />
-                    <span className='text-danger'>{errors.showDateId?.message}</span>
+                    <span className="text-danger">{errors.showDateId?.message}</span>
                 </Form.Item>
 
-                <Form.Item label='Giờ chiếu'>
+                <Form.Item label="Giờ chiếu">
                     <Controller
                         control={control}
-                        name='showTimeId'
+                        name="showTimeId"
                         render={({ field }) => (
-                            <Select placeholder='Chọn giờ chiếu' {...field}>
+                            <Select placeholder="Chọn giờ chiếu" {...field}>
                                 {showTimeList.map((showTime: IShowTime) => (
                                     <Select.Option key={showTime.showTimeId} value={showTime.showTimeId}>
                                         {showTime.time}
@@ -147,15 +149,15 @@ function AddNewTicket({ onSuccess }: IProp) {
                             </Select>
                         )}
                     />
-                    <span className='text-danger'>{errors.showTimeId?.message}</span>
+                    <span className="text-danger">{errors.showTimeId?.message}</span>
                 </Form.Item>
 
-                <Form.Item label='Phòng chiếu'>
+                <Form.Item label="Phòng chiếu">
                     <Controller
                         control={control}
-                        name='roomId'
+                        name="roomId"
                         render={({ field }) => (
-                            <Select placeholder='Chọn phòng chiếu' {...field}>
+                            <Select placeholder="Chọn phòng chiếu" {...field}>
                                 {roomList.map((room: IRoom) => (
                                     <Select.Option key={room.roomId} value={room.roomId}>
                                         {room.roomName}
@@ -164,20 +166,20 @@ function AddNewTicket({ onSuccess }: IProp) {
                             </Select>
                         )}
                     />
-                    <span className='text-danger'>{errors.roomId?.message}</span>
+                    <span className="text-danger">{errors.roomId?.message}</span>
                 </Form.Item>
 
-                <Form.Item label='Giá vé'>
+                <Form.Item label="Giá vé">
                     <Controller
                         control={control}
-                        name='price'
-                        render={({ field }) => <Input {...field} type='number' placeholder='Giá vé (VND)' />}
+                        name="price"
+                        render={({ field }) => <Input {...field} type="number" placeholder="Giá vé (VND)" />}
                     />
-                    <span className='text-danger'>{errors.price?.message}</span>
+                    <span className="text-danger">{errors.price?.message}</span>
                 </Form.Item>
 
-                <Form.Item>
-                    <Button type='primary' htmlType='submit'>
+                <Form.Item className="d-flex align-items-center justify-content-center">
+                    <Button type="primary" htmlType="submit">
                         Thêm
                     </Button>
                 </Form.Item>

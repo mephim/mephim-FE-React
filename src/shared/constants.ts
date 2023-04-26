@@ -11,6 +11,8 @@ const Constant = {
         RESET_PASSWORD: '/auth/reset-password',
         FIND_ALL_SHOW: '/movie/admin/find-all-show',
         ROOM_FIND: '/room/find',
+        ROOM_FIND_ALL: '/room/find-all-room',
+        ROOM_FIND_ALL_BY_ROOM_SEAT: '/room/find-all',
         CREATE_MOVIE: '/movie/create-movie',
         MOVIE_DETAIL: '/movie/detail',
         MOVIE_FIND_ALL: '/movie/list-movie',
@@ -21,7 +23,6 @@ const Constant = {
         SHOW_DATE_FIND: '/movie/find-show-date-by-movie',
         SHOW_TIME_FIND: '/movie/find-show-time-by-show-date',
         ADMIN_FIND_ALL_SHOW: '/movie/admin/find-all-show',
-        ROOM_FIND_ALL: '/room/find-all',
         FIND_LIST_SEAT_BY_DATE_TIME_TICKET: '/room/find',
         CREATE_PAYMENT: '/create-payment',
         ADD_BOOKING: '/booking/addNew',
@@ -30,7 +31,7 @@ const Constant = {
         ACTOR_FIND_ALL: '/actor/list-actor',
         FIND_TRANS_BY_MAIL: '/transaction/get-trans-by-email',
         RATE_ADD: '/rate/add',
-        RATE_FIND_BY_MOVIE: '/rate/find'
+        RATE_FIND_BY_MOVIE: '/rate/find',
     },
     SHOW: {
         ROOM_COLOR: {
@@ -62,7 +63,7 @@ const Constant = {
         DUPLICATE_USERNAME: 4,
         DUPLICATE_EMAIL: 5,
     },
-    PAYMENT_INFO: 'thanh toan tien ve'
+    PAYMENT_INFO: 'thanh toan tien ve',
 };
 
 export default Constant;

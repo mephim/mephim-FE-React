@@ -10,7 +10,7 @@ import { IShowTime } from '../../../shared/model/IShowTime';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useForm, Controller } from 'react-hook-form';
-import { findALlRoomRequest } from '../../../apis/room.api';
+import { findALlRoomSeatRequest } from '../../../apis/room.api';
 import { IRoom } from '../../../shared/model/IRoom';
 import { createTicketRequest } from '../../../apis/ticket.api';
 import { toast } from 'react-toastify';
@@ -46,7 +46,7 @@ function AddNewTicket({ onSuccess }: IProp) {
         findAllShowTimeRequest().then((res) => setShowTimeList(res.data.data));
     };
     const getAllRoom = () => {
-        findALlRoomRequest().then((res) => setRoomList(res.data.data));
+        findALlRoomSeatRequest().then((res) => setRoomList(res.data.data));
     };
 
     useEffect(() => {

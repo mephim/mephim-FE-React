@@ -25,7 +25,6 @@ interface IFormInputs {
 }
 
 function AddNewMovie() {
-
     const posterRef = useRef<HTMLInputElement>(null);
     const trailerRef = useRef<HTMLInputElement>(null);
     const [categoryList, setCategoryList] = useState<ICategory[]>([]);
@@ -40,12 +39,18 @@ function AddNewMovie() {
         movieDirector: Yup.string().required('Trường này là bắt buộc'),
         moviePoster: Yup.string().required('Trường này là bắt buộc'),
         movieTrailerUrl: Yup.string().required('Trường này là bắt buộc'),
-        movieCategoryNames: Yup.lazy(val => (Array.isArray(val) ? Yup.array().of(Yup.string()) : Yup.string().required('Trường này là bắt buộc'))),
+        movieCategoryNames: Yup.lazy((val) =>
+            Array.isArray(val) ? Yup.array().of(Yup.string()) : Yup.string().required('Trường này là bắt buộc'),
+        ),
     });
 
     useEffect(() => {
-        findAllCategoryRequest().then(res => setCategoryList(res.data.data)).catch(err => console.log(err))
-        findAllActorRequest().then(res => setActorList(res.data.data)).catch(err => console.log(err))
+        findAllCategoryRequest()
+            .then((res) => setCategoryList(res.data.data))
+            .catch((err) => console.log(err));
+        findAllActorRequest()
+            .then((res) => setActorList(res.data.data))
+            .catch((err) => console.log(err));
     }, []);
 
     const onSubmit = async (data: any) => {
@@ -57,10 +62,11 @@ function AddNewMovie() {
             movieTrailerUrl = await uploadFile(trailerRef?.current?.files[0], false);
         }
 
-        const movieCategoryIds: number[] = categoryList.filter((category: ICategory) => {
-            return data.movieCategoryNames.includes(category.categoryName);
-        }).map((category: ICategory) => category.categoryId);
-
+        const movieCategoryIds: number[] = categoryList
+            .filter((category: ICategory) => {
+                return data.movieCategoryNames.includes(category.categoryName);
+            })
+            .map((category: ICategory) => category.categoryId);
 
         const dataRequest: IMovieCreateDto = {
             ...data,
@@ -69,14 +75,14 @@ function AddNewMovie() {
             movieCategoryIds,
         };
 
-
         console.log('--Data create: ', dataRequest);
 
-        addMovieRequest(dataRequest).then(res => {
-            console.log('OK');
-        }).then(err => console.log(err));
+        addMovieRequest(dataRequest)
+            .then((res) => {
+                console.log('OK');
+            })
+            .then((err) => console.log(err));
         setLoading(false);
-
     };
 
     const {
@@ -88,108 +94,112 @@ function AddNewMovie() {
     });
 
     return (
-        <Spin spinning={loading} tip='Loading' size='large' delay={500}>
-            <div className='add-movie'>
+        <Spin spinning={loading} tip="Loading" size="large" delay={500}>
+            <div className="add-movie">
                 <h5>Thêm mới phim</h5>
                 <Form
-                    labelCol={{ span: 10 }}
-                    wrapperCol={{ span: 60 }}
-                    layout='horizontal'
-                    onValuesChange={() => {
-                    }}
+                    labelCol={{ span: 2 }}
+                    wrapperCol={{ span: 10 }}
+                    layout="horizontal"
+                    onValuesChange={() => {}}
                     onFinish={handleSubmit(onSubmit)}
                 >
-                    <Form.Item label='Phim'>
+                    <Form.Item label="Phim">
                         <Controller
                             control={control}
-                            name='movieName'
-                            render={({ field }) => <Input {...field} type='text' placeholder='Nhập tên phim' />}
+                            name="movieName"
+                            render={({ field }) => <Input {...field} type="text" placeholder="Nhập tên phim" />}
                         />
-                        <span className='text-danger'>{errors.movieName?.message}</span>
+                        <span className="text-danger">{errors.movieName?.message}</span>
                     </Form.Item>
 
-                    <Form.Item label='Mô tả'>
+                    <Form.Item label="Mô tả">
                         <Controller
                             control={control}
-                            name='movieDescription'
-                            render={({ field }) => <Input.TextArea {...field} rows={4} placeholder='Mô tả phim' />}
+                            name="movieDescription"
+                            render={({ field }) => <Input.TextArea {...field} rows={4} placeholder="Mô tả phim" />}
                         />
-                        <span className='text-danger'>{errors.movieDescription?.message}</span>
+                        <span className="text-danger">{errors.movieDescription?.message}</span>
                     </Form.Item>
 
-                    <Form.Item label='Thời lượng'>
+                    <Form.Item label="Thời lượng">
                         <Controller
                             control={control}
-                            name='movieLength'
-                            render={({ field }) => <Input {...field} type='number' placeholder='phút' />}
+                            name="movieLength"
+                            render={({ field }) => <Input {...field} type="number" placeholder="phút" />}
                         />
-                        <span className='text-danger'>{errors.movieLength?.message}</span>
+                        <span className="text-danger">{errors.movieLength?.message}</span>
                     </Form.Item>
 
-                    <Form.Item label='Đạo diễn'>
+                    <Form.Item label="Đạo diễn">
                         <Controller
                             control={control}
-                            name='movieDirector'
-                            render={({ field }) => <Input {...field} type='text' placeholder='Đạo diễn' />}
+                            name="movieDirector"
+                            render={({ field }) => <Input {...field} type="text" placeholder="Đạo diễn" />}
                         />
-                        <span className='text-danger'>{errors.movieDirector?.message}</span>
+                        <span className="text-danger">{errors.movieDirector?.message}</span>
                     </Form.Item>
 
-                    <Form.Item label='Diễn viên'>
+                    <Form.Item label="Diễn viên">
                         <Controller
                             control={control}
-                            name='movieActor'
-                            render={({ field }) => <Input {...field} type='text' placeholder='Diễn viên' />}
+                            name="movieActor"
+                            render={({ field }) => <Input {...field} type="text" placeholder="Diễn viên" />}
                         />
-                        <span className='text-danger'>{errors.movieActor?.message}</span>
+                        <span className="text-danger">{errors.movieActor?.message}</span>
                     </Form.Item>
 
-                    <Form.Item label='Thể loại'>
+                    <Form.Item label="Thể loại">
                         <Controller
                             control={control}
-                            name='movieCategoryNames'
-                            render={({ field }) =>
+                            name="movieCategoryNames"
+                            render={({ field }) => (
                                 <Select
-                                    mode='multiple'
+                                    mode="multiple"
                                     style={{ width: '100%' }}
-                                    placeholder='Chọn thể loại'
-                                    optionLabelProp='label'
+                                    placeholder="Chọn thể loại"
+                                    optionLabelProp="label"
                                     {...field}
                                 >
                                     {categoryList.map((category: ICategory) => (
-                                        <Option key={category.categoryId} value={category.categoryName} label={category.categoryName}>
-                                            <div className='demo-option-label-item'>
-                                                {category.categoryName}
-                                            </div>
+                                        <Option
+                                            key={category.categoryId}
+                                            value={category.categoryName}
+                                            label={category.categoryName}
+                                        >
+                                            <div className="demo-option-label-item">{category.categoryName}</div>
                                         </Option>
                                     ))}
-                                </Select>}
+                                </Select>
+                            )}
                         />
-                        <span className='text-danger'>{errors.movieCategoryNames?.message}</span>
+                        <span className="text-danger">{errors.movieCategoryNames?.message}</span>
                     </Form.Item>
 
-                    <Form.Item label='Poster'>
+                    <Form.Item label="Poster">
                         <Controller
                             control={control}
-                            name='moviePoster'
-                            render={({ field }) => <input {...field} ref={posterRef}
-                                                          type='file' accept='image/png, image/jpeg' />}
+                            name="moviePoster"
+                            render={({ field }) => (
+                                <input {...field} ref={posterRef} type="file" accept="image/png, image/jpeg" />
+                            )}
                         />
-                        <span className='text-danger'>{errors.moviePoster?.message}</span>
+                        <span className="text-danger">{errors.moviePoster?.message}</span>
                     </Form.Item>
 
-                    <Form.Item label='Trailer'>
+                    <Form.Item label="Trailer">
                         <Controller
                             control={control}
-                            name='movieTrailerUrl'
-                            render={({ field }) => <input {...field} ref={trailerRef} type='file'
-                                                          accept='video/mp4,video/x-m4v,video/*' />}
+                            name="movieTrailerUrl"
+                            render={({ field }) => (
+                                <input {...field} ref={trailerRef} type="file" accept="video/mp4,video/x-m4v,video/*" />
+                            )}
                         />
-                        < span className='text-danger'>{errors.movieTrailerUrl?.message}</span>
+                        <span className="text-danger">{errors.movieTrailerUrl?.message}</span>
                     </Form.Item>
 
                     <Form.Item>
-                        <Button type='primary' htmlType='submit'>
+                        <Button type="primary" htmlType="submit">
                             Thêm
                         </Button>
                     </Form.Item>

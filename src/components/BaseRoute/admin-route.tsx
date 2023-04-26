@@ -7,19 +7,23 @@ import AddNew from '../../pages/Admin/Show/AddNew';
 import AddNewMovie from '../../pages/Admin/Movie/AddNew';
 import List2 from '../../pages/Admin/Show/List2';
 import ListMovie from '../../pages/Movie/ListMovie';
+import ListRoom from '../../pages/Admin/Room';
 
 function AdminRoute() {
     return (
         <>
             <div style={{ display: 'flex' }}>
                 <Sidebar />
-                <Routes>
-                    <Route path='list-show' element={<List />} />
-                    <Route path='list-show-2' element={<List2 />} />
-                    <Route path='add-show' element={<AddNew />} />
-                    <Route path='list-movie' element={<ListMovie />} />
-                    <Route path='add-movie' element={<AddNewMovie />} />
-                </Routes>
+                <div style={{ flex: 1 }}>
+                    <Routes>
+                        <Route path="list-show" element={<List />} />
+                        <Route path="list-show-2" element={<List2 />} />
+                        <Route path="add-show" element={<AddNew />} />
+                        <Route path="list-movie" element={<ListMovie />} />
+                        <Route path="add-movie" element={<AddNewMovie />} />
+                        <Route path="list-room" element={<ListRoom />} />
+                    </Routes>
+                </div>
             </div>
             <Footer />
         </>

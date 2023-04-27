@@ -36,7 +36,7 @@ const items: MenuProps['items'] = [
         getItem('Submenu', 'sub321', null, [getItem('Option 7', 'sub2sub1'), getItem('Option 8', 'sub2sub2')]),
     ]),
 
-    getItem('Quản lý phòng chiếu', 'sub3', <AppstoreOutlined />, [
+    getItem('Quản lý phòng chiếu', 'sub3214', <AppstoreOutlined />, [
         getItem('Thêm mới phòng chiếu', 'add-room'),
         getItem('Danh sách phòng chiếu', 'list-room'),
     ]),

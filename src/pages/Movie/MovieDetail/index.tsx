@@ -21,7 +21,8 @@ import { toast } from 'react-toastify';
 
 function MovieDetail() {
     const params = useParams();
-    console.log(params.id);
+    console.log('ID', params);
+    console.log('ID', params.id);
 
     const currentUser = parseJwt(window.localStorage.getItem('access_token') + '')?.sub || null;
     const [movie, setMovie] = useState<IMovie>();

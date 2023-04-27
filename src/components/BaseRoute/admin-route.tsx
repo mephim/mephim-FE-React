@@ -8,6 +8,7 @@ import AddNewMovie from '../../pages/Admin/Movie/AddNew';
 import List2 from '../../pages/Admin/Show/List2';
 import ListMovie from '../../pages/Movie/ListMovie';
 import ListRoom from '../../pages/Admin/Room';
+import AddRoom from '../../pages/Admin/Room/AddNew';
 
 function AdminRoute() {
     return (
@@ -22,6 +23,7 @@ function AdminRoute() {
                         <Route path="list-movie" element={<ListMovie />} />
                         <Route path="add-movie" element={<AddNewMovie />} />
                         <Route path="list-room" element={<ListRoom />} />
+                        <Route path="add-room" element={<AddRoom />} />
                     </Routes>
                 </div>
             </div>

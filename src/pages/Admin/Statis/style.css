@@ -1,0 +1,36 @@
+.scale-2 {
+    transform: scale(2);
+}
+.icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.arrow-up-icon {
+    color: #00c714;
+}
+.arrow-down-icon {
+    color: #c70004;
+}
+.dollar-icon {
+    color: #122ac7;
+}
+.eye-icon {
+    color: #c79812;
+}
+.card-1 {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(195,249,212,1) 0%, rgba(244,253,255,1) 100%);
+}
+.card-1.down {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(249,202,202,1) 0%, rgba(255,244,244,1) 100%);
+}
+.card-2 {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(193,229,255,1) 0%, rgba(255,244,244,1) 100%);
+}
+.card-3 {
+    background: rgb(2,0,36);
+    background: linear-gradient(90deg, rgba(2,0,36,1) 0%, rgba(255,231,193,1) 0%, rgba(255,244,244,1) 100%);
+}

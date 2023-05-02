@@ -33,6 +33,12 @@ const Constant = {
         FIND_TRANS_BY_MAIL: '/transaction/get-trans-by-email',
         RATE_ADD: '/rate/add',
         RATE_FIND_BY_MOVIE: '/rate/find',
+        GET_TRANSACTION_BY_MONTH: '/statis/get-transaction-by-month',
+        GET_TRANSACTION_BY_DAY: '/statis/get-transaction-by-day',
+        GET_MOVIE_STATICS: '/statis/get-movie-statics',
+        GET_CHANGE_TRANSACTION_ONE_YEAR: '/statis/get-change-transaction-one-year',
+        GET_CHANGE_TRANSACTION_ONE_WEEK: '/statis/get-change-transaction-one-week',
+        GET_CHANGE_CATEGORY: '/statis/get-change-category',
     },
     SHOW: {
         ROOM_COLOR: {

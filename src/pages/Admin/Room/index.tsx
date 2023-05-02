@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { IRoomResponse } from '../../../shared/model/response/IRoomResponse';
 import { findAllRoom } from '../../../apis/room.api';
 import { Space, Table, Tag, Button } from 'antd';
 import { DeleteOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
+import { Line } from '@ant-design/plots';
 
 const { Column, ColumnGroup } = Table;
 

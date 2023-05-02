@@ -40,6 +40,8 @@ const items: MenuProps['items'] = [
         getItem('Thêm mới phòng chiếu', 'add-room'),
         getItem('Danh sách phòng chiếu', 'list-room'),
     ]),
+
+    getItem('Thống kê', 'static', <AppstoreOutlined />),
 ];
 
 function Sidebar() {

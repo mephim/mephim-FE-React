@@ -9,6 +9,7 @@ import List2 from '../../pages/Admin/Show/List2';
 import ListMovie from '../../pages/Movie/ListMovie';
 import ListRoom from '../../pages/Admin/Room';
 import AddRoom from '../../pages/Admin/Room/AddNew';
+import Static from '../../pages/Admin/Statis';
 
 function AdminRoute() {
     return (
@@ -24,6 +25,7 @@ function AdminRoute() {
                         <Route path="add-movie" element={<AddNewMovie />} />
                         <Route path="list-room" element={<ListRoom />} />
                         <Route path="add-room" element={<AddRoom />} />
+                        <Route path="static" element={<Static />} />
                     </Routes>
                 </div>
             </div>

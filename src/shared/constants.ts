@@ -39,6 +39,9 @@ const Constant = {
         GET_CHANGE_TRANSACTION_ONE_YEAR: '/statis/get-change-transaction-one-year',
         GET_CHANGE_TRANSACTION_ONE_WEEK: '/statis/get-change-transaction-one-week',
         GET_CHANGE_CATEGORY: '/statis/get-change-category',
+        GET_ALL_RATE: '/rate/find-all',
+        REACT_RATE: '/rate/react',
+        DELETE_RATE: '/rate/delete',
     },
     SHOW: {
         ROOM_COLOR: {

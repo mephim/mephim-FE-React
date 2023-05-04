@@ -111,17 +111,6 @@ function Static() {
         },
         smooth: true
     };
-
-    const data = [
-        {
-            movieName: '家具家电',
-            value: 38,
-        },
-        {
-            movieName: '粮油副食',
-            value: 52,
-        },
-    ];
     const config: any = {
         data: listMovieStatics,
         xField: 'movieName',
@@ -171,7 +160,7 @@ function Static() {
             },
         ],
     };
-    return <div className='p-3'>
+    return <div>
         <h4>Bảng thống kê</h4>
         <Card body>
             <Select

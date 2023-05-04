@@ -18,6 +18,7 @@ import { addRateRequest, findRateByMovie } from '../../../apis/rate.api';
 import { IRate } from '../../../shared/model/IRate';
 import { parseJwt } from '../../../shared/common';
 import { toast } from 'react-toastify';
+import IRateResponse from '../../../shared/model/response/IRateResponse';
 
 function MovieDetail() {
     const params = useParams();
@@ -31,7 +32,7 @@ function MovieDetail() {
     const [showBookingModal, setShowBookingModal] = useState(false);
     const [showTrailerModal, setShowTrailerModal] = useState(false);
     const [value, setValue] = useState<number>(0);
-    const [listRate, setListRate] = useState<IRate[]>([]);
+    const [listRate, setListRate] = useState<IRateResponse[]>([]);
     const cmtInput = useRef() as MutableRefObject<HTMLInputElement>;
 
     console.log('movie: ', movie, ' categoryList: ', categoryList, ' actorList: ', actorList);
@@ -68,7 +69,7 @@ function MovieDetail() {
             numRate: value,
             content: cmtInput.current.value,
         }).then((res) => {
-            setListRate([...listRate, {username: currentUser, numRate: value, content: cmtInput.current.value}]);
+            setListRate([...listRate, {username: currentUser, numRate: value, content: cmtInput.current.value, movieName: '', rateId: 1, liked: false}]);
             console.log('SUCCESS: ', res.data);
         }).catch(error => toast.error('🦄 Bạn chưa mua vé hoặc bạn đã bình luận rồi !'));
     };
@@ -114,8 +115,8 @@ function MovieDetail() {
                             </div>
                         </div>
                         {
-                            listRate.map((item: IRate) => <><Rate username={item.username} numRate={item.numRate} content={item.content}
-                                                                  isLiked /></>)
+                            listRate.map((item: IRateResponse) => <><Rate username={item.username} numRate={item.numRate} content={item.content}
+                                                                  isLiked={item.liked} /></>)
                         }
                     </div>
                 </Col>

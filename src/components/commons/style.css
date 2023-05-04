@@ -1,0 +1,12 @@
+.menu-side-bar {
+    position: relative;
+}
+.logout {
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+}
+.logout * {
+
+}
+

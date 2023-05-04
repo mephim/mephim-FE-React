@@ -5,3 +5,6 @@ import { ITicketCreateDto } from '../shared/model/dto/ITicketCerateDto';
 export const createTicketRequest = (ticket: ITicketCreateDto): Promise<any> => {
     return http.post(Constant.API_URL.CREATE_TICKET, ticket);
 };
+export const deleteTicketRequest = (ticketId: number): Promise<any> => {
+    return http.post(Constant.API_URL.DELETE_TICKET, { ticketId });
+};

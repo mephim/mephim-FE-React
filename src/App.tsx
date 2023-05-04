@@ -17,24 +17,18 @@ import NotFound404 from './pages/NotFound404';
 function App() {
     return (
         <Router>
-            <div className='App'>
+            <div className="App">
                 <Routes>
-                    <Route
-                        path='/*'
-                        element={<BaseRouter element={<MainRoute />} />}
-                    />
-                    <Route path='register' element={<Register />} />
-                    <Route path='login' element={<Login />} />
-                    <Route path='requestCode' element={<RequestVerifyCode />} />
-                    <Route path='resetPassword' element={<ResetPassword />} />
-                    <Route path='verify' element={<Verify />} />
-                    <Route
-                        path='/admin/*'
-                        element={<BaseRouter element={<AdminRoute />} />}
-                    />
-                    <Route path='/demo' element={<Demo />} />
-                    <Route path='/404' element={<NotFound404 />} />
-                    <Route path='*' element={<Navigate replace to='/404' />} />
+                    <Route path="/*" element={<BaseRouter element={<MainRoute />} />} />
+                    <Route path="register" element={<Register />} />
+                    <Route path="login" element={<Login />} />
+                    <Route path="requestCode" element={<RequestVerifyCode />} />
+                    <Route path="resetPassword" element={<ResetPassword />} />
+                    <Route path="verify" element={<Verify />} />
+                    <Route path="/admin/*" element={<BaseRouter element={<AdminRoute />} />} />
+                    <Route path="/demo" element={<Demo />} />
+                    <Route path="/404" element={<NotFound404 />} />
+                    <Route path="*" element={<Navigate replace to="/404" />} />
                 </Routes>
             </div>
             <ToastContainer />

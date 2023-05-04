@@ -8,8 +8,14 @@
     justify-content: center;
     width: 60%;
     height: 50px;
-    background-image: repeating-linear-gradient(50deg, #E3E3E3 0px, #E3E3E3 3px,
-    transparent 3px, transparent 4px, #E3E3E3 0px);
+    background-image: repeating-linear-gradient(
+        50deg,
+        #e3e3e3 0px,
+        #e3e3e3 3px,
+        transparent 3px,
+        transparent 4px,
+        #e3e3e3 0px
+    );
 }
 
 .seat-generate .choose-seat {
@@ -20,7 +26,7 @@
 }
 
 .seat-generate .seat-item.isBooking {
-    background-color: #6E84A3;
+    background-color: #6e84a3;
 }
 
 .seat-generate .seat-item {

@@ -78,6 +78,12 @@ function List() {
         setToggleState(!toggleState);
     };
 
+    const handleDelete = () => {
+        console.log('DELETED');
+        setOpen(false);
+        setToggleState(!toggleState);
+    };
+
     return (
         <div className="list-show">
             <h4 className="text-center">Lịch chiếu phim tại rạp</h4>
@@ -107,7 +113,7 @@ function List() {
                 cancelText="Đóng"
                 okText="Đồng ý"
             >
-                <MovieShowInfo movieShowSelected={movieShowSelected} />
+                <MovieShowInfo onDelete={handleDelete} movieShowSelected={movieShowSelected} />
             </Modal>
         </div>
     );

@@ -18,7 +18,7 @@ function List2() {
         adminFindAllShowRequest()
             .then((res) => setListShow(res.data.data))
             .catch((err) => console.log(err));
-    }, []);
+    }, [reload]);
     const renderTitle = () => {
         return (
             <div className="d-flex align-items-center justify-content-between">
@@ -45,9 +45,14 @@ function List2() {
 
     const confirmDelete = (ticketId: number) => {
         deleteTicketRequest(ticketId)
-            .then(() => {
-                toast.success('🦄 Đã gỡ lịch chiếu');
-                setReload(!reload);
+            .then((res) => {
+                console.log(res.data.data);
+                if (res.data.data) {
+                    setReload(!reload);
+                    toast.success('🦄 Đã gỡ lịch chiếu');
+                } else {
+                    toast.error('🦄 Không thể gỡ lịch chiếu này vì đã có người đặt vé');
+                }
             })
             .catch((err) => console.log(err));
     };

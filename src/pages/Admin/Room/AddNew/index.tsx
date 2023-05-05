@@ -76,8 +76,8 @@ function AddRoom() {
     };
 
     return (
-        <div>
-            <h4>Thêm mới phòng chiếu</h4>
+        <Card body>
+            <h5>Thêm mới phòng chiếu</h5>
             <Card className="d-flex align-items-center justify-content-center">
                 <Card.Body className="w-25">
                     <span>Nhập tên phòng: </span>
@@ -107,7 +107,7 @@ function AddRoom() {
             </Card>
 
             <div>
-                <h4>Sơ đồ ghế</h4>
+                <h5>Sơ đồ ghế</h5>
                 <div className="seat-generate d-flex align-items-center justify-content-center flex-column">
                     <div className="screen">
                         <span>Màn hình</span>
@@ -152,7 +152,7 @@ function AddRoom() {
                     </Button>
                 </div>
             </div>
-        </div>
+        </Card>
     );
 }
 

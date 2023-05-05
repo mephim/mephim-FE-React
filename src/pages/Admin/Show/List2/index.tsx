@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react';
 import { adminFindAllShowRequest } from '../../../../apis/show.api';
 import { IShowResponse } from '../../../../shared/model/IShowResponse';
 import { CloseCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
-import { Space, Table, Tag, Button, Tooltip, Popconfirm } from 'antd';
+import { Space, Table, Tag, Button, Input, Popconfirm } from 'antd';
+import type { ColumnsType } from 'antd/es/table';
 import Constant from '../../../../shared/constants';
 import { numberWithCommas } from '../../../../shared/common';
 import { deleteTicketRequest } from '../../../../apis/ticket.api';
 import { toast } from 'react-toastify';
-
-const { Column, ColumnGroup } = Table;
+const { Search } = Input;
 
 function List2() {
     const [listShow, setListShow] = useState<IShowResponse[]>([]);
@@ -19,6 +19,14 @@ function List2() {
             .then((res) => setListShow(res.data.data))
             .catch((err) => console.log(err));
     }, []);
+    const renderTitle = () => {
+        return (
+            <div className="d-flex align-items-center justify-content-between">
+                <h5>Lịch chiếu phim tại rạp</h5>
+                <Search placeholder="Tìm theo phim" allowClear onSearch={() => {}} style={{ width: 304 }} />
+            </div>
+        );
+    };
 
     const getRoomColor = (roomName: string) => {
         switch (roomName) {
@@ -43,62 +51,78 @@ function List2() {
             })
             .catch((err) => console.log(err));
     };
+
+    const tableColumns: ColumnsType<any> = [
+        {
+            title: 'ID vé',
+            dataIndex: 'ticketId',
+        },
+        {
+            title: 'Tên phim',
+            dataIndex: 'movieName',
+        },
+        {
+            title: 'Phòng chiếu',
+            dataIndex: 'roomName',
+            render: (roomName: any) => {
+                return (
+                    <Tag color={getRoomColor(roomName)} key={roomName}>
+                        {roomName}
+                    </Tag>
+                );
+            },
+        },
+        {
+            title: 'Thời gian bắt đầu',
+            dataIndex: 'timeStart',
+        },
+        {
+            title: 'Thời gian kết thúc',
+            dataIndex: 'timeStart',
+        },
+        {
+            title: 'Giá vé',
+            dataIndex: 'ticketPrice',
+            sorter: {
+                compare: (a, b) => {
+                    console.log('sort nha: ');
+
+                    return a - b;
+                },
+            },
+            render: (ticketPrice: number) => (
+                <Tag color="#f50" key={ticketPrice}>
+                    {numberWithCommas(Number(ticketPrice))} đ
+                </Tag>
+            ),
+        },
+        {
+            title: 'Action',
+            key: 'action',
+            align: 'center',
+            render: (record: IShowResponse) => (
+                <Space size="large">
+                    <Popconfirm
+                        title="Gỡ lịch chiếu này"
+                        // description="Are you sure to delete this task?"
+                        icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
+                        onConfirm={() => confirmDelete(record.ticketId)}
+                    >
+                        <Button
+                            className="d-flex align-items-center justify-content-center"
+                            style={{ width: 50 }}
+                            block
+                            icon={<CloseCircleOutlined />}
+                        />
+                    </Popconfirm>
+                </Space>
+            ),
+        },
+    ];
+
     return (
         <div>
-            <h4>Lịch chiếu phim tại rạp</h4>
-            <div>
-                <Table dataSource={listShow}>
-                    <Column title="ID vé" dataIndex="ticketId" key="ticketId" />
-                    <Column title="Tên phim" dataIndex="movieName" key="movieName" />
-                    <Column
-                        title="Phòng chiếu"
-                        dataIndex="roomName"
-                        key="roomName"
-                        render={(roomName: string) => (
-                            <>
-                                <Tag color={getRoomColor(roomName)} key={roomName}>
-                                    {roomName}
-                                </Tag>
-                            </>
-                        )}
-                    />
-                    <Column title="Thời gian bắt đầu" dataIndex="timeStart" key="timeStart" />
-                    <Column title="Thời gian kết thúc" dataIndex="timeEnd" key="timeEnd" />
-                    <Column
-                        title="Giá vé"
-                        dataIndex="ticketPrice"
-                        key="ticketPrice"
-                        render={(ticketPrice: string) => (
-                            <>
-                                <Tag color="#f50" key={ticketPrice}>
-                                    {numberWithCommas(Number(ticketPrice))} đ
-                                </Tag>
-                            </>
-                        )}
-                    />
-                    <Column
-                        title="Action"
-                        key="action"
-                        render={(_: any, record: IShowResponse) => (
-                            <Space size="large">
-                                <Popconfirm
-                                    title="Gỡ lịch chiếu này"
-                                    // description="Are you sure to delete this task?"
-                                    icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                                    onConfirm={() => confirmDelete(record.ticketId)}
-                                >
-                                    <Button
-                                        className="d-flex align-items-center justify-content-center"
-                                        style={{ width: 50 }}
-                                        block
-                                        icon={<CloseCircleOutlined />}
-                                    />
-                                </Popconfirm>
-                            </Space>
-                        )}
-                    />
-                </Table>
-            </div>
+            <Table bordered={true} title={() => renderTitle()} columns={tableColumns} dataSource={listShow} />
         </div>
     );
 }

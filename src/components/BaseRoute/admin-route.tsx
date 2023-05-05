@@ -12,6 +12,7 @@ import AddRoom from '../../pages/Admin/Room/AddNew';
 import Static from '../../pages/Admin/Statis';
 import Rate from '../../pages/Admin/Rate';
 import User from '../../pages/Admin/User';
+import Category from '../../pages/Admin/Category';
 
 function AdminRoute() {
     return (
@@ -29,6 +30,7 @@ function AdminRoute() {
                         <Route path="add-room" element={<AddRoom />} />
                         <Route path="static" element={<Static />} />
                         <Route path="rate" element={<Rate />} />
+                        <Route path="category" element={<Category />} />
                         <Route path="user" element={<User />} />
                     </Routes>
                 </div>

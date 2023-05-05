@@ -3,7 +3,7 @@ import { AppstoreOutlined, ExportOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
-import './style.css'
+import './style.css';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
@@ -26,13 +26,15 @@ function getItem(
 const items: MenuProps['items'] = [
     getItem('Quản lý suất chiếu', 'sub1', <AppstoreOutlined />, [
         getItem('Lịch chiếu - Kiểu calendar', 'list-show'),
-        getItem('Lịch chiếu - Kiểu danh sách', 'list-show-2')]),
+        getItem('Lịch chiếu - Kiểu danh sách', 'list-show-2'),
+    ]),
 
     getItem('Quản lý phim', 'list-movie', <AppstoreOutlined />),
 
     getItem('Quản lý phòng chiếu', 'list-room', <AppstoreOutlined />),
 
     getItem('Quản lý đánh giá', 'rate', <AppstoreOutlined />),
+    getItem('Quản lý thể loại', 'category', <AppstoreOutlined />),
     getItem('Quản lý user', 'user', <AppstoreOutlined />),
     getItem('Thống kê', 'static', <AppstoreOutlined />),
 ];
@@ -48,15 +50,18 @@ function Sidebar() {
         <div className="menu-side-bar">
             <Menu
                 onClick={onClick}
-                style={{width: 256, height: '100vh' }}
+                style={{ width: 256, height: '100vh' }}
                 defaultSelectedKeys={['1']}
                 defaultOpenKeys={['sub1']}
-                mode='inline'
+                mode="inline"
                 items={items}
                 theme="dark"
             />
-            <div className='logout'>
-                <span className="d-inline-block text-light"><ExportOutlined /><span className="d-inline-block">Logout</span></span>
+            <div className="logout">
+                <span className="d-inline-block text-light">
+                    <ExportOutlined />
+                    <span className="d-inline-block">Logout</span>
+                </span>
             </div>
         </div>
     );

@@ -87,7 +87,7 @@ function List() {
     return (
         <div className="list-show">
             <h4 className="text-center">Lịch chiếu phim tại rạp</h4>
-            <div className="d-flex">
+            <div className="d-flex align-items-center justify-content-around">
                 <BigCalendar
                     events={listShow || []}
                     step={60}
@@ -101,7 +101,6 @@ function List() {
                     }}
                     eventPropGetter={(event) => addColorEvent(event)}
                 />
-
                 <AddNewTicket onSuccess={handleCreateSuccess} />
             </div>
 

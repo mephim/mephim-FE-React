@@ -43,6 +43,19 @@ function UserInformation() {
                                         </Col>
                                     </Row>
                                 </div>
+                                <div className='mt-10'>
+                                    <Row>
+                                        <Col xs={4}>
+                                            <span>Số điện thoại: </span>
+                                        </Col>
+                                        <Col xs={8}>
+                                            <input className='form-input' type="text" />
+                                        </Col>
+                                    </Row>
+                                </div>
+                                <div className='mt-10 center'>
+                                    <button className='btn btn-primary'>Cập nhật</button>
+                                </div>
                             </div>
                         </div>
 

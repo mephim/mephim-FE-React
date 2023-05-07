@@ -6,6 +6,9 @@ import { IMovieCreateDto } from '../shared/model/dto/IMovieCreateDto';
 export const getAllMovieForAdmin = (): Promise<any> => {
     return http.get(Constant.API_URL.MOVIE_FIND_ALL_ADMIN);
 };
+export const getAllMovieForAdminByMovieName = (movieName: string): Promise<any> => {
+    return http.get(Constant.API_URL.MOVIE_FIND_ALL_ADMIN_BY_NAME + "?movieName=" + movieName);
+};
 
 export const getAllMovieRequest = (): Promise<any> => {
     return http.get(Constant.API_URL.MOVIE_FIND_ALL);

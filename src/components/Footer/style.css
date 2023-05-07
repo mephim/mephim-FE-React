@@ -1,0 +1,79 @@
+.footer a {
+    display: block;
+    text-decoration: none;
+    color: #7e8eaa;
+    text-transform: uppercase;
+    padding: 6px 0;
+}
+.footer a:hover {
+    color: red;
+}
+
+.footer ul {
+    list-style: none;
+    padding: 0;
+}
+
+.footer footer {
+    background-color: #031327;
+}
+
+.footer p, .footer h2, .footer h4{
+    color: white;
+}
+
+.footer i {
+    color: white;
+    font-size: 30px;
+}
+
+.footer .social {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #0e1d2f;
+    padding: 30px;
+}
+
+.footer .social .social__ {
+    margin: 10px;
+}
+
+.footer .footer__first,
+.footer .footer__center,
+.footer .footer__end{
+    display: flex;
+    padding: 20px;
+}
+
+.footer .footer__first {
+    justify-content: space-around;
+}
+
+.footer .footer__center {
+    justify-content: space-between;
+    padding-left: 85px;
+    padding-right: 85px;
+}
+
+.footer .footer__end {
+    justify-content: space-around;
+}
+
+.footer .footer__center .chungnhan img {
+    width: 200px;
+}
+
+
+
+.footer .soucre {
+    padding: 20px 20px 20px 60px;
+    text-align: center;
+    animation: my 700ms infinite;
+}
+
+@keyframes my {
+    0% { color: #F8CD0A;  }
+    50% { color: #fff;  }
+    100% { color: #F8CD0A;  }
+}

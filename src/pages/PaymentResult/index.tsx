@@ -1,6 +1,8 @@
 import { useLocation } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { addBookingRequest } from '../../apis/booking.api';
+import Spinner from 'react-bootstrap/Spinner';
+import './style.css';
 
 function PaymentResult() {
     const location = useLocation();
@@ -14,10 +16,20 @@ function PaymentResult() {
         const ticketId = '' + paymentOtherInfo.split('__')[3];
         addBookingRequest(user, seatIds.map(Number), Number(ticketId)).then(res => {
             console.log('Add booking successful: ', res);
-            setStatus('Thanh toán thành công, vui lòng kiểm tra email');
+            setStatus('Thanh toán thành công, vui lòng kiểm tra email !');
         }).catch(err => console.log(err));
-    },[]);
-    return <span>{status}</span>;
+    }, []);
+    return <div className='transaction-success-page'>
+        <div className='card'>
+            {status === 'Vui lòng chờ...' && <Spinner animation='border' role='status'/>}
+            {status !== 'Vui lòng chờ...' && <div>
+                <div style={{ borderRadius: 200, height: 200, width: 200, background: '#F8FAF5', margin: '0 auto' }}>
+                    <i className='checkmark'>✓</i>
+                </div>
+                <h1>Success</h1></div>}
+            <p>{status}<br /></p>
+        </div>
+    </div>;
 }
 
 export default PaymentResult;

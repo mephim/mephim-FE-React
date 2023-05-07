@@ -18,6 +18,7 @@ const Constant = {
         MOVIE_DETAIL: '/movie/detail',
         MOVIE_FIND_ALL: '/movie/list-movie',
         MOVIE_FIND_ALL_ADMIN: '/movie/list-movie-admin',
+        MOVIE_FIND_ALL_ADMIN_BY_NAME: '/movie/list-movie-admin-by-name',
         MOVIE_HAS_TICKET: '/movie/find-movie-has-ticket',
         SHOW_DATE_FIND_ALL: '/movie/find-all-show-date',
         SHOW_TIME_FIND_ALL: '/movie/find-all-show-time',
@@ -28,6 +29,7 @@ const Constant = {
         CREATE_PAYMENT: '/create-payment',
         ADD_BOOKING: '/booking/addNew',
         CREATE_TICKET: '/ticket/create-new',
+        FIND_TICKET: '/movie/admin/find-all-show-by-movie',
         DELETE_TICKET: '/ticket/delete-ticket',
         CATEGORY_FIND_ALL: '/category/list-category',
         ACTOR_FIND_ALL: '/actor/list-actor',
@@ -43,6 +45,9 @@ const Constant = {
         GET_ALL_RATE: '/rate/find-all',
         REACT_RATE: '/rate/react',
         DELETE_RATE: '/rate/delete',
+        FIND_ALL_USER: '/users/find-all',
+        USER_ADD_POINT: '/users/add-point',
+        USER_SET_VISIBLE: '/users/set-visible',
     },
     SHOW: {
         ROOM_COLOR: {

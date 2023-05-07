@@ -6,8 +6,9 @@ import { Space, Table, Tag, Button, Input, Popconfirm } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Constant from '../../../../shared/constants';
 import { numberWithCommas } from '../../../../shared/common';
-import { deleteTicketRequest } from '../../../../apis/ticket.api';
+import { deleteTicketRequest, findTicketByMovieNameRequest } from '../../../../apis/ticket.api';
 import { toast } from 'react-toastify';
+
 const { Search } = Input;
 
 function List2() {
@@ -19,11 +20,19 @@ function List2() {
             .then((res) => setListShow(res.data.data))
             .catch((err) => console.log(err));
     }, [reload]);
+
+    const findTicketByMovieName = (value: string) => {
+        console.log('Search eventL ', value);
+        findTicketByMovieNameRequest(value)
+            .then((res) => setListShow(res.data.data))
+            .catch((err) => console.log(err));
+    };
     const renderTitle = () => {
         return (
-            <div className="d-flex align-items-center justify-content-between">
+            <div className='d-flex align-items-center justify-content-between'>
                 <h5>Lịch chiếu phim tại rạp</h5>
-                <Search placeholder="Tìm theo phim" allowClear onSearch={() => {}} style={{ width: 304 }} />
+                <Search placeholder='Tìm theo phim' allowClear onSearch={(value) => findTicketByMovieName(value)}
+                        style={{ width: 304 }} />
             </div>
         );
     };
@@ -88,15 +97,9 @@ function List2() {
         {
             title: 'Giá vé',
             dataIndex: 'ticketPrice',
-            sorter: {
-                compare: (a, b) => {
-                    console.log('sort nha: ');
-
-                    return a - b;
-                },
-            },
+            sorter: (a, b) => Number(a) - Number(b),
             render: (ticketPrice: number) => (
-                <Tag color="#f50" key={ticketPrice}>
+                <Tag color='#f50' key={ticketPrice}>
                     {numberWithCommas(Number(ticketPrice))} đ
                 </Tag>
             ),
@@ -106,15 +109,15 @@ function List2() {
             key: 'action',
             align: 'center',
             render: (record: IShowResponse) => (
-                <Space size="large">
+                <Space size='large'>
                     <Popconfirm
-                        title="Gỡ lịch chiếu này"
+                        title='Gỡ lịch chiếu này'
                         // description="Are you sure to delete this task?"
                         icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
                         onConfirm={() => confirmDelete(record.ticketId)}
                     >
                         <Button
-                            className="d-flex align-items-center justify-content-center"
+                            className='d-flex align-items-center justify-content-center'
                             style={{ width: 50 }}
                             block
                             icon={<CloseCircleOutlined />}

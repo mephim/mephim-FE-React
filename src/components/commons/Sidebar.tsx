@@ -1,5 +1,5 @@
 import React from 'react';
-import { AppstoreOutlined, ExportOutlined } from '@ant-design/icons';
+import { AppstoreOutlined, ExportOutlined, StarOutlined, LineChartOutlined, UserOutlined, BankOutlined, FundViewOutlined, ClockCircleOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Menu } from 'antd';
 import { useNavigate } from 'react-router-dom';
@@ -24,19 +24,19 @@ function getItem(
 }
 
 const items: MenuProps['items'] = [
-    getItem('Quản lý suất chiếu', 'sub1', <AppstoreOutlined />, [
+    getItem('Quản lý suất chiếu', 'sub1', <ClockCircleOutlined />, [
         getItem('Lịch chiếu - Kiểu calendar', 'list-show'),
         getItem('Lịch chiếu - Kiểu danh sách', 'list-show-2'),
     ]),
 
-    getItem('Quản lý phim', 'list-movie', <AppstoreOutlined />),
+    getItem('Quản lý phim', 'list-movie', <FundViewOutlined />),
 
-    getItem('Quản lý phòng chiếu', 'list-room', <AppstoreOutlined />),
+    getItem('Quản lý phòng chiếu', 'list-room', <BankOutlined />),
 
-    getItem('Quản lý đánh giá', 'rate', <AppstoreOutlined />),
+    getItem('Quản lý đánh giá', 'rate', <StarOutlined />),
     getItem('Quản lý thể loại', 'category', <AppstoreOutlined />),
-    getItem('Quản lý user', 'user', <AppstoreOutlined />),
-    getItem('Thống kê', 'static', <AppstoreOutlined />),
+    getItem('Quản lý user', 'user', <UserOutlined />),
+    getItem('Thống kê', 'static', <LineChartOutlined />),
 ];
 
 function Sidebar() {

@@ -3,9 +3,8 @@ import { IRoomResponse } from '../../../shared/model/response/IRoomResponse';
 import { findAllRoom } from '../../../apis/room.api';
 import { Space, Table, Tag, Button, Input, Popconfirm } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
-import { ToolOutlined, PlusCircleOutlined, CloseCircleOutlined, QuestionCircleOutlined } from '@ant-design/icons';
+import { ToolOutlined, PlusCircleOutlined, CloseCircleOutlined, QuestionCircleOutlined, IssuesCloseOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
-import { Line } from '@ant-design/plots';
 const { Search } = Input;
 
 const { Column, ColumnGroup } = Table;
@@ -21,10 +20,6 @@ function ListRoom() {
     }, []);
 
     const goToRoomDetail = (roomId: number) => {};
-
-    const goToAddRoomPage = () => {
-        navigate('/admin/add-room');
-    };
 
     const renderTitle = () => {
         return (
@@ -84,12 +79,18 @@ function ListRoom() {
             key: 'action',
             align: 'center',
             render: (record: IRoomResponse) => (
-                <Space size="large">
+                <Space size="small">
                     <Button
                         className="d-flex align-items-center justify-content-center"
                         style={{ width: 50 }}
                         block
                         icon={<ToolOutlined />}
+                    />
+                    <Button
+                        className="d-flex align-items-center justify-content-center"
+                        style={{ width: 50 }}
+                        block
+                        icon={<IssuesCloseOutlined />}
                     />
                     <Popconfirm
                         title="Gỡ phòng chiếu này"

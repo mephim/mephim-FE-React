@@ -108,35 +108,54 @@ function AddRoom() {
 
             <div>
                 <h5>Sơ đồ ghế</h5>
-                <div className="seat-generate d-flex align-items-center justify-content-center flex-column">
-                    <div className="screen">
-                        <span>Màn hình</span>
-                    </div>
-                    <div className="list-seat mt-24">
-                        {rowArrayList?.map((rowArray: any, rowIndex: number) => (
-                            <div className="seat-row" key={rowIndex}>
-                                {rowArray.map((seat: any, seatRowIndex: number) => (
-                                    <div
-                                        key={seatRowIndex}
-                                        className={`seat-item ${rowVIP.includes(rowIndex) ? 'vip' : ''}`}
-                                    >
-                                        <span>{seat.row + seat.column}</span>
-                                    </div>
-                                ))}
+                <div className="seat-generate d-flex justify-content-center flex-row">
+                    <div>
+                        <div className="screen w-100">
+                            <span>Màn hình</span>
+                        </div>
+                        <div className="list-seat mt-24">
+                            {rowArrayList?.map((rowArray: any, rowIndex: number) => (
+                                <div className="seat-row" key={rowIndex}>
+                                    {rowArray.map((seat: any, seatRowIndex: number) => (
+                                        <div
+                                            key={seatRowIndex}
+                                            className={`seat-item ${rowVIP.includes(rowIndex) ? 'vip' : ''}`}
+                                        >
+                                            <span>{seat.row + seat.column}</span>
+                                        </div>
+                                    ))}
 
+                                    <Button
+                                        type="primary"
+                                        danger
+                                        ghost
+                                        className="d-inline-flex align-items-center justify-content-center"
+                                        onClick={() => {
+                                            toggleRowVip(rowIndex);
+                                        }}
+                                    >
+                                        <PlusCircleOutlined />
+                                    </Button>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                    <div className='ml-24'>
+                        <Card body>
+                            <div className='text-center'>Chú thích</div>
+                            <div className='d-flex align-items-center justify-content-center'>
                                 <Button
                                     type="primary"
                                     danger
                                     ghost
                                     className="d-inline-flex align-items-center justify-content-center"
-                                    onClick={() => {
-                                        toggleRowVip(rowIndex);
-                                    }}
+
                                 >
                                     <PlusCircleOutlined />
                                 </Button>
+                                <span className='d-flex ml-12'>Thêm ghế Vip</span>
                             </div>
-                        ))}
+                        </Card>
                     </div>
                 </div>
                 <div className="d-flex align-items-center justify-content-center mt-12">

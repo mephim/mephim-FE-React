@@ -109,7 +109,16 @@ function Static() {
             // type: 'timeCat',
             tickCount: listTransactionChange.length,
         },
-        smooth: true
+        smooth: false,
+        point: {
+            size: 5,
+            shape: 'diamond',
+            style: {
+                fill: 'white',
+                stroke: '#5B8FF9',
+                lineWidth: 2,
+            },
+        },
     };
     const config: any = {
         data: listMovieStatics,
@@ -253,6 +262,12 @@ function Static() {
         </div>
         <Card body className='w-75 mt-12'>
             <h5>Thống kê phim bán chạy theo {listMovieStaticsMode === 'week' ? 'Tuần' : 'Tháng'}</h5>
+            <div>
+                <Column {...config} />
+            </div>
+        </Card>
+        <Card body className='w-75 mt-12'>
+            <h5>Top user đặt vé nhiều nhất {listMovieStaticsMode === 'week' ? 'Tuần' : 'Tháng'}</h5>
             <div>
                 <Column {...config} />
             </div>

@@ -46,8 +46,11 @@ const Constant = {
         REACT_RATE: '/rate/react',
         DELETE_RATE: '/rate/delete',
         FIND_ALL_USER: '/users/find-all',
+        USER_DETAIL: '/users/detail',
         USER_ADD_POINT: '/users/add-point',
         USER_SET_VISIBLE: '/users/set-visible',
+        USER_UPDATE_INFO: '/users/update-info',
+        USER_UPDATE_PASSWORD: '/users/update-password',
     },
     SHOW: {
         ROOM_COLOR: {

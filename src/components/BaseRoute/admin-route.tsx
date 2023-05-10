@@ -13,6 +13,7 @@ import Static from '../../pages/Admin/Statis';
 import Rate from '../../pages/Admin/Rate';
 import User from '../../pages/Admin/User';
 import Category from '../../pages/Admin/Category';
+import EditMovie from '../../pages/Admin/Movie/Edit';
 
 function AdminRoute() {
     return (
@@ -26,6 +27,7 @@ function AdminRoute() {
                         <Route path="add-show" element={<AddNew />} />
                         <Route path="list-movie" element={<ListMovie />} />
                         <Route path="add-movie" element={<AddNewMovie />} />
+                        <Route path="edit-movie/:id" element={<EditMovie />} />
                         <Route path="list-room" element={<ListRoom />} />
                         <Route path="add-room" element={<AddRoom />} />
                         <Route path="static" element={<Static />} />

@@ -21,7 +21,7 @@ function ListMovie() {
             .catch();
     }, []);
 
-    const getAllMovieByName = (value:string) => {
+    const getAllMovieByName = (value: string) => {
         getAllMovieForAdminByMovieName(value)
             .then((res) => {
                 setListMovie(res.data.data);
@@ -31,14 +31,18 @@ function ListMovie() {
 
     const renderTitle = () => {
         return (
-            <div className='d-flex align-items-center justify-content-between'>
+            <div className="d-flex align-items-center justify-content-between">
                 <h5>Danh sách phim tại rạp</h5>
                 <div>
-                    <Search placeholder='Tìm theo phim' allowClear onSearch={(value) => getAllMovieByName(value)}
-                            style={{ width: 304 }} />
+                    <Search
+                        placeholder="Tìm theo phim"
+                        allowClear
+                        onSearch={(value) => getAllMovieByName(value)}
+                        style={{ width: 304 }}
+                    />
                     <Button
-                        type='primary'
-                        className='d-inline-flex align-items-center justify-content-center ml-12'
+                        type="primary"
+                        className="d-inline-flex align-items-center justify-content-center ml-12"
                         icon={<PlusCircleOutlined />}
                         onClick={() => {
                             navigate('/admin/add-movie');
@@ -80,7 +84,7 @@ function ListMovie() {
             title: 'Poster',
             dataIndex: 'moviePoster',
             render: (moviePoster: any) => {
-                return <img className='poster-image' src={moviePoster} alt='' />;
+                return <img className="poster-image" src={moviePoster} alt="" />;
             },
         },
         {
@@ -88,7 +92,7 @@ function ListMovie() {
             dataIndex: 'movieTrailerUrl',
             render: (movieTrailerUrl: any) => {
                 return (
-                    <a target='blank' href={movieTrailerUrl}>
+                    <a target="blank" href={movieTrailerUrl}>
                         Trailer
                     </a>
                 );
@@ -99,22 +103,24 @@ function ListMovie() {
             key: 'action',
             align: 'center',
             render: (record: IMovie) => (
-                <Space size='large'>
+                <Space size="large">
                     <Button
-                        className='d-flex align-items-center justify-content-center'
+                        className="d-flex align-items-center justify-content-center"
                         style={{ width: 50 }}
                         block
                         icon={<ToolOutlined />}
+                        onClick={() => {
+                            navigate('/admin/edit-movie/' + record.movieId);
+                        }}
                     />
                     <Popconfirm
-                        title='Gỡ lịch chiếu này'
+                        title="Gỡ lịch chiếu này"
                         // description="Are you sure to delete this task?"
                         icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                        onConfirm={() => {
-                        }}
+                        onConfirm={() => {}}
                     >
                         <Button
-                            className='d-flex align-items-center justify-content-center'
+                            className="d-flex align-items-center justify-content-center"
                             style={{ width: 50 }}
                             block
                             icon={<CloseCircleOutlined />}

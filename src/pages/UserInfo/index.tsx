@@ -10,7 +10,7 @@ import { findTransByMail } from '../../apis/transaction.api';
 import { ITransaction } from '../../shared/model/ITransaction';
 import { parseJwt } from '../../shared/common';
 import IUserResponse from '../../shared/model/response/IUserResponse';
-import { updateInfoRequest, userDetail } from '../../apis/user.api';
+import { updateInfoRequest, updatePasswordRequest, userDetail } from '../../apis/user.api';
 import { toast } from 'react-toastify';
 
 interface IFormUpdate {
@@ -26,29 +26,11 @@ interface IFormChangePassword {
 function UserInformation() {
     const currentUser = parseJwt(window.localStorage.getItem('access_token') + '')?.sub || null;
     const [getUser, setGetUser] = useState<IUserResponse>();
-    const [name, setName] = useState<string>('');
-    const [phone, setPhone] = useState<string>('');
     console.log('GET USER', getUser);
     const nameInput = useRef<HTMLInputElement>(null);
     const phoneInput = useRef<HTMLInputElement>(null);
 
     const [listTrans, setListTrans] = useState<ITransaction[]>([]);
-
-    useEffect(() => {
-        findTransByMail({ mail: currentUser })
-            .then((res) => {
-                setListTrans(res.data.data);
-            })
-            .catch();
-
-        userDetail(currentUser).then((res: any) => {
-            console.log('Get user: ', res.data.data);
-            setGetUser(res.data.data);
-            setName(res.data.data.name);
-            setPhone(res.data.data.phone);
-            console.log(nameInput?.current?.value);
-        });
-    }, []);
 
     const validationSchema1 = Yup.object().shape({
         name: Yup.string().required('Trường này là bắt buộc'),
@@ -62,6 +44,39 @@ function UserInformation() {
             .oneOf([Yup.ref('password'), null], 'Mật khẩu không khớp'),
     });
 
+    const {
+        handleSubmit: handleUpdate,
+        control: userControl,
+        formState: { errors },
+        setValue,
+    } = useForm<IFormUpdate>({
+        resolver: yupResolver(validationSchema1),
+    });
+
+    const {
+        handleSubmit: handleResetPass,
+        control: resetPassControl,
+        formState: { errors: errorsForm2 },
+    } = useForm<IFormChangePassword>({
+        resolver: yupResolver(validationSchema2),
+    });
+
+    useEffect(() => {
+        findTransByMail({ mail: currentUser })
+            .then((res) => {
+                setListTrans(res.data.data);
+            })
+            .catch();
+
+        userDetail(currentUser).then((res: any) => {
+            console.log('Get user: ', res.data.data);
+            setGetUser(res.data.data);
+            setValue('name', res.data.data.name);
+            setValue('phone', res.data.data.phone);
+            console.log(nameInput?.current?.value);
+        });
+    }, []);
+
     const onUpdate = async (data: IFormUpdate) => {
         updateInfoRequest(data.name, data.phone, currentUser)
             .then((res) => {
@@ -74,23 +89,15 @@ function UserInformation() {
             });
     };
 
-    const onResetPass = async (data: any) => {};
-
-    const {
-        handleSubmit: handleUpdate,
-        control: userControl,
-        formState: { errors },
-    } = useForm<IFormUpdate>({
-        resolver: yupResolver(validationSchema1),
-    });
-
-    const {
-        handleSubmit: handleResetPass,
-        control: resetPassControl,
-        formState: { errors: errorsForm2 },
-    } = useForm<IFormChangePassword>({
-        resolver: yupResolver(validationSchema2),
-    });
+    const onResetPass = async (data: IFormChangePassword) => {
+        updatePasswordRequest(data.rePassword, currentUser)
+            .then((res) => {
+                toast.success('Cập nhật thành công');
+            })
+            .catch((err) => {
+                toast.error('Cập nhật thất bại');
+            });
+    };
 
     return (
         <div className="user-info">
@@ -117,12 +124,7 @@ function UserInformation() {
                                                     control={userControl}
                                                     name="name"
                                                     render={({ field }) => (
-                                                        <input
-                                                            {...field}
-                                                            defaultValue={name}
-                                                            className="form-input"
-                                                            type="text"
-                                                        />
+                                                        <input {...field} className="form-input" type="text" />
                                                     )}
                                                 />
                                                 <span className="d-block text-danger">{errors.name?.message}</span>
@@ -139,12 +141,7 @@ function UserInformation() {
                                                     control={userControl}
                                                     name="phone"
                                                     render={({ field }) => (
-                                                        <input
-                                                            {...field}
-                                                            defaultValue={phone}
-                                                            className="form-input"
-                                                            type="text"
-                                                        />
+                                                        <input {...field} className="form-input" type="text" />
                                                     )}
                                                 />
                                                 <span className="d-block text-danger">{errors.phone?.message}</span>

@@ -1,4 +1,5 @@
 export interface IMovieCreateDto {
+    movieId?: string;
     movieName: string;
     movieDirector: string;
     movieLength: number;

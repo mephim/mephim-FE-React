@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { Button, Form, Input, Select, Spin } from 'antd';
-import { addMovieRequest, findMovieByIdRequest } from '../../../../apis/movie.api';
+import { addMovieRequest, editMovieRequest, findMovieByIdRequest } from '../../../../apis/movie.api';
 import * as Yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { uploadFile } from '../../../../common';
@@ -13,10 +13,12 @@ import { findAllActorRequest } from '../../../../apis/actor.api';
 import Card from 'react-bootstrap/Card';
 import { useParams } from 'react-router-dom';
 import { IMovie } from '../../../../shared/model/IMovie';
+import { toast } from 'react-toastify';
 
 const { Option } = Select;
 
 interface IFormInputs {
+    movieId: number;
     movieName: string;
     movieDescription: number;
     movieLength: number;
@@ -43,7 +45,7 @@ function EditMovie() {
         movieName: Yup.string().required('Trường này là bắt buộc'),
         movieDescription: Yup.string().required('Trường này là bắt buộc'),
         movieLength: Yup.number().required('Trường này là bắt buộc'),
-        movieActor: Yup.string().required('Trường này là bắt buộc'),
+        movieActor: Yup.string().required('Trường này là bắt buộc').nullable(),
         movieDirector: Yup.string().required('Trường này là bắt buộc'),
         moviePoster: Yup.string().required('Trường này là bắt buộc'),
         movieTrailerUrl: Yup.string().required('Trường này là bắt buộc'),
@@ -52,10 +54,26 @@ function EditMovie() {
         ),
     });
 
+    const {
+        handleSubmit,
+        control,
+        setValue,
+        formState: { errors },
+    } = useForm<IFormInputs>({
+        resolver: yupResolver(validationSchema),
+        mode: 'onBlur',
+    });
+
     useEffect(() => {
         console.log('querry PARAM: ', id);
         findMovieByIdRequest(Number(id))
             .then((res) => {
+                setValue('movieId', res.data.data.movie.movieId);
+                setValue('movieName', res.data.data.movie.movieName);
+                setValue('movieDescription', res.data.data.movie.movieDescription);
+                setValue('movieLength', res.data.data.movie.movieLength);
+                setValue('movieActor', res.data.data.movie.movieActor);
+                setValue('movieDirector', res.data.data.movie.movieDirector);
                 setMovie(res.data.data.movie);
                 setCategoryList(res.data.data.categoryList);
                 console.log(res);
@@ -93,27 +111,23 @@ function EditMovie() {
 
         console.log('--Data create: ', dataRequest);
 
-        addMovieRequest(dataRequest)
+        editMovieRequest(dataRequest)
             .then((res) => {
+                toast.success('Chỉnh sửa thành công');
                 console.log('OK');
             })
-            .then((err) => console.log(err));
+            .catch((err) => {
+                toast.error('Chỉnh sửa thất bại');
+                console.log(err);
+            });
         setLoading(false);
     };
-
-    const {
-        handleSubmit,
-        control,
-        formState: { errors },
-    } = useForm<IFormInputs>({
-        resolver: yupResolver(validationSchema),
-    });
 
     return (
         <Card body>
             <Spin spinning={loading} tip="Loading" size="large" delay={500}>
                 <div className="add-movie">
-                    <h5 className="text-center">Thêm mới phim</h5>
+                    <h5 className="text-center">Chỉnh sửa phim</h5>
                     <Form
                         labelCol={{ span: 2 }}
                         // wrapperCol={{ span: 10 }}
@@ -229,7 +243,7 @@ function EditMovie() {
 
                         <Form.Item className="d-flex align-items-center justify-content-center">
                             <Button type="primary" htmlType="submit">
-                                Thêm
+                                Lưu
                             </Button>
                         </Form.Item>
                     </Form>

@@ -1,0 +1,93 @@
+.seat-generate {
+    padding: 30px 0;
+}
+
+.seat-generate .screen {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 50px;
+    background-image: repeating-linear-gradient(
+        50deg,
+        #e3e3e3 0px,
+        #e3e3e3 3px,
+        transparent 3px,
+        transparent 4px,
+        #e3e3e3 0px
+    );
+}
+
+.seat-generate .choose-seat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.seat-generate .seat-item.isBooking {
+    background-color: #6e84a3;
+}
+
+.seat-generate .seat-item {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 2px solid #c9c2b5;
+    cursor: pointer;
+    margin: 4px;
+}
+
+.seat-generate .seat-item.vip {
+    border: 2px solid var(--primary-color);
+}
+
+.seat-generate .seat-item.choosing {
+    background-color: var(--primary-color);
+    color: #ffffff;
+    box-shadow: 0 0 11px var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.seat-generate .choose-seat {
+    border-right: 1px solid #c9c2b5;
+}
+
+.seat-generate .movie-image img {
+    width: 195px;
+}
+
+.seat-generate .movie-description > div {
+    margin-top: 8px;
+}
+
+.seat-generate .movie-description span {
+    color: #666;
+    font-weight: 400;
+}
+
+.seat-generate .list-seat-selected span {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 4px 16px;
+    border: 1px solid #d3d3d3;
+    margin: 2px;
+}
+
+.seat-generate .nextBtn {
+    padding: 5px 10px;
+    border-radius: 10px;
+    border: 2px solid var(--primary-color);
+    background-color: #fff;
+    color: var(--primary-color);
+    font-weight: 600;
+}
+
+.seat-generate .nextBtn:hover {
+    border: 2px solid var(--primary-color);
+    background-color: var(--primary-color);
+    color: #ffffff;
+}

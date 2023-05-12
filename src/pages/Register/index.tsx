@@ -47,7 +47,7 @@ function Register() {
                 if (res.data.code === Constants.ERROR_CODE.DUPLICATE_EMAIL) {
                     toast.error('🦄 Email đã tồn tại!', Constants.TOAST_OPTION_DEFAULT);
                 } else if (res.data.code === Constants.ERROR_CODE.DUPLICATE_USERNAME) {
-                    toast.error('🦄 Tên đăng nhập đã tồn tại!', Constants.TOAST_OPTION_DEFAULT);
+                    toast.error('🦄 Email đã tồn tại!', Constants.TOAST_OPTION_DEFAULT);
                 } else {
                     toast.success('🦄 Đăng ký thành công, vui lòng kiểm tra email!', Constants.TOAST_OPTION_DEFAULT);
                     navigate('/login');

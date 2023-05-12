@@ -85,6 +85,7 @@ function ListRoom() {
                         style={{ width: 50 }}
                         block
                         icon={<ToolOutlined />}
+                        onClick={() => navigate('/admin/edit-room/' + record.roomId)}
                     />
                     <Button
                         className="d-flex align-items-center justify-content-center"

@@ -4,12 +4,15 @@ import { DeleteOutlined, EditOutlined, PlusCircleOutlined } from '@ant-design/ic
 import './style.css';
 import React, { useEffect, useRef, useState } from 'react';
 import { log } from 'util';
-import { saveRoomRequest } from '../../../../apis/room.api';
+import { saveRoomRequest, getDetailRoomRequest } from '../../../../apis/room.api';
 import { IRoom } from '../../../../shared/model/IRoom';
 import { IAddRoom } from '../../../../shared/model/IAddRoom';
 import { toast } from 'react-toastify';
+import { useParams } from 'react-router-dom';
 
-function AddRoom() {
+function EditRoom() {
+    const { id } = useParams();
+    const [roomId, setRoomId] = useState<number>();
     const [roomName, setRoomName] = useState<string>('');
     const [withRoom, setWidthRoom] = useState<number>(10);
     const [heightRoom, setHeightRoom] = useState<number>(10);
@@ -24,6 +27,16 @@ function AddRoom() {
     const heightRoomRef = useRef<HTMLInputElement>(null);
 
     useEffect(() => {
+
+        getDetailRoomRequest(Number(id)).then(res => {
+            console.log('DETAIL ROOM: ', res.data.data);
+            setWidthRoom(res.data.data.totalColumn);
+            setHeightRoom(res.data.data.totalRow);
+            setRoomName(res.data.data.roomName);
+            setRowVIP(res.data.data.rowVIP.split('-').map((i: number) => i-1));
+            setRoomId(res.data.data.roomId);
+        }).catch();
+
         const rowArrays = [];
 
         for (let i = 0; i < heightRoom; i++) {
@@ -58,8 +71,9 @@ function AddRoom() {
         }
     };
 
-    const addNewRoom = () => {
+    const saveRoom = () => {
         const room: IAddRoom = {
+            id: roomId,
             name: roomName,
             height: heightRoom,
             width: withRoom,
@@ -67,7 +81,7 @@ function AddRoom() {
         };
         saveRoomRequest(room)
             .then((res) => {
-                toast.success('🦄 Thêm phòng chiếu thành công!');
+                toast.success('🦄 Chỉnh sửa thành công!');
             })
             .catch((error) => {
                 console.log('ERROR: ', error);
@@ -86,11 +100,12 @@ function AddRoom() {
                         className="form-control"
                         onChange={(e) => setRoomName(e.target.value)}
                         placeholder={'Tên phòng'}
+                        value={roomName}
                     />
                     <span>Nhập số hàng: </span>
-                    <input type="number" className="form-control" ref={withRoomRef} defaultValue={10} />
+                    <input type="number" className="form-control" ref={withRoomRef} />
                     <span>Nhập số cột: </span>
-                    <input type="number" className="form-control" ref={heightRoomRef} defaultValue={10} />
+                    <input type="number" className="form-control" ref={heightRoomRef} />
                     <div className="d-flex align-items-center justify-content-center mt-12">
                         <Button
                             type="primary"
@@ -163,11 +178,11 @@ function AddRoom() {
                         type="primary"
                         className="d-flex align-items-center justify-content-center"
                         onClick={() => {
-                            addNewRoom();
+                            saveRoom();
                         }}
                     >
                         <PlusCircleOutlined />
-                        Thêm mới
+                        Lưu
                     </Button>
                 </div>
             </div>
@@ -175,4 +190,4 @@ function AddRoom() {
     );
 }
 
-export default AddRoom;
+export default EditRoom;

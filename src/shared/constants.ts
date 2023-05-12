@@ -12,6 +12,7 @@ const Constant = {
         FIND_ALL_SHOW: '/movie/admin/find-all-show',
         ROOM_FIND: '/room/find',
         ROOM_FIND_ALL: '/room/find-all-room',
+        ROOM_DETAIL: '/room/detail-room',
         ROOM_ADD_NEW: '/room/add-new-room',
         ROOM_FIND_ALL_BY_ROOM_SEAT: '/room/find-all',
         CREATE_MOVIE: '/movie/create-movie',

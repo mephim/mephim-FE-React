@@ -34,6 +34,7 @@ const Constant = {
         FIND_TICKET: '/movie/admin/find-all-show-by-movie',
         DELETE_TICKET: '/ticket/delete-ticket',
         CATEGORY_FIND_ALL: '/category/list-category',
+        CATEGORY_ADD_NEW: '/category/add-category',
         ACTOR_FIND_ALL: '/actor/list-actor',
         FIND_TRANS_BY_MAIL: '/transaction/get-trans-by-email',
         RATE_ADD: '/rate/add',

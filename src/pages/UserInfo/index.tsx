@@ -219,6 +219,25 @@ function UserInformation() {
                                             </Col>
                                         </Row>
                                     </div>
+                                    <div className="mt-10">
+                                        <Row>
+                                            <Col xs={4}>
+                                                <span>Xác nhận mật khẩu: </span>
+                                            </Col>
+                                            <Col xs={8}>
+                                                <Controller
+                                                    control={resetPassControl}
+                                                    name="rePassword"
+                                                    render={({ field }) => (
+                                                        <input {...field} className="form-input" type="password" />
+                                                    )}
+                                                />
+                                                <span className="d-block text-danger">
+                                                    {errorsForm2.rePassword?.message}
+                                                </span>
+                                            </Col>
+                                        </Row>
+                                    </div>
                                     <div className="mt-10 center">
                                         <button className="btn btn-primary">Đổi mật khẩu</button>
                                     </div>

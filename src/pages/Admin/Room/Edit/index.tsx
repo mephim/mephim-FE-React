@@ -91,7 +91,7 @@ function EditRoom() {
 
     return (
         <Card body>
-            <h5>Thêm mới phòng chiếu</h5>
+            <h5>Chỉnh sửa phòng chiếu</h5>
             <Card className="d-flex align-items-center justify-content-center">
                 <Card.Body className="w-25">
                     <span>Nhập tên phòng: </span>

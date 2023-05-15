@@ -3,9 +3,9 @@ import type { ColumnsType } from 'antd/es/table';
 import { ToolOutlined, PlusCircleOutlined, CloseCircleOutlined, QuestionCircleOutlined, IssuesCloseOutlined } from '@ant-design/icons';
 import { useNavigate } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
-import { IRoomResponse } from '../../../shared/model/response/IRoomResponse';
-import { findAllCategoryRequest } from '../../../apis/category.api';
-import { ICategory } from '../../../shared/model/ICategory';
+import { IRoomResponse } from '../../../../shared/model/response/IRoomResponse';
+import { findAllCategoryRequest } from '../../../../apis/category.api';
+import { ICategory } from '../../../../shared/model/ICategory';
 const { Search } = Input;
 function Category() {
     const navigate = useNavigate();
@@ -52,6 +52,10 @@ function Category() {
             dataIndex: 'categoryName',
         },
         {
+            title: 'Mô tả/Ghi chú',
+            dataIndex: 'description',
+        },
+        {
             title: 'Trạng thái',
             dataIndex: 'isEnable',
             align: 'center',
@@ -75,6 +79,7 @@ function Category() {
                         style={{ width: 50 }}
                         block
                         icon={<ToolOutlined />}
+                        onClick={() => navigate('/admin/edit-category')}
                     />
                     <Button
                         className="d-flex align-items-center justify-content-center"

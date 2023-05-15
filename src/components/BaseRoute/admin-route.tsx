@@ -12,9 +12,11 @@ import AddRoom from '../../pages/Admin/Room/AddNew';
 import Static from '../../pages/Admin/Statis';
 import Rate from '../../pages/Admin/Rate';
 import User from '../../pages/Admin/User';
-import Category from '../../pages/Admin/Category';
+import Category from '../../pages/Admin/Category/List';
 import EditMovie from '../../pages/Admin/Movie/Edit';
 import EditRoom from '../../pages/Admin/Room/Edit';
+import AddNewCategory from '../../pages/Admin/Category/AddNew';
+import EditCategory from '../../pages/Admin/Category/Edit';
 
 function AdminRoute() {
     return (
@@ -35,6 +37,8 @@ function AdminRoute() {
                         <Route path="static" element={<Static />} />
                         <Route path="rate" element={<Rate />} />
                         <Route path="category" element={<Category />} />
+                        <Route path="add-category" element={<AddNewCategory />} />
+                        <Route path="edit-category" element={<EditCategory />} />
                         <Route path="user" element={<User />} />
                     </Routes>
                 </div>

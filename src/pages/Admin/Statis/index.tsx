@@ -266,12 +266,6 @@ function Static() {
                 <Column {...config} />
             </div>
         </Card>
-        <Card body className='w-75 mt-12'>
-            <h5>Top user đặt vé nhiều nhất {listMovieStaticsMode === 'week' ? 'Tuần' : 'Tháng'}</h5>
-            <div>
-                <Column {...config} />
-            </div>
-        </Card>
     </div>;
 }
 

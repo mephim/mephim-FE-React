@@ -159,7 +159,7 @@ function ChooseSeat() {
                     <h4 className='fw-bold'>Chọn ghế</h4>
                     <h5>Phòng: {roomName.current}</h5>
                     <Row>
-                        <Col xs={10}>
+                        <Col xs={8}>
                             <Row>
                                 <div className='choose-seat'>
                                     <div className='screen'>
@@ -199,6 +199,30 @@ function ChooseSeat() {
                                     </div>
                                 </Col>
                             </Row>
+                        </Col>
+                        <Col xs={2}>
+                            <div>Chú thích:</div>
+                            <div className='d-flex align-items-center'>
+                                <div
+                                    className='seat-item isBooking'
+                                >
+                                </div>
+                                <span>Ghế đã có người đặt</span>
+                            </div>
+                            <div className='d-flex align-items-center'>
+                                <div
+                                    className='seat-item vip'
+                                >
+                                </div>
+                                <span>Ghế VIP</span>
+                            </div>
+                            <div className='d-flex align-items-center'>
+                                <div
+                                    className='seat-item choosing'
+                                >
+                                </div>
+                                <span>Ghế đang chọn</span>
+                            </div>
                         </Col>
                         <Col xs={2}>
                             <div className='movie-image'>

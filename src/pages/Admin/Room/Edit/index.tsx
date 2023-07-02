@@ -14,9 +14,9 @@ function EditRoom() {
     const { id } = useParams();
     const [roomId, setRoomId] = useState<number>();
     const [roomName, setRoomName] = useState<string>('');
-    const [withRoom, setWidthRoom] = useState<number>(10);
-    const [heightRoom, setHeightRoom] = useState<number>(10);
-    const [rowVIP, setRowVIP] = useState<number[]>([9]);
+    const withRoom = useRef(10);
+    const heightRoom = useRef(10);
+    const rowVIP = useRef<number[]>([9]);
     const seatColumn = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O'];
     const seatRow = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15];
     const [rowArrayList, setRowArrayList] = useState<any>();
@@ -30,18 +30,18 @@ function EditRoom() {
 
         getDetailRoomRequest(Number(id)).then(res => {
             console.log('DETAIL ROOM: ', res.data.data);
-            setWidthRoom(res.data.data.totalColumn);
-            setHeightRoom(res.data.data.totalRow);
+            withRoom.current = res.data.data.totalColumn;
+            heightRoom.current = res.data.data.totalRow;
             setRoomName(res.data.data.roomName);
-            setRowVIP(res.data.data.rowVIP.split('-').map((i: number) => i-1));
+            rowVIP.current = res.data.data.rowVIP.split('-').map((i: number) => i-1);
             setRoomId(res.data.data.roomId);
         }).catch();
 
         const rowArrays = [];
 
-        for (let i = 0; i < heightRoom; i++) {
+        for (let i = 0; i < heightRoom.current; i++) {
             let seatsOnRow = [];
-            for (let j = 0; j < withRoom; j++) {
+            for (let j = 0; j < withRoom.current; j++) {
                 seatsOnRow.push({ row: seatRow[i], column: seatColumn[j] });
             }
             rowArrays.push(seatsOnRow);
@@ -49,25 +49,25 @@ function EditRoom() {
 
         setRowArrayList(rowArrays);
         console.log('Seat map: ', rowArrays);
-    }, [withRoom, heightRoom]);
+    }, [withRoom.current, heightRoom.current]);
 
     const displaySeatMap = () => {
         console.log('Width: ', withRoomRef?.current?.value);
-        setWidthRoom(Number(withRoomRef?.current?.value));
-        setHeightRoom(Number(heightRoomRef?.current?.value));
-        setRowVIP([]);
+        withRoom.current = (Number(withRoomRef?.current?.value));
+        heightRoom.current = (Number(heightRoomRef?.current?.value));
+        rowVIP.current = [];
     };
 
     const toggleRowVip = (rowIndex: number) => {
-        const indexDel = rowVIP.indexOf(rowIndex);
+        const indexDel = rowVIP.current.indexOf(rowIndex);
         console.log('Index delete: ', indexDel);
         if (indexDel >= 0) {
-            const cloneArr = [...rowVIP];
+            const cloneArr = [...rowVIP.current];
             cloneArr.splice(indexDel, 1);
-            setRowVIP(cloneArr);
+            rowVIP.current = (cloneArr);
         } else {
-            setRowVIP([...rowVIP, rowIndex]);
-            rowVIP.push(rowIndex);
+            rowVIP.current = ([...rowVIP.current, rowIndex]);
+            rowVIP.current.push(rowIndex);
         }
     };
 
@@ -75,9 +75,9 @@ function EditRoom() {
         const room: IAddRoom = {
             id: roomId,
             name: roomName,
-            height: heightRoom,
-            width: withRoom,
-            rowVIP: rowVIP,
+            height: heightRoom.current,
+            width: withRoom.current,
+            rowVIP: rowVIP.current,
         };
         saveRoomRequest(room)
             .then((res) => {
@@ -134,7 +134,7 @@ function EditRoom() {
                                     {rowArray.map((seat: any, seatRowIndex: number) => (
                                         <div
                                             key={seatRowIndex}
-                                            className={`seat-item ${rowVIP.includes(rowIndex) ? 'vip' : ''}`}
+                                            className={`seat-item ${rowVIP.current.includes(rowIndex) ? 'vip' : ''}`}
                                         >
                                             <span>{seat.row + seat.column}</span>
                                         </div>

@@ -7,4 +7,5 @@ export interface IMovie {
     movieDescription?: string;
     movieDirector?: string;
     movieActor?: string;
+    isEnable?: boolean;
 }

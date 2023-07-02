@@ -225,16 +225,7 @@ function UserInformation() {
                                                 <span>Xác nhận mật khẩu: </span>
                                             </Col>
                                             <Col xs={8}>
-                                                <Controller
-                                                    control={resetPassControl}
-                                                    name="rePassword"
-                                                    render={({ field }) => (
-                                                        <input {...field} className="form-input" type="password" />
-                                                    )}
-                                                />
-                                                <span className="d-block text-danger">
-                                                    {errorsForm2.rePassword?.message}
-                                                </span>
+                                                <input className="form-input" type="password" />
                                             </Col>
                                         </Row>
                                     </div>

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { Form, Input, Button, Select } from 'antd';
 
 import './style.css';
-import { getAllMovieRequest, getMovieHasTicketRequestByCategory } from '../../../apis/movie.api';
+import { getAllForUserMovieRequest, getMovieHasTicketRequestByCategory } from '../../../apis/movie.api';
 import { findAllShowDateRequest, findAllShowTimeRequest } from '../../../apis/show.api';
 import { IMovie } from '../../../shared/model/IMovie';
 import { IShowDate } from '../../../shared/model/IShowDate';
@@ -36,7 +36,7 @@ function AddNewTicket({ onSuccess }: IProp) {
     const [roomList, setRoomList] = useState([]);
 
     const getAllMovie = () => {
-        getAllMovieRequest().then((res) => setMovieList(res.data));
+        getAllForUserMovieRequest().then((res) => setMovieList(res.data));
     };
 
     const getAllShowDate = () => {

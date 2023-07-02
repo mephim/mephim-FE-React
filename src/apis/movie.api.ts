@@ -9,6 +9,9 @@ export const getAllMovieForAdminByMovieName = (movieName: string): Promise<any> 
     return http.get(Constant.API_URL.MOVIE_FIND_ALL_ADMIN_BY_NAME + '?movieName=' + movieName);
 };
 
+export const getAllForUserMovieRequest = (): Promise<any> => {
+    return http.get(Constant.API_URL.MOVIE_USER_FIND_ALL);
+};
 export const getAllMovieRequest = (): Promise<any> => {
     return http.get(Constant.API_URL.MOVIE_FIND_ALL);
 };
@@ -29,4 +32,10 @@ export const addMovieRequest = (movie: IMovieCreateDto): Promise<any> => {
 };
 export const editMovieRequest = (movie: IMovieCreateDto): Promise<any> => {
     return http.post(Constant.API_URL.CREATE_MOVIE, movie);
+};
+export const visibleMovieRequest = (movieId: number, isVisible: boolean): Promise<any> => {
+    return http.post(Constant.API_URL.VISIBLE_MOVIE, {movieId, isVisible});
+};
+export const deleteMovieRequest = (movieId: number): Promise<any> => {
+    return http.post(Constant.API_URL.DELETE_MOVIE, {movieId});
 };

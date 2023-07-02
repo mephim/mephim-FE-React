@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { getAllMovieForAdmin, getAllMovieForAdminByMovieName } from '../../../apis/movie.api';
+import {
+    deleteMovieRequest, getAllForUserMovieRequest,
+    getAllMovieForAdmin,
+    getAllMovieForAdminByMovieName,
+    visibleMovieRequest,
+} from '../../../apis/movie.api';
 import { IMovie } from '../../../shared/model/IMovie';
 import { Space, Table, Tag, Button, Input, Popconfirm } from 'antd';
 import { CloseCircleOutlined, QuestionCircleOutlined, ToolOutlined, PlusCircleOutlined, IssuesCloseOutlined } from '@ant-design/icons';
@@ -12,14 +17,16 @@ const { Search } = Input;
 function ListMovie() {
     const navigate = useNavigate();
     const [listMovie, setListMovie] = useState<IMovie[]>([]);
+    const [toggleState, setToggleState] = useState<Boolean>(false);
 
     useEffect(() => {
         getAllMovieForAdmin()
             .then((res) => {
                 setListMovie(res.data.data);
+                console.log('Movie: ', res.data.data);
             })
             .catch();
-    }, []);
+    }, [toggleState]);
 
     const getAllMovieByName = (value: string) => {
         getAllMovieForAdminByMovieName(value)
@@ -55,6 +62,14 @@ function ListMovie() {
         );
     };
 
+    const visibleMovie = (movieId: number, isEnable: boolean) => {
+        visibleMovieRequest(movieId, isEnable).then(res => setToggleState(!toggleState))
+    };
+
+    const deleteMovie = (movieId: number) => {
+        deleteMovieRequest(movieId).then(res => setToggleState(!toggleState))
+    };
+
     const tableColumns: ColumnsType<any> = [
         {
             title: 'ID phim',
@@ -63,14 +78,23 @@ function ListMovie() {
         {
             title: 'Tên phim',
             dataIndex: 'movieName',
+            render: (movieName: any) => {
+                return <span className="d-inline-block text-truncate" style={{maxWidth: 150}}>{movieName}</span>;
+            },
         },
         {
             title: 'Đạo diễn',
             dataIndex: 'movieDirector',
+            render: (movieDirector: any) => {
+                return <span className="d-inline-block text-truncate" style={{maxWidth: 150}}>{movieDirector}</span>;
+            },
         },
         {
             title: 'Diễn viên',
             dataIndex: 'movieActor',
+            render: (movieActor: any) => {
+                return <span className="d-inline-block text-truncate" style={{maxWidth: 150}}>{movieActor}</span>;
+            },
         },
         {
             title: 'Thời lượng',
@@ -79,6 +103,9 @@ function ListMovie() {
         {
             title: 'Mô tả',
             dataIndex: 'movieDescription',
+            render: (movieDescription: any) => {
+                return <span className="d-inline-block text-truncate" style={{maxWidth: 150}}>{movieDescription}</span>;
+            },
         },
         {
             title: 'Poster',
@@ -131,12 +158,13 @@ function ListMovie() {
                         style={{ width: 50 }}
                         block
                         icon={<IssuesCloseOutlined />}
+                        onClick={() => visibleMovie(Number(record.movieId), !Boolean(record.isEnable))}
                     />
                     <Popconfirm
-                        title="Gỡ lịch chiếu này"
+                        title="Gỡ phim này"
                         // description="Are you sure to delete this task?"
                         icon={<QuestionCircleOutlined style={{ color: 'red' }} />}
-                        onConfirm={() => {}}
+                        onConfirm={() => deleteMovie(Number(record.movieId))}
                     >
                         <Button
                             className="d-flex align-items-center justify-content-center"
